@@ -1,0 +1,26 @@
+# Ignore large media files
+repasosemana2.mp3
+extracted_*.wav
+
+# Ignore model files
+ggml-tiny.bin
+
+# Ignore .NET build artifacts
+[Bb]in/
+[Oo]bj/
+.dotnet/
+dotnet-install.sh
+
+# Ignore Python caches & virtual environments
+__pycache__/
+*.pyc
+.venv/
+env/
+
+# Ignore Docker and localized caches
+poc-audio-processing/cache/
+.qdrant/
+
+# Ignore IDE configs
+.vscode/
+.idea/
