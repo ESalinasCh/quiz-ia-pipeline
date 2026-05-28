@@ -3,7 +3,7 @@ repasosemana2.mp3
 extracted_*.wav
 
 # Ignore model files
-ggml-tiny.bin
+ggml*
 
 # Ignore .NET build artifacts
 [Bb]in/
@@ -27,3 +27,4 @@ poc-audio-processing/cache/
 
 # media files
 media
+audio

@@ -63,6 +63,10 @@ namespace QuizDotnet
 
     class Program
     {
+        // Single source of truth for the Ollama models used across the pipeline.
+        const string LlmModel = "llama3.2:3b";        // classification, summarization, quiz gen, judge
+        const string EmbeddingModel = "nomic-embed-text";
+
         static async Task Main(string[] args)
         {
             Console.WriteLine("=== Quiz Generator Pipeline (.NET 10 Unified Stack) ===");
@@ -144,6 +148,7 @@ namespace QuizDotnet
 
             Console.WriteLine("\n=== Pipeline Execution Completed Successfully ===");
             Console.WriteLine($"Generated {generatedQuestions.Count} valid quiz questions.");
+            SaveQuiz(inputPath, generatedQuestions, whisperModelName);
             foreach (var q in generatedQuestions)
             {
                 Console.WriteLine($"\nPregunta: {q.Question}");
@@ -182,6 +187,38 @@ namespace QuizDotnet
             }
 
             Console.WriteLine($"Transcript saved to {path}");
+        }
+
+        static void SaveQuiz(string inputPath, List<QuizQuestion> questions, string transcriptModel)
+        {
+            string dir = "quizzes";
+            Directory.CreateDirectory(dir);
+            string baseName = Path.GetFileNameWithoutExtension(inputPath);
+            string fileName = $"{baseName}_{DateTime.Now:yyyyMMdd_HHmmss}.json";
+            string path = Path.Combine(dir, fileName);
+
+            var output = new
+            {
+                generated_at = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"),
+                source = baseName,
+                models = new
+                {
+                    transcript = transcriptModel,
+                    processing = LlmModel,
+                    embedding = EmbeddingModel,
+                    llm_as_judge = LlmModel
+                },
+                questions
+            };
+
+            var json = JsonSerializer.Serialize(output, new JsonSerializerOptions
+            {
+                WriteIndented = true,
+                Encoder = System.Text.Encodings.Web.JavaScriptEncoder.UnsafeRelaxedJsonEscaping
+            });
+            File.WriteAllText(path, json);
+
+            Console.WriteLine($"Quiz saved to {path}");
         }
 
         static string FormatTimestamp(double seconds)
@@ -283,7 +320,7 @@ namespace QuizDotnet
 
             Console.WriteLine("Computing sentence embeddings using Ollama (nomic-embed-text)...");
             IEmbeddingGenerator<string, Embedding<float>> embeddingGenerator =
-                new OllamaEmbeddingGenerator(new Uri("http://127.0.0.1:11434"), "nomic-embed-text");
+                new OllamaEmbeddingGenerator(new Uri("http://127.0.0.1:11434"), EmbeddingModel);
 
             var embeddings = new List<Embedding<float>>();
             foreach (var s in sentences)
@@ -356,9 +393,9 @@ namespace QuizDotnet
 
         static async Task<List<SemanticChunk>> ProcessChunksAndStoreAsync(List<SemanticChunk> chunks, string courseId, string sourceId, string collectionName)
         {
-            IChatClient chatClient = new OllamaChatClient(new Uri("http://127.0.0.1:11434"), "llama3.2:3b");
+            IChatClient chatClient = new OllamaChatClient(new Uri("http://127.0.0.1:11434"), LlmModel);
             IEmbeddingGenerator<string, Embedding<float>> embeddingGenerator =
-                new OllamaEmbeddingGenerator(new Uri("http://127.0.0.1:11434"), "nomic-embed-text");
+                new OllamaEmbeddingGenerator(new Uri("http://127.0.0.1:11434"), EmbeddingModel);
 
             // Connect to Qdrant using the official gRPC client
             Console.WriteLine("Connecting to Qdrant...");
@@ -465,9 +502,9 @@ Responde únicamente con un objeto JSON válido con este formato:
 
         static async Task<List<QuizQuestion>> GenerateQuizQuestionsAsync(string courseId, int numQuestions, string bloomLevel, string collectionName)
         {
-            IChatClient chatClient = new OllamaChatClient(new Uri("http://127.0.0.1:11434"), "llama3.2:3b");
+            IChatClient chatClient = new OllamaChatClient(new Uri("http://127.0.0.1:11434"), LlmModel);
             IEmbeddingGenerator<string, Embedding<float>> embeddingGenerator =
-                new OllamaEmbeddingGenerator(new Uri("http://127.0.0.1:11434"), "nomic-embed-text");
+                new OllamaEmbeddingGenerator(new Uri("http://127.0.0.1:11434"), EmbeddingModel);
             using var qdrantClient = new QdrantClient("127.0.0.1", 6334);
 
             // Retrieve course chunks from Qdrant

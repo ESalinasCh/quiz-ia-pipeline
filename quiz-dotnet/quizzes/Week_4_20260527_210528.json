@@ -1,0 +1,48 @@
+{
+  "generated_at": "2026-05-27 21:05:28",
+  "source": "Week_4",
+  "models": {
+    "transcript": "whisper-small",
+    "processing": "llama3.2:3b",
+    "embedding": "nomic-embed-text",
+    "llm_as_judge": "llama3.2:3b"
+  },
+  "questions": [
+    {
+      "question": "¿Qué es una CEL Out of Process?",
+      "options": {
+        "a": "Una entidad que no está ni casada con el monolito ni con el microservicio.",
+        "b": "Una capa anticoncorupción separada del monolito o el microservicio",
+        "c": "Un Approach donde la CEL es independiente y se convierte en un microservicio también",
+        "d": "Una entidad externa que no puede ser deployada en su propio contenedor"
+      },
+      "correct_option": "a",
+      "bloom_level": "comprender",
+      "justification": "Según el texto, una CEL Out of Process es 'una entidad independiente' y no está ni casada con el monolito ni con el microservicio."
+    },
+    {
+      "question": "¿Qué tipo de arquitectura propone separar las búsquedas y el procesamiento de información en dos microservicios?",
+      "options": {
+        "a": "un microservicio que se encarga de todo",
+        "b": "dos microservicios que se comunican directamente",
+        "c": "una base de datos de escritura y otra de lectura, separados por una 'Secuerece'",
+        "d": "uno solo que se encarga de todas las tareas"
+      },
+      "correct_option": "c",
+      "bloom_level": "comprender",
+      "justification": "La pregunta menciona la posibilidad de separar las búsquedas y el procesamiento de información en dos microservicios, sugiriendo una base de datos de escritura y otra de lectura, separadas por una 'Secuerece'. Esta solución permite que los microservicios se mantengan autónomos y no violen la principle de autonomía."
+    },
+    {
+      "question": "¿Cuál es la condición que se debe cumplir para que un microservicio sea considerado válido dentro de los principios de diseño de microservicios?",
+      "options": {
+        "a": "Estar autenticado y tener acceso a una base de datos externa",
+        "b": "Tener fronteras bien claras y ser independiente",
+        "c": "Depender de una base de datos externa y no cumplir con los principios de diseño de microservicios",
+        "d": "No cumplir con las condiciones de autentificación y acceso a recursos"
+      },
+      "correct_option": "b",
+      "bloom_level": "comprender",
+      "justification": "Según el contenido de clase, para que un microservicio sea considerado válido, es necesario que tenga fronteras bien claras y sea independiente. Esto se refleja en la mención a 'bound and context' y la importancia de ser independiente para evitar la acoplamiento"
+    }
+  ]
+}

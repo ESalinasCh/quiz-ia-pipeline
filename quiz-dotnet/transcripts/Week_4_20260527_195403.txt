@@ -1,7 +1,7 @@
 # Transcript: Week_4
 # Generated: 2026-05-27 19:54:03
+# Model: Whisper tiny
 # Segments: 2520
-# Transcript model: Whisper tiny
 
 [00:00.000 -> 00:14.740] muy bien para se capítuloar el idea del capstone de esta matriz es no dirés en
 [00:14.740 -> 00:18.420] sí leaperó es puntual, hacer una migración de un monorito a mis
