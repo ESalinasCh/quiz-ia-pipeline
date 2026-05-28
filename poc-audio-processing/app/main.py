@@ -6,7 +6,7 @@ from fastapi import FastAPI, UploadFile, File, Form, HTTPException, status
 from fastapi.responses import JSONResponse
 from pydantic import BaseModel, Field
 
-from app.transcribe import process_pipeline, search_knowledge_base, delete_source_from_qdrant, generate_quiz
+from app.transcribe import process_pipeline, search_knowledge_base, delete_source_from_qdrant, generate_quiz, COLLECTION_NAME
 
 # Configure logging
 logging.basicConfig(level=logging.INFO, format="%(asctime)s [%(levelname)s] %(message)s")
@@ -315,3 +315,57 @@ def generate_quiz_endpoint(request: QuizGenerateRequest):
             detail=f"Quiz generation failed: {str(ex)}"
         )
 
+
+def _run_cli():
+    """CLI entry: run full pipeline + quiz generation locally (no HTTP).
+    Usage: python -m app.main <input_audio_or_video> [model_size]
+    """
+    import sys
+
+    if len(sys.argv) < 2:
+        print("Usage: python -m app.main <input_audio_or_video> [model_size]")
+        print("  model_size: tiny | base | small  (default: small)")
+        sys.exit(1)
+
+    input_path = sys.argv[1]
+    if not os.path.exists(input_path):
+        print(f"Input file not found: {input_path}")
+        sys.exit(2)
+
+    model_size = sys.argv[2] if len(sys.argv) > 2 else os.environ.get("WHISPER_MODEL_SIZE", "small")
+    if model_size not in ALLOWED_MODEL_SIZES:
+        print(f"Invalid model size '{model_size}'. Choose from: {sorted(ALLOWED_MODEL_SIZES)}")
+        sys.exit(3)
+
+    source_id = str(uuid.uuid4())
+    course_id = str(uuid.uuid4())
+    hf_token = os.environ.get("HF_TOKEN")
+
+    print("=== Quiz Generator Pipeline (Python POC) ===")
+    print(f"Input file:  {input_path}")
+    print(f"Model size:  {model_size}")
+    print(f"Source ID:   {source_id}")
+    print(f"Course ID:   {course_id}")
+    print(f"Collection:  {COLLECTION_NAME}")
+
+    result = process_pipeline(
+        input_path=input_path,
+        source_id=source_id,
+        course_id=course_id,
+        model_size=model_size,
+        hf_token=hf_token,
+    )
+    print(f"Indexed {len(result.get('chunks', []))} chunks in '{COLLECTION_NAME}'.")
+
+    quiz = generate_quiz(course_id=course_id, num_questions=3, bloom_level="comprender")
+    print(f"Generated {len(quiz)} questions.")
+    for q in quiz:
+        print(f"\nPregunta: {q.get('question')}")
+        for k, v in (q.get('options') or {}).items():
+            print(f"  {k}) {v}")
+        print(f"Respuesta correcta: {q.get('correct_option')}")
+        print(f"Justificación: {q.get('justification')}")
+
+
+if __name__ == "__main__":
+    _run_cli()

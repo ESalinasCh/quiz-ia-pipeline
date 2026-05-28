@@ -4,9 +4,20 @@ import uuid
 import subprocess
 import logging
 import tempfile
+import time
+from datetime import datetime
 from typing import List, Dict, Any
 import numpy as np
 import httpx
+
+# Single source of truth for model names + Qdrant collection.
+# Suffix "_python" distinguishes vectors stored by this service from the .NET alternative.
+LLM_MODEL = "qwen2.5-coder:1.5b"
+EMBEDDING_MODEL = "nomic-embed-text"
+COLLECTION_NAME = "quiz_chunks_python"
+
+TRANSCRIPTS_DIR = os.environ.get("TRANSCRIPTS_DIR", "/tmp/poc_transcripts")
+QUIZZES_DIR = os.environ.get("QUIZZES_DIR", "/tmp/poc_quizzes")
 
 # Attempt to load ML libraries inside the container
 try:
@@ -34,6 +45,82 @@ except ImportError as e:
 # Set up logging
 logging.basicConfig(level=logging.INFO, format="%(asctime)s [%(levelname)s] %(message)s")
 logger = logging.getLogger(__name__)
+
+
+def _format_elapsed(seconds: float) -> str:
+    if seconds < 60:
+        return f"{seconds:.2f}s"
+    mins, secs = divmod(seconds, 60)
+    return f"{int(mins)}m {int(secs)}s ({seconds:.1f}s)"
+
+
+class StageTimer:
+    """Cumulative stage timer; logs each step's wall time and tracks totals."""
+    def __init__(self, pipeline_name: str = "pipeline"):
+        self.pipeline_name = pipeline_name
+        self.t0 = time.perf_counter()
+        self.last = self.t0
+        self.stages: List[Dict[str, Any]] = []
+
+    def mark(self, stage: str):
+        now = time.perf_counter()
+        elapsed = now - self.last
+        self.last = now
+        self.stages.append({"stage": stage, "seconds": round(elapsed, 3)})
+        logger.info(f"[TIMING] {stage} took {_format_elapsed(elapsed)}.")
+
+    def total(self) -> float:
+        return time.perf_counter() - self.t0
+
+
+def save_transcript(input_path: str, model_size: str, aligned: List[Dict[str, Any]]) -> str:
+    """Saves the aligned transcript (with speaker labels + timestamps) to disk."""
+    os.makedirs(TRANSCRIPTS_DIR, exist_ok=True)
+    base = os.path.splitext(os.path.basename(input_path))[0]
+    ts = datetime.now().strftime("%Y%m%d_%H%M%S")
+    path = os.path.join(TRANSCRIPTS_DIR, f"{base}_{ts}.txt")
+
+    with open(path, "w", encoding="utf-8") as f:
+        f.write(f"# Transcript: {base}\n")
+        f.write(f"# Generated: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}\n")
+        f.write(f"# Model: faster-whisper-{model_size}\n")
+        f.write(f"# Segments: {len(aligned)}\n\n")
+        for seg in aligned:
+            mm = int(seg["start"] // 60)
+            ss = seg["start"] % 60
+            mm_e = int(seg["end"] // 60)
+            ss_e = seg["end"] % 60
+            f.write(f"[{mm:02d}:{ss:06.3f} -> {mm_e:02d}:{ss_e:06.3f}] ({seg['speaker']}) {seg['text'].strip()}\n")
+
+    logger.info(f"Transcript saved to {path}")
+    return path
+
+
+def save_quiz(course_id: str, bloom_level: str, questions: List[Dict[str, Any]], timings: List[Dict[str, Any]]) -> str:
+    """Saves the generated quiz (with model metadata + timings) to disk."""
+    os.makedirs(QUIZZES_DIR, exist_ok=True)
+    ts = datetime.now().strftime("%Y%m%d_%H%M%S")
+    path = os.path.join(QUIZZES_DIR, f"quiz_{course_id}_{ts}.json")
+
+    output = {
+        "generated_at": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+        "course_id": course_id,
+        "bloom_level": bloom_level,
+        "qdrant_collection": COLLECTION_NAME,
+        "models": {
+            "transcript": "faster-whisper (set at ingest time)",
+            "processing": LLM_MODEL,
+            "embedding": EMBEDDING_MODEL,
+            "llm_as_judge": LLM_MODEL,
+        },
+        "timings": timings,
+        "questions": questions,
+    }
+    with open(path, "w", encoding="utf-8") as f:
+        json.dump(output, f, ensure_ascii=False, indent=2)
+
+    logger.info(f"Quiz saved to {path}")
+    return path
 
 
 def extract_audio(input_path: str, output_path: str) -> str:
@@ -303,7 +390,7 @@ def get_embedding(text: str) -> List[float]:
         with httpx.Client(timeout=90.0) as client:
             resp = client.post(
                 f"{ollama_url}/api/embeddings",
-                json={"model": "nomic-embed-text", "prompt": text}
+                json={"model": EMBEDDING_MODEL, "prompt": text}
             )
             resp.raise_for_status()
             return resp.json()["embedding"]
@@ -463,7 +550,7 @@ Responde únicamente con un objeto JSON válido con este formato:
             resp = client.post(
                 f"{ollama_url}/api/generate",
                 json={
-                    "model": "qwen2.5-coder:1.5b",
+                    "model": LLM_MODEL,
                     "prompt": prompt,
                     "format": "json",
                     "stream": False
@@ -491,7 +578,7 @@ def generate_topic_summary(text: str) -> str:
             resp = client.post(
                 f"{ollama_url}/api/generate",
                 json={
-                    "model": "qwen2.5-coder:1.5b",
+                    "model": LLM_MODEL,
                     "prompt": prompt,
                     "stream": False
                 }
@@ -516,7 +603,7 @@ def get_qdrant_client() -> QdrantClient:
     return QdrantClient(host=qdrant_host, port=6333)
 
 
-def init_qdrant_collection(client: QdrantClient, collection_name: str = "quiz_chunks"):
+def init_qdrant_collection(client: QdrantClient, collection_name: str = COLLECTION_NAME):
     """
     Ensures that the collection exists in Qdrant, creating it if necessary.
     """
@@ -542,7 +629,7 @@ def index_chunks_in_qdrant(source_id: str, course_id: str, chunks: List[Dict[str
     """
     logger.info(f"Indexing {len(chunks)} chunks in Qdrant for source {source_id}...")
     client = get_qdrant_client()
-    collection_name = "quiz_chunks"
+    collection_name = COLLECTION_NAME
     init_qdrant_collection(client, collection_name)
     
     point_ids = []
@@ -589,7 +676,7 @@ def delete_source_from_qdrant(source_id: str):
     """
     logger.info(f"Deleting all vectors for source_id {source_id} from Qdrant...")
     client = get_qdrant_client()
-    collection_name = "quiz_chunks"
+    collection_name = COLLECTION_NAME
     
     if client.collection_exists(collection_name=collection_name):
         client.delete(
@@ -613,7 +700,7 @@ def search_knowledge_base(query: str, course_id: str = None, limit: int = 5) -> 
     Performs cosine similarity vector search on Qdrant collection.
     """
     client = get_qdrant_client()
-    collection_name = "quiz_chunks"
+    collection_name = COLLECTION_NAME
     
     if not client.collection_exists(collection_name=collection_name):
         return []
@@ -654,7 +741,7 @@ def get_course_chunks(course_id: str) -> List[Dict[str, Any]]:
     Retrieves all indexed chunks for a course_id from Qdrant.
     """
     client = get_qdrant_client()
-    collection_name = "quiz_chunks"
+    collection_name = COLLECTION_NAME
     if not client.collection_exists(collection_name=collection_name):
         return []
     
@@ -718,7 +805,7 @@ Responde únicamente con un objeto JSON válido que siga exactamente esta estruc
             resp = client.post(
                 f"{ollama_url}/api/generate",
                 json={
-                    "model": "qwen2.5-coder:1.5b",
+                    "model": LLM_MODEL,
                     "prompt": prompt,
                     "format": "json",
                     "stream": False
@@ -767,7 +854,7 @@ Responde únicamente con un objeto JSON válido con este formato:
             resp = client.post(
                 f"{ollama_url}/api/generate",
                 json={
-                    "model": "qwen2.5-coder:1.5b",
+                    "model": LLM_MODEL,
                     "prompt": prompt,
                     "format": "json",
                     "stream": False
@@ -789,9 +876,11 @@ def generate_quiz(course_id: str, num_questions: int = 5, bloom_level: str = "co
     RAG quiz generator: retrieves course chunks, prompts LLM, validates quality, and prevents duplicates.
     """
     logger.info(f"Generating quiz for course_id {course_id} with {num_questions} questions at bloom level {bloom_level}")
-    
+    timer = StageTimer("quiz_pipeline")
+
     # 1. Retrieve course chunks
     chunks = get_course_chunks(course_id)
+    timer.mark("Qdrant Chunk Retrieval")
     if not chunks:
         logger.warning(f"No chunks found for course_id {course_id}")
         return []
@@ -853,7 +942,11 @@ def generate_quiz(course_id: str, num_questions: int = 5, bloom_level: str = "co
         generated_questions.append(q_data)
         question_embeddings.append(q_emb)
         
+    timer.mark("Question Generation & Validation")
     logger.info(f"Generated {len(generated_questions)} valid questions.")
+    logger.info(f"Total quiz generation time: {_format_elapsed(timer.total())}")
+
+    save_quiz(course_id, bloom_level, generated_questions, timer.stages)
     return generated_questions
 
 
@@ -868,57 +961,79 @@ def process_pipeline(input_path: str, source_id: str, course_id: str, model_size
     """
     temp_dir = tempfile.gettempdir()
     audio_output = os.path.join(temp_dir, f"extracted_{os.path.basename(input_path)}.wav")
-    
+
+    pipeline_start = datetime.now()
+    timer = StageTimer("ingest_pipeline")
+    logger.info(f"Pipeline started at: {pipeline_start.strftime('%Y-%m-%d %H:%M:%S')}")
+
     try:
         # 1. Extract audio
         extract_audio(input_path, audio_output)
-        
+        timer.mark("Audio Extraction")
+
         # 2. Transcribe
         transcripts = transcribe_audio(audio_output, model_size=model_size)
-        
+        timer.mark("Whisper Transcription")
+
         # 3. Diarize
         diarization = diarize_audio(audio_output, hf_token=hf_token)
         logger.info(f"Raw diarization intervals: {diarization}")
-        
+        timer.mark("Diarization")
+
         # 4. Align
         aligned = align_segments(transcripts, diarization)
-        
+        timer.mark("Alignment")
+
+        # Persist transcript for quality monitoring
+        save_transcript(input_path, model_size, aligned)
+
         # 5. Semantic Chunking (valley similarity threshold = 0.5)
         chunks = generate_semantic_chunks(aligned, similarity_threshold=0.5)
-        
+        timer.mark("Semantic Chunking")
+
         # 6. Cleaning, Classification, Summarization
         processed_chunks = []
         for chunk in chunks:
             # Classify relevance
             classification = classify_chunk(chunk["content"], chunk["speaker"])
             category = classification["category"]
-            
+
             # Relevance Filter: Discard OFF_TOPIC or ERROR_ESTUDIANTIL
             if category in {"OFF_TOPIC", "ERROR_ESTUDIANTIL"}:
                 logger.info(f"Auditing chunk {chunk['chunk_index']} as {category}: {classification['reason']}. Keeping for POC/testing.")
                 # for the POC, we do not discard so that tests can run with any sample media
                 # continue
-                
+
             # Generate summary topic
             topic_summary = generate_topic_summary(chunk["content"])
-            
+
             chunk["category"] = category
             chunk["confidence_score"] = classification["confidence"]
             chunk["topic_summary"] = topic_summary
             processed_chunks.append(chunk)
-            
+        timer.mark("Classification & Summarization")
+
         # 7. Qdrant Indexing
         point_ids = index_chunks_in_qdrant(source_id, course_id, processed_chunks)
-        
+        timer.mark("Qdrant Indexing")
+
         # Attach the point IDs back to the chunks
         for chunk, pid in zip(processed_chunks, point_ids):
             chunk["qdrant_vector_id"] = pid
-            
+
         full_text = " ".join([c["content"] for c in processed_chunks])
-        
+
+        pipeline_end = datetime.now()
+        total = timer.total()
+        logger.info(f"Pipeline finished at: {pipeline_end.strftime('%Y-%m-%d %H:%M:%S')}")
+        logger.info(f"Total elapsed time: {_format_elapsed(total)}")
+
         return {
             "text": full_text,
-            "chunks": processed_chunks
+            "chunks": processed_chunks,
+            "qdrant_collection": COLLECTION_NAME,
+            "timings": timer.stages,
+            "total_seconds": round(total, 3),
         }
         
     finally:
