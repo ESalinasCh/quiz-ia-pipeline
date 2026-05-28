@@ -74,13 +74,18 @@ namespace QuizDotnet
             string inputPath = args.Length > 0 ? args[0] : "/home/ubuntu/quiz/test01_20s.wav";
             string courseId = "course-123";
             string sourceId = Guid.NewGuid().ToString();
+            // Unique collection per run so vectors don't pile up in a shared collection
+            string collectionName = $"quiz_chunks_dotnet_{DateTime.Now:yyyyMMdd_HHmmss}";
+            Console.WriteLine($"Qdrant collection for this run: {collectionName}");
 
             // 1. Download Whisper model if not exists
-            string modelPath = "ggml-tiny.bin";
+            var whisperModelType = GgmlType.Small;
+            string whisperModelName = $"whisper-{whisperModelType.ToString().ToLower()}";
+            string modelPath = "ggml-small.bin";
             if (!File.Exists(modelPath))
             {
-                Console.WriteLine($"Downloading Whisper GGML tiny model to {modelPath}...");
-                using var modelStream = await WhisperGgmlDownloader.Default.GetGgmlModelAsync(GgmlType.Tiny);
+                Console.WriteLine($"Downloading Whisper GGML {whisperModelType} model to {modelPath}...");
+                using var modelStream = await WhisperGgmlDownloader.Default.GetGgmlModelAsync(whisperModelType);
                 using var fileStream = File.OpenWrite(modelPath);
                 await modelStream.CopyToAsync(fileStream);
                 Console.WriteLine("Whisper model downloaded successfully.");
@@ -89,7 +94,8 @@ namespace QuizDotnet
             var stageStopwatch = Stopwatch.StartNew();
 
             // 2. Audio Extraction
-            string wavPath = Path.Combine(Path.GetTempPath(), $"extracted_{Path.GetFileNameWithoutExtension(inputPath)}.wav");
+            Directory.CreateDirectory("audio");
+            string wavPath = Path.Combine("audio", $"{Path.GetFileNameWithoutExtension(inputPath)}_{DateTime.Now:yyyyMMdd_HHmmss}.wav");
             if (File.Exists(wavPath)) File.Delete(wavPath);
             await ExtractAudioAsync(inputPath, wavPath);
             LogStage("Audio Extraction", stageStopwatch);
@@ -115,6 +121,9 @@ namespace QuizDotnet
             Console.WriteLine($"Transcribed {rawSegments.Count} raw segments.");
             LogStage("Whisper Transcription", stageStopwatch);
 
+            // Save raw transcript for quality monitoring
+            SaveTranscript(inputPath, rawSegments, whisperModelName);
+
             // 4. Split into sentences/phrases
             var sentences = SplitIntoSentences(rawSegments);
             Console.WriteLine($"Grouped into {sentences.Count} sentences.");
@@ -126,11 +135,11 @@ namespace QuizDotnet
             LogStage("Semantic Chunking", stageStopwatch);
 
             // 6. Classification, Summarization & Embedding Storage
-            var processedChunks = await ProcessChunksAndStoreAsync(chunks, courseId, sourceId);
+            var processedChunks = await ProcessChunksAndStoreAsync(chunks, courseId, sourceId, collectionName);
             LogStage("Classification & Embedding Storage", stageStopwatch);
 
             // 7. RAG & Quiz Generation
-            var generatedQuestions = await GenerateQuizQuestionsAsync(courseId, 3, "comprender");
+            var generatedQuestions = await GenerateQuizQuestionsAsync(courseId, 3, "comprender", collectionName);
             LogStage("RAG & Quiz Generation", stageStopwatch);
 
             Console.WriteLine("\n=== Pipeline Execution Completed Successfully ===");
@@ -151,6 +160,34 @@ namespace QuizDotnet
             Console.WriteLine($"\nPipeline started at:  {pipelineStart:yyyy-MM-dd HH:mm:ss}");
             Console.WriteLine($"Pipeline finished at: {pipelineEnd:yyyy-MM-dd HH:mm:ss}");
             Console.WriteLine($"Total elapsed time:   {FormatElapsed(totalStopwatch.Elapsed)}");
+        }
+
+        static void SaveTranscript(string inputPath, List<TranscriptSegment> segments, string modelName)
+        {
+            string dir = "transcripts";
+            Directory.CreateDirectory(dir);
+            string baseName = Path.GetFileNameWithoutExtension(inputPath);
+            string fileName = $"{baseName}_{DateTime.Now:yyyyMMdd_HHmmss}.txt";
+            string path = Path.Combine(dir, fileName);
+
+            using var writer = new StreamWriter(path);
+            writer.WriteLine($"# Transcript: {baseName}");
+            writer.WriteLine($"# Generated: {DateTime.Now:yyyy-MM-dd HH:mm:ss}");
+            writer.WriteLine($"# Model: {modelName}");
+            writer.WriteLine($"# Segments: {segments.Count}");
+            writer.WriteLine();
+            foreach (var seg in segments)
+            {
+                writer.WriteLine($"[{FormatTimestamp(seg.Start)} -> {FormatTimestamp(seg.End)}] {seg.Text.Trim()}");
+            }
+
+            Console.WriteLine($"Transcript saved to {path}");
+        }
+
+        static string FormatTimestamp(double seconds)
+        {
+            var ts = TimeSpan.FromSeconds(seconds);
+            return $"{(int)ts.TotalMinutes:D2}:{ts.Seconds:D2}.{ts.Milliseconds:D3}";
         }
 
         static void LogStage(string stageName, Stopwatch stopwatch)
@@ -317,7 +354,7 @@ namespace QuizDotnet
             return new SemanticChunk(index, chunkSents[0].Start, chunkSents[^1].End, dominantSpeaker, content);
         }
 
-        static async Task<List<SemanticChunk>> ProcessChunksAndStoreAsync(List<SemanticChunk> chunks, string courseId, string sourceId)
+        static async Task<List<SemanticChunk>> ProcessChunksAndStoreAsync(List<SemanticChunk> chunks, string courseId, string sourceId, string collectionName)
         {
             IChatClient chatClient = new OllamaChatClient(new Uri("http://127.0.0.1:11434"), "llama3.2:3b");
             IEmbeddingGenerator<string, Embedding<float>> embeddingGenerator =
@@ -329,7 +366,6 @@ namespace QuizDotnet
 
             // Initialize collection if it doesn't exist
             var collections = await qdrantClient.ListCollectionsAsync();
-            string collectionName = "quiz_chunks_dotnet";
             if (!collections.Contains(collectionName))
             {
                 Console.WriteLine($"Creating Qdrant collection '{collectionName}'...");
@@ -427,13 +463,12 @@ Responde únicamente con un objeto JSON válido con este formato:
             return processedChunks;
         }
 
-        static async Task<List<QuizQuestion>> GenerateQuizQuestionsAsync(string courseId, int numQuestions, string bloomLevel)
+        static async Task<List<QuizQuestion>> GenerateQuizQuestionsAsync(string courseId, int numQuestions, string bloomLevel, string collectionName)
         {
             IChatClient chatClient = new OllamaChatClient(new Uri("http://127.0.0.1:11434"), "llama3.2:3b");
             IEmbeddingGenerator<string, Embedding<float>> embeddingGenerator =
                 new OllamaEmbeddingGenerator(new Uri("http://127.0.0.1:11434"), "nomic-embed-text");
             using var qdrantClient = new QdrantClient("127.0.0.1", 6334);
-            string collectionName = "quiz_chunks_dotnet";
 
             // Retrieve course chunks from Qdrant
             Console.WriteLine("Retrieving academic chunks from Qdrant for RAG context...");

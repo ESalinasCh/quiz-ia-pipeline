@@ -1,0 +1,2525 @@
+# Transcript: Week_4
+# Generated: 2026-05-27 19:54:03
+# Segments: 2520
+# Transcript model: Whisper tiny
+
+[00:00.000 -> 00:14.740] muy bien para se capítuloar el idea del capstone de esta matriz es no dirés en
+[00:14.740 -> 00:18.420] sí leaperó es puntual, hacer una migración de un monorito a mis
+[00:18.420 -> 00:28.320] clas de ríces pero tiene sus detellitos, a grandes asgos lo que vamos a tener al final
+[00:28.320 -> 00:36.120] como pronto final es un micro servicio, con todo lo que conlleva, bueno dos
+[00:36.120 -> 00:40.680] en realidad sería el lo que sería el search pero a mí no es para el
+[00:40.680 -> 00:46.560] mitrem, hay que tenerlo ser, como mi que lo es servicio, entonces si
+[00:46.560 -> 00:49.240] recuerdan sus cursos de mi que lo se visios que los tomaron
+[00:49.240 -> 00:54.760] antes, cada mi que se la visa tiene que ser autónoma, o sea tiene que
+[00:54.760 -> 01:03.120] estrenos el propiedad de posidad a los propiedad de business logic y tener su propia UI.
+[01:03.120 -> 01:15.959] ¿Qué tenemos de tramitación? Fíjate, así es oven, a lo que no puedo, pues me remiota de tramitación.
+[01:33.120 -> 01:57.240] ¡Es como veron! A general, y me entró del botón de mute participante. ¡Excellent! ¡Ruérdame!
+[01:57.240 -> 02:06.240] Entonces, le decía que vamos, el micro servicio tiene que seguir todas esas
+[02:06.240 -> 02:16.740] los gaiglens para que es un micro servicio como tal, ¿no? Ahora, esto nos va
+[02:16.740 -> 02:20.600] a termon todo por la banda, vamos a ir a parte de la misma en los problemas, no
+[02:20.600 -> 02:27.240] por primero, trataremos de entender, ¿no? Y si hayo que quiere ustedes aportar solamente
+[02:27.240 -> 02:36.200] lo lanza, ¿no? ¿Qué es paypalas? Entonces, paypalas lo voy a dibujar con cuadrado
+[02:36.200 -> 02:45.400] y gente, no es un monolito, básicamente el idea es que procesado
+[02:45.400 -> 02:54.400] con momentos de distintas fuentes, los indexa, y os permite hacer busca de sobre él.
+[02:54.400 -> 03:03.639] Entonces, en serio, ¿no? Ahora, como parte del del trabajo de traseman a uno,
+[03:03.639 -> 03:09.680] entonces, monolido será dissectionar el monolito, bueno, disexoner como tal,
+[03:09.680 -> 03:19.240] lo que lo ha sido entender, ¿no? Ahora, para comparte de este proceso, ¿no?
+[03:19.240 -> 03:26.960] Vamos a hacerlo aquí, ojo que todo esto desde el punto de vista, se alguien a
+[03:26.960 -> 03:32.720] poder algo más, o a poder termar más profundidad, siéntese libre de aportar.
+[03:32.720 -> 03:41.720] Dentro del de paypalas, tenemos una parte exlima ingesta.
+[03:41.720 -> 03:57.720] Tenemos otra parte que es el procesamiento que he mutado, lo voy a poner como procesamiento.
+[03:57.720 -> 04:06.720] Ahora, como con su, para que vaya con ingesta.
+[04:06.720 -> 04:32.720] Ok, dentro de consumo, lo que tenemos es que hay tres posibles consumidores.
+[04:32.720 -> 04:42.720] No se acuerguen los nombres, pero los voy a poner acá.
+[04:42.720 -> 04:58.720] ¿Puedes ser el modelo de acer? ¿Puedes ser por el interpretate de emails?
+[04:58.720 -> 05:13.720] No se acuerguen los nombres.
+[05:13.720 -> 05:28.720] No se acuerguen los nombres.
+[05:28.720 -> 05:43.720] No se acuerguen los nombres.
+[05:43.720 -> 06:01.720] No, eso es que de cierta manera paypalas se ha pesado.
+[06:01.720 -> 06:16.720] No se acuerguen los nombres.
+[06:16.720 -> 06:31.720] ¿Qué lo voy a hacer?
+[06:31.720 -> 06:49.720] Es acíncrono.
+[06:49.720 -> 07:04.720] No se acuerguen los nombres.
+[07:04.720 -> 07:22.720] No se acuerguen los nombres.
+[07:22.720 -> 07:45.720] Ahora, si me joto.
+[07:45.720 -> 07:57.720] Entonces, vamos a despechar los eventos.
+[07:57.720 -> 08:15.720] ¿Qué es el modelo de acer?
+[08:15.720 -> 08:30.720] No se acuerguen los nombres.
+[08:30.720 -> 08:48.720] Ahora, no es otra abajo.
+[08:48.720 -> 09:04.720] Pero no simplemente sea caresto de aquí.
+[09:04.720 -> 09:22.720] Ahora, si me voy a despechar los nombres.
+[09:22.720 -> 09:36.720] Ahora, si me voy a despechar los nombres.
+[09:36.720 -> 09:58.720] Ahora, si me voy a despechar los nombres.
+[09:58.720 -> 10:13.720] Ahora, si me voy a despechar los nombres.
+[10:13.720 -> 10:32.720] Como primera este, yo le sugeriría que la ingesta.
+[10:32.720 -> 10:50.720] Ahora, si me voy a despechar los nombres.
+[10:50.720 -> 11:05.720] Ahora, si me voy a despechar los nombres.
+[11:05.720 -> 11:23.720] Ahora, si me voy a despechar los nombres.
+[11:23.720 -> 11:38.720] Ahora, si me voy a despechar los nombres.
+[11:38.720 -> 11:56.720] Ahora, si me voy a despechar los nombres.
+[11:56.720 -> 12:21.720] Ahora, si me voy a despechar los nombres.
+[12:21.720 -> 12:36.720] Ahora, si me voy a despechar los nombres.
+[12:36.720 -> 13:00.720] Ahora, si me voy a despechar los nombres.
+[13:00.720 -> 13:15.720] Ahora, si me voy a despechar los nombres.
+[13:15.720 -> 13:31.720] Ahora, si me voy a despechar los nombres.
+[13:31.720 -> 13:40.720] Ahora, si me voy a despechar los nombres.
+[13:40.720 -> 13:50.720] Ahora, si me voy a despechar los nombres.
+[13:50.720 -> 13:59.720] Ahora, si me voy a despechar los nombres.
+[13:59.720 -> 14:09.720] Ahora, si me voy a despechar los nombres.
+[14:09.720 -> 14:24.720] Ahora, si me voy a despechar los nombres.
+[14:24.720 -> 14:42.720] Ahora, si me voy a despechar los nombres.
+[14:42.720 -> 14:57.720] Ahora, si me voy a despechar los nombres.
+[14:57.720 -> 15:26.720] Ahora, si me voy a despechar los nombres.
+[15:26.720 -> 15:39.720] Ahora, si me voy a despechar los nombres.
+[15:39.720 -> 15:51.720] Ahora, si me voy a despechar los nombres.
+[15:51.720 -> 16:03.720] Enbiecosas y es decir, cosas.
+[16:03.720 -> 16:06.720] Bien, ahora.
+[16:06.720 -> 16:12.720] Una pregunta que creo que no quedo muy clara o pienso que no quedo muy clara.
+[16:12.720 -> 16:21.720] ¿Qué es la célula?
+[16:21.720 -> 16:30.720] Entonces, desde la teoría, sabemos que hace levas a ver como un tradutor.
+[16:30.720 -> 16:44.720] Porque va a comunicar lo que sea que suceda en el mamá o lito, a hacernos que se evició y dice "verza".
+[16:44.720 -> 16:54.720] Pero las funciones de tradutor no son las únicas que va a tener.
+[16:54.720 -> 17:05.720] Ahora, vamos a ver si hay que despechar los nombres.
+[17:05.720 -> 17:30.720] Ahora, si me voy a despechar los nombres.
+[17:30.720 -> 17:35.720] Entonces, tiene que ser como que haremos tío.
+[17:35.720 -> 17:41.720] A ser todo y no sabe nada.
+[17:41.720 -> 17:54.720] Ahora, ¿por qué les mencionaba ese rato que esto de que esta cafuera puede ser confuso?
+[17:54.720 -> 18:04.720] Entonces, ¿cuero que la tradutor es una pregunta va a ser los clases de qué fueron va a tomar la célula?
+[18:04.720 -> 18:14.720] Bueno, creo que es el despondir que puede ser un cíngol, un API y a Huawei.
+[18:14.720 -> 18:21.720] Pero creo que esa es el despondir porque hay un detalle más que esa vez no se los mencioné.
+[18:21.720 -> 18:26.720] Bueno, ¿qué podemos decir nombres?
+[18:26.720 -> 18:29.720] Es que la hace el de poder venir en dos playbos.
+[18:29.720 -> 18:56.720] Entonces, ¿qué podemos decir?
+[18:56.720 -> 19:00.720] Entonces, lo que estamos viendo ahora es una célula a los proceses.
+[19:00.720 -> 19:08.720] Es que quiere decir que esta célula no es ni parte del monolito, mi del micro servicio.
+[19:08.720 -> 19:13.720] Entonces, es una próge, es valido.
+[19:13.720 -> 19:21.720] Pero ahora vamos a discutir qué posible simplicaciones tiene que ser a los proceses.
+[19:21.720 -> 19:29.720] No, número uno, ya no estamos hablando de dos entidades que mantener el monolito y el micro servicio.
+[19:29.720 -> 19:33.720] Estamos hablando de tres que mantener.
+[19:33.720 -> 19:40.720] Estamos hablando del monolito, el micro servicio y la capa anticos opción.
+[19:40.720 -> 19:49.720] Entonces, como es a rubroses, no está ni casado con el monolito, ni con el micro servicio.
+[19:49.720 -> 19:53.720] Es una entidad independiente.
+[19:53.720 -> 19:59.720] No, incluso hay apróche, es en donde la capa se le la convierte de un micro servicio.
+[19:59.720 -> 20:02.720] También.
+[20:02.720 -> 20:07.720] Vamos a aparecer demasiado, bueno, hay mucho muy aliá.
+[20:07.720 -> 20:13.720] No, convertir la célula de un micro servicio, pero hay gente que hecho eso.
+[20:13.720 -> 20:18.720] Ahora, estamos introduciendo la atención.
+[20:19.720 -> 20:27.720] Porque, porque al ser en el ser un entidad externa, va a estar de proyados propio contenedor por así decirlo.
+[20:27.720 -> 20:35.720] No, y eso es red, significa más la atención.
+[20:35.720 -> 20:39.720] ¿Qué más puede pasar con esta autoproca?
+[20:39.720 -> 20:46.720] Ventajas es que es independiente.
+[20:46.720 -> 20:52.720] Entonces, si tienen, si hay una que puede dedicada de que tiene que tener, digamos, corresponde a suele estar completo,
+[20:52.720 -> 20:57.720] va a poder facilmente mantener la célula más.
+[20:57.720 -> 21:01.720] Puedo ver costa en infraestructura.
+[21:01.720 -> 21:07.720] Entonces, esta autonomía tiene que tener sus costos.
+[21:07.720 -> 21:14.720] Ahora, para nuestro proyecto, no sé si algunos ustedes pueden alguna equipo y tomar esta pro-hache.
+[21:14.720 -> 21:20.720] No de tener la capa anticosucción separada del monolito, a lo que el micro servicio.
+[21:20.720 -> 21:28.720] Si les han tomado genial, lo se les les, o se van a sufrir esto que les digo de, de la complejidad.
+[21:28.720 -> 21:30.720] Y, bueno, aprender algo de ahí.
+[21:30.720 -> 21:37.720] Pero, en la pro-hache, yo les sugeriría.
+[21:37.720 -> 21:44.720] Es este otro. A ver, puedo hacer esto en la cual se ha visto genial.
+[21:44.720 -> 21:59.720] Es...
+[21:59.720 -> 22:04.720] Este, bueno, que estoy creceré este.
+[22:04.720 -> 22:11.720] Voy a chicar este.
+[22:11.720 -> 22:13.720] Y...
+[22:13.720 -> 22:23.720] No voy a mover aquí adentro.
+[22:23.720 -> 22:28.720] Este pro-hache se llama impluc.
+[22:28.720 -> 22:32.720] Improveses.
+[22:32.720 -> 22:39.720] Entonces, que ventajas tenemos con este.
+[22:39.720 -> 22:43.720] Entonces, bueno, ventajas es que está dentro de nuestro monolito.
+[22:43.720 -> 22:49.720] Quiere decir que nuestra capa anticosucción va a usar el tacto del monolito.
+[22:49.720 -> 22:58.720] No puede que sea un fassad hecho en Python.
+[22:58.720 -> 23:11.720] Pero, al estar dentro de más cerca del corte de nuestra aplicación, no hable mis idiomas.
+[23:11.720 -> 23:14.720] Hay menos la tensia porque está...
+[23:14.720 -> 23:17.720] Está corriendo dentro de el mismo proceso de monolito.
+[23:17.720 -> 23:18.720] No está fuera.
+[23:18.720 -> 23:19.720] No hay que deploejarlo.
+[23:19.720 -> 23:23.720] Está corriendo ahí mismo. En esa misma...
+[23:23.720 -> 23:26.720] ¿Cómo le llamo?
+[23:26.720 -> 23:28.720] Se siente.
+[23:28.720 -> 23:29.720] Se siente.
+[23:29.720 -> 23:32.720] Voy a dejar este acuerdo en el monolito.
+[23:32.720 -> 23:35.720] Para no complicarme mucho.
+[23:35.720 -> 23:40.720] Pero las funciones siguen siendo las mismas.
+[23:40.720 -> 23:47.720] Serví de traducctor hacia el monolito del monolito al microservicio.
+[23:47.720 -> 23:51.720] Entonces, este sería el approach...
+[23:51.720 -> 23:58.720] ...tojerito para nuestro caso.
+[23:58.720 -> 24:09.720] ¿Qué más tengo acá?
+[24:09.720 -> 24:10.720] Ya, ¿qué?
+[24:10.720 -> 24:14.720] Pero está casi entendido más a uno del punto de lo que queremos lograr.
+[24:14.720 -> 24:17.720] Hoy no es perdido totalmente.
+[24:22.720 -> 24:24.720] ¡Esta es la naza!
+[24:24.720 -> 24:27.720] ¡Solidar!
+[24:27.720 -> 24:29.720] Muy bien. Porque tenemos que entregar...
+[24:29.720 -> 24:32.720] ...pasteremos mi turnmen una semana y media.
+[24:32.720 -> 24:35.720] Yo tiene que funcionar esto.
+[24:35.720 -> 24:39.720] Vale.
+[24:39.720 -> 24:42.720] Ahora.
+[24:42.720 -> 24:44.720] ¿Qué voy a decir?
+[24:44.720 -> 24:46.720] Este es una...
+[24:46.720 -> 24:49.720] Una fase.
+[24:52.720 -> 24:56.720] Porque todavía nuestro monolito,
+[24:56.720 -> 24:59.720] pero no es una extrevisión, no es tan completo.
+[24:59.720 -> 25:02.720] No lo dibujé por cuestiones prácticas.
+[25:02.720 -> 25:05.720] Bueno, por flujera.
+[25:05.720 -> 25:07.720] Pero acá,
+[25:07.720 -> 25:12.720] nuestro microservicio tiene que tener su propia base de datos.
+[25:17.720 -> 25:21.720] Ya ustedes que me tienen decir en qué van a usar.
+[25:21.720 -> 25:23.720] Una archivo de texto,
+[25:23.720 -> 25:27.720] posgres, maysicle, mongo, María de be.
+[25:27.720 -> 25:34.720] ¿Ok?
+[25:34.720 -> 25:37.720] Y como mi que lo se le visió,
+[25:37.720 -> 25:43.720] nos falta un tal.
+[25:43.720 -> 25:48.720] ¿Y si?
+[25:48.720 -> 25:51.720] Sí, realmente.
+[25:51.720 -> 25:54.720] Entonces, que yo salando con mi practición,
+[25:54.720 -> 25:56.720] especialmente de eso.
+[25:56.720 -> 25:58.720] Porque como solo se manejaba una...
+[25:58.720 -> 26:01.720] ...una vas a tu escono que le he puesto allí
+[26:01.720 -> 26:04.720] para dedicarla únicamente a lo ser.
+[26:04.720 -> 26:06.720] Pues...
+[26:06.720 -> 26:09.720] Pues es como que muchas relaciones de cienes
+[26:09.720 -> 26:14.720] de la primera vez,
+[26:14.720 -> 26:16.720] bueno, el mismo por ahora,
+[26:16.720 -> 26:20.720] la mantuvieron usando con la misma que ya estaban,
+[26:20.720 -> 26:22.720] como para evitar problemas,
+[26:22.720 -> 26:26.720] pero que si fuera haciendo el resto de las separaciones,
+[26:26.720 -> 26:30.720] porque en realidad también tiene valiaciones
+[26:30.720 -> 26:33.720] contra eso, no aplica así de más del problema unolito.
+[26:33.720 -> 26:35.720] Es una buena pregunta.
+[26:35.720 -> 26:38.720] Entonces, como pro-cinicial, no está bien eso,
+[26:38.720 -> 26:41.720] de poder...
+[26:41.720 -> 26:46.720] ...quitarles responsabilidad de procesamiento
+[26:46.720 -> 26:49.720] al monolito como tal,
+[26:49.720 -> 26:52.720] pero no es el gol, el gol final,
+[26:52.720 -> 26:54.720] este de una vasatos propia.
+[26:54.720 -> 27:10.720] Porque si no nos noten... no tenemos un micro servicio.
+[27:10.720 -> 27:13.720] Pero como creando, no son worker más.
+[27:13.720 -> 27:17.720] No vamos a tener ese idea de tener todo un micro servicio
+[27:17.720 -> 27:20.720] micro, como tal.
+[27:20.720 -> 27:23.720] ¿Ces es complejo? Entonces la idea,
+[27:23.720 -> 27:25.720] o sea, para digas como seplificó,
+[27:25.720 -> 27:27.720] es un poco todo esto.
+[27:27.720 -> 27:29.720] No es que todo este perfecto.
+[27:29.720 -> 27:31.720] Estamos trabajando en el Japipad,
+[27:31.720 -> 27:35.720] la idea del proyecto es que podamos entender
+[27:35.720 -> 27:38.720] o podamos vivir en carne propia
+[27:38.720 -> 27:41.720] este es suelo de la miración.
+[27:41.720 -> 27:45.720] Si la vasatos al final tienes reglas o demás ciertas reglas
+[27:45.720 -> 27:47.720] en el lado de monolito,
+[27:47.720 -> 27:51.720] no, el del nuestro lado del micro servicio
+[27:51.720 -> 27:54.720] pues va a tener un poco de menos de reglas.
+[27:54.720 -> 28:00.720] Y no, la lexme es monolito modular,
+[28:00.720 -> 28:02.720] pero si fuera monolito a monolar,
+[28:02.720 -> 28:04.720] todo vivir en todo el vivir dentro de monolito,
+[28:04.720 -> 28:06.720] ahora estamos sacando algo fuera de monolito.
+[28:06.720 -> 28:08.720] Si ya no contiene como...
+[28:08.720 -> 28:10.720] No, perfecto.
+[28:10.720 -> 28:12.720] Adoleo.
+[28:12.720 -> 28:14.720] Perdón, yo me refería a...
+[28:14.720 -> 28:17.720] No me lo cabia mencionado,
+[28:17.720 -> 28:19.720] el que han votado,
+[28:19.720 -> 28:21.720] comparten en monolito,
+[28:21.720 -> 28:23.720] comparten la eno va a ser.
+[28:23.720 -> 28:23.720] Exacto.
+[28:23.720 -> 28:25.720] Y bueno, un detalle del motor,
+[28:25.720 -> 28:27.720] el motor, es que dependiendo de la vasatos.
+[28:27.720 -> 28:28.720] Si es posgres,
+[28:28.720 -> 28:30.720] pueden crear varios esquemas,
+[28:30.720 -> 28:32.720] por vas, varios esquemas,
+[28:32.720 -> 28:34.720] por monoló.
+[28:34.720 -> 28:36.720] No hayas separados dentro de posgres
+[28:36.720 -> 28:38.720] y ya pueden tener una separación
+[28:38.720 -> 28:40.720] lojica más interesante en el momento
+[28:40.720 -> 28:41.720] de mi lado de mi poserviso después.
+[28:41.720 -> 28:42.720] Pero es un poser,
+[28:42.720 -> 28:43.720] como nos notes seguros,
+[28:43.720 -> 28:46.720] si es que no tras ser puedas ser eso de esquemas.
+[28:46.720 -> 28:50.720] Pero bueno, volviendo lo que decía Juan,
+[28:50.720 -> 28:51.720] entonces está,
+[28:51.720 -> 28:52.720] pues,
+[28:52.720 -> 28:53.720] como un pio inicial,
+[28:53.720 -> 28:54.720] si está bien,
+[28:54.720 -> 28:56.720] que el micrófido de vista
+[28:56.720 -> 28:59.720] dice como unicla va a ser datos del.
+[28:59.720 -> 29:02.720] Monolito.
+[29:02.720 -> 29:06.720] No, para hacer funcernar cosas
+[29:06.720 -> 29:07.720] para entender como funciona,
+[29:07.720 -> 29:09.720] pero ya como golfinal,
+[29:12.720 -> 29:14.720] el modo lito tendré que tener su propio,
+[29:14.720 -> 29:15.720] pero no,
+[29:15.720 -> 29:17.720] el micrófido tendré que tener su propio base de datos.
+[29:17.720 -> 29:24.720] No, y eso va del la mano
+[29:24.720 -> 29:26.720] con lo siguiente que os voy a decir.
+[29:26.720 -> 29:27.720] No sé si algo,
+[29:27.720 -> 29:28.720] una pregunta a toda
+[29:28.720 -> 29:29.720] con ser un aspecto.
+[29:29.720 -> 29:36.720] Si yo tengo una,
+[29:36.720 -> 29:37.720] ahí,
+[29:37.720 -> 29:40.720] digamos que ya tenemos ese escenario,
+[29:40.720 -> 29:42.720] no, en el que vamos a la base.
+[29:42.720 -> 29:44.720] Bueno,
+[29:44.720 -> 29:45.720] ya tenemos el resto micrado,
+[29:45.720 -> 29:47.720] pero a las bases de donde pende.
+[29:47.720 -> 29:48.720] En ese caso,
+[29:48.720 -> 29:49.720] digamos,
+[29:49.720 -> 29:52.720] se podría avanzar en otro micro servicio
+[29:52.720 -> 29:54.720] y digamos,
+[29:54.720 -> 29:56.720] asignar a una persona
+[29:56.720 -> 29:57.720] a vos dos personas
+[29:57.720 -> 29:59.720] que se encarguen de ese lado,
+[29:59.720 -> 30:00.720] porque pues,
+[30:00.720 -> 30:01.720] en teoría,
+[30:01.720 -> 30:02.720] ya funciona,
+[30:02.720 -> 30:04.720] pero estará como una otra versión.
+[30:04.720 -> 30:06.720] O para ir avanzando.
+[30:09.720 -> 30:11.720] Bueno, el siguiente gol después del mic tan,
+[30:11.720 -> 30:12.720] es mi grada,
+[30:12.720 -> 30:13.720] el servicio de search,
+[30:13.720 -> 30:14.720] aunque os he visto.
+[30:14.720 -> 30:15.720] Entonces,
+[30:15.720 -> 30:18.720] los pasos que van a seguir para el,
+[30:18.720 -> 30:20.720] para el ocere van a ser casi lo mismo,
+[30:20.720 -> 30:22.720] es que van a seguir para lo search.
+[30:22.720 -> 30:23.720] Entonces,
+[30:23.720 -> 30:24.720] si en este punto,
+[30:24.720 -> 30:28.720] logran ya tener un,
+[30:28.720 -> 30:29.720] un,
+[30:29.720 -> 30:30.720] un guy,
+[30:30.720 -> 30:31.720] un guy trans limpio
+[30:31.720 -> 30:33.720] sus claros de lo que lo que van a ser
+[30:33.720 -> 30:34.720] para mi,
+[30:34.720 -> 30:36.720] uno para el siguiente vez de clicar eso.
+[30:39.720 -> 30:40.720] Entonces,
+[30:40.720 -> 30:41.720] yo les gustaría que,
+[30:41.720 -> 30:42.720] entiendan bien cómo van a ser
+[30:42.720 -> 30:44.720] la migración en su equipo,
+[30:44.720 -> 30:45.720] no,
+[30:45.720 -> 30:47.720] crearse como unas recetas,
+[30:47.720 -> 30:49.720] que puede seguir y
+[30:49.720 -> 30:50.720] el siguiente,
+[30:50.720 -> 30:52.720] técnicemente tenia que salir más fácil.
+[30:52.720 -> 31:03.720] Sé que es complicado,
+[31:03.720 -> 31:05.720] pero,
+[31:05.720 -> 31:06.720] es el gol.
+[31:06.720 -> 31:07.720] Entonces,
+[31:07.720 -> 31:08.720] ahora creo que,
+[31:08.720 -> 31:09.720] en el chat,
+[31:09.720 -> 31:14.720] ok,
+[31:14.720 -> 31:16.720] pero no vamos con Alex,
+[31:16.720 -> 31:19.720] pero,
+[31:19.720 -> 31:19.720] pero,
+[31:19.720 -> 31:20.720] al final,
+[31:20.720 -> 31:21.720] ese es el mundo no leito y
+[31:21.720 -> 31:24.720] se convierte en otro micro servicio,
+[31:24.720 -> 31:25.720] no?
+[31:25.720 -> 31:26.720] Exacto,
+[31:26.720 -> 31:27.720] o sea,
+[31:27.720 -> 31:29.720] no olvidemos que estamos usando
+[31:29.720 -> 31:30.720] el patrón estrangularfic,
+[31:30.720 -> 31:32.720] el estrangularfic,
+[31:32.720 -> 31:35.720] a nos dice que vamos a ir
+[31:35.720 -> 31:36.720] migrando
+[31:36.720 -> 31:38.720] una posibilidad de poco de un sistema
+[31:38.720 -> 31:39.720] de gasía,
+[31:39.720 -> 31:40.720] un sistema moderno,
+[31:40.720 -> 31:42.720] no desde parte de la modernización.
+[31:42.720 -> 31:44.720] Entonces,
+[31:44.720 -> 31:45.720] nuestro mundo leito de poco,
+[31:45.720 -> 31:47.720] si vamos a ir migrando,
+[31:47.720 -> 31:48.720] un plan de migración puede tardar
+[31:48.720 -> 31:50.720] meses o años,
+[31:50.720 -> 31:52.720] dependiendo de la complejía de monolito.
+[31:52.720 -> 31:54.720] Entonces,
+[31:54.720 -> 31:54.720] aquí,
+[31:54.720 -> 31:55.720] en ese mar,
+[31:55.720 -> 31:57.720] no espero que sea un trabajo
+[31:57.720 -> 31:58.720] superplido,
+[31:58.720 -> 32:00.720] pero la menos la idea tiene que quedarse.
+[32:00.720 -> 32:02.720] Entonces,
+[32:02.720 -> 32:03.720] el mundo leito,
+[32:03.720 -> 32:05.720] va a coexistir con el micro servicio.
+[32:05.720 -> 32:08.720] Y viceversa,
+[32:08.720 -> 32:11.720] mientras nuestro el torno de micro servicio
+[32:11.720 -> 32:12.720] o nuestro nuevo,
+[32:12.720 -> 32:13.720] nuestro nuevo arquitectura
+[32:13.720 -> 32:14.720] va a tomar una forma,
+[32:14.720 -> 32:16.720] va a convivir con el monolito.
+[32:16.720 -> 32:20.720] Entonces,
+[32:20.720 -> 32:23.720] el gol final es que hay
+[32:23.720 -> 32:25.720] las renciones que ambos vivan juntos.
+[32:25.720 -> 32:28.720] Simando un documento
+[32:28.720 -> 32:30.720] por la UI del monolito,
+[32:30.720 -> 32:32.720] podría haberlo
+[32:32.720 -> 32:34.720] el alarno de la UI del micro servicio.
+[32:34.720 -> 32:36.720] Podemos ser un documento
+[32:36.720 -> 32:38.720] por la UI del micro servicio
+[32:38.720 -> 32:40.720] puede haberlo el alarno de la ley del monolito.
+[32:40.720 -> 32:43.720] Entonces,
+[32:43.720 -> 32:46.720] son dos sistemas coexistiendo.
+[32:46.720 -> 32:47.720] Entonces,
+[32:47.720 -> 32:48.720] el gol final es ese,
+[32:48.720 -> 32:49.720] o sea,
+[32:49.720 -> 32:51.720] ¿qué es que se ha mucho?
+[32:51.720 -> 32:53.720] No.
+[32:53.720 -> 32:55.720] Pero,
+[32:55.720 -> 32:57.720] veamos cuando podemos llegar.
+[32:57.720 -> 33:01.720] Ahora,
+[33:01.720 -> 33:03.720] para responder a Danielo,
+[33:03.720 -> 33:06.720] si lo que ha sido entendido en la pregunta
+[33:06.720 -> 33:06.720] es,
+[33:06.720 -> 33:09.720] si la base de datos va a guardar documentos.
+[33:09.720 -> 33:13.720] Esto,
+[33:13.720 -> 33:15.720] eso es una clicina de arquitectura,
+[33:15.720 -> 33:17.720] porque el cara de equipo puede tomar.
+[33:17.720 -> 33:18.720] Ok.
+[33:18.720 -> 33:19.720] Pero,
+[33:19.720 -> 33:25.720] imagínense que les mandan
+[33:25.720 -> 33:28.720] un documento enorme,
+[33:28.720 -> 33:29.720] yo que sea,
+[33:34.720 -> 33:36.720] no sé la biblioteca de la familia.
+[33:36.720 -> 33:37.720] No sé,
+[33:37.720 -> 33:39.720] si un documento enorme,
+[33:39.720 -> 33:41.720] lo van a guardar,
+[33:41.720 -> 33:43.720] no es su base de datos.
+[33:43.720 -> 33:45.720] No creo.
+[33:45.720 -> 33:46.720] No,
+[33:46.720 -> 33:47.720] si bien,
+[33:47.720 -> 33:48.720] para documentos pequeños de megas,
+[33:48.720 -> 33:50.720] quizá puede funcionar.
+[33:50.720 -> 33:51.720] Pero,
+[33:51.720 -> 33:52.720] lo usuar es tener un
+[33:52.720 -> 33:53.720] estora y separado.
+[33:53.720 -> 33:55.720] Esta parte no le analizó bien
+[33:55.720 -> 33:57.720] de modo dicho cómo le hace.
+[33:57.720 -> 33:59.720] Si la guarda de manera local
+[33:59.720 -> 34:01.720] en una carpeta de reserva,
+[34:01.720 -> 34:05.720] si tienen algún tipo cdne o
+[34:05.720 -> 34:07.720] bueno,
+[34:07.720 -> 34:08.719] algún jos de documentos.
+[34:08.719 -> 34:10.719] Pero imagino que lo lo hace
+[34:10.719 -> 34:11.719] de manera local.
+[34:11.719 -> 34:13.719] Pero en el mundo lito,
+[34:13.719 -> 34:15.719] nosotros tenemos control.
+[34:15.719 -> 34:16.719] Entonces,
+[34:16.719 -> 34:17.719] no estoy investigando cuál es el
+[34:17.719 -> 34:18.719] dinero de una jola,
+[34:18.719 -> 34:19.719] esa producción para
+[34:19.719 -> 34:21.719] poder guardar esa información.
+[34:21.719 -> 34:23.719] No,
+[34:23.719 -> 34:24.719] pero bueno,
+[34:24.719 -> 34:26.719] le trae a considerar eso.
+[34:26.719 -> 34:27.719] Si eso es un archivo grande,
+[34:27.719 -> 34:29.719] lo van a guardar en su base de datos.
+[34:29.719 -> 34:31.719] ¿O su base de datos vas a aportar eso?
+[34:31.719 -> 34:32.719] O bueno,
+[34:32.719 -> 34:34.719] puedes las extricciones que no puedo
+[34:34.719 -> 34:36.719] subir archivos de mal de un giga.
+[34:36.719 -> 34:37.719] No,
+[34:37.719 -> 34:39.719] interesante es que te lavo
+[34:39.719 -> 34:40.719] del microsoft y visi
+[34:40.719 -> 34:41.719] ustedes deciden,
+[34:41.719 -> 34:41.719] bueno,
+[34:41.719 -> 34:42.719] el equipo de decide.
+[34:42.719 -> 34:43.719] te va a hacer.
+[34:43.719 -> 34:48.719] Tal vez no sé si,
+[34:48.719 -> 34:50.719] si quedo claro o lo te confoní más
+[34:50.719 -> 34:51.719] de ni lo.
+[34:51.719 -> 34:55.719] Sí,
+[34:55.719 -> 34:57.719] era mal enfocado a
+[34:57.719 -> 35:00.719] el mas el ar en el bello.
+[35:00.719 -> 35:01.719] O sea,
+[35:01.719 -> 35:03.719] el ofer como te hagan el que
+[35:03.719 -> 35:04.719] a buscar el viceo.
+[35:04.719 -> 35:06.719] El mal enfocado al mas el ar en
+[35:06.719 -> 35:09.719] Berries o motar los.
+[35:09.719 -> 35:11.719] Se le,
+[35:11.719 -> 35:12.719] esa obye de esto,
+[35:12.719 -> 35:13.719] las,
+[35:13.719 -> 35:14.719] lo,
+[35:14.719 -> 35:15.719] de la meta,
+[35:15.719 -> 35:16.719] de las mas,
+[35:16.719 -> 35:17.719] por ahí,
+[35:17.719 -> 35:18.719] el segundo.
+[35:18.719 -> 35:19.719] Adale.
+[35:19.719 -> 35:21.719] También entonces.
+[35:21.719 -> 35:22.719] All right.
+[35:22.719 -> 35:24.719] Pero sí,
+[35:24.719 -> 35:25.719] me trata que hay esticoyes
+[35:25.719 -> 35:27.719] de que se va a hacer
+[35:27.719 -> 35:28.719] de que se va a hacer.
+[35:28.719 -> 35:30.719] Y de hecho,
+[35:30.719 -> 35:31.719] voy a tener un miten con
+[35:31.719 -> 35:33.719] los tutores más tarde para
+[35:33.719 -> 35:34.719] demostrarles juste esto mismo
+[35:34.719 -> 35:35.719] que estoy haciendo que en
+[35:35.719 -> 35:36.719] escritroles,
+[35:36.719 -> 35:37.719] vemos tres de ellos para
+[35:37.719 -> 35:39.719] alinear todos.
+[35:39.719 -> 35:40.719] Bien.
+[35:40.719 -> 35:41.719] Ahora,
+[35:41.719 -> 35:42.719] tal adelante,
+[35:42.719 -> 35:43.719] Alex.
+[35:43.719 -> 35:44.719] Perfecto,
+[35:44.719 -> 35:45.719] nosotros estamos pensando
+[35:45.719 -> 35:46.719] otra cosa porque,
+[35:46.719 -> 35:47.719] bueno,
+[35:47.719 -> 35:48.719] usted cuando se se relaciona
+[35:48.719 -> 35:49.719] de,
+[35:49.719 -> 35:51.719] de un mono lito al ocere o sea,
+[35:51.719 -> 35:52.719] mediante que se va
+[35:52.719 -> 35:54.719] como unicarme de antes,
+[35:54.719 -> 35:55.719] o que o sea,
+[35:55.719 -> 35:56.719] exactamente que proponía
+[35:56.719 -> 35:57.719] y esto es el profesor.
+[35:57.719 -> 35:58.719] Excellent.
+[35:58.719 -> 35:59.719] Pero,
+[35:59.719 -> 35:59.719] entonces,
+[35:59.719 -> 36:00.719] pregunta.
+[36:00.719 -> 36:03.719] Y aquí les digo,
+[36:03.719 -> 36:05.719] "Abtoyo".
+[36:05.719 -> 36:07.719] Yo les puedo dar a esas
+[36:07.719 -> 36:07.719] amientas,
+[36:07.719 -> 36:09.719] teóricas de cómo pueden hacerlo.
+[36:09.719 -> 36:10.719] No,
+[36:10.719 -> 36:12.719] pero yo ustedes tienen que
+[36:12.719 -> 36:13.719] que,
+[36:13.719 -> 36:13.719] digamos,
+[36:13.719 -> 36:15.719] ser un Richard y
+[36:15.719 -> 36:16.719] versicía,
+[36:16.719 -> 36:17.719] cuál le desaprí.
+[36:17.719 -> 36:18.719] Entonces,
+[36:18.719 -> 36:19.719] tenemos dos formas de comunicarnos
+[36:19.719 -> 36:20.719] acá.
+[36:20.719 -> 36:22.719] En el, en el acel,
+[36:22.719 -> 36:23.719] porque voy a dirigimos que el acel es
+[36:23.719 -> 36:24.719] nuestro doctor.
+[36:24.719 -> 36:27.719] Entonces,
+[36:27.719 -> 36:28.719] acá,
+[36:28.719 -> 36:29.719] adentro,
+[36:29.719 -> 36:29.719] o sea,
+[36:29.719 -> 36:30.719] el acel puede ser un archivo
+[36:30.719 -> 36:31.719] simple,
+[36:31.719 -> 36:33.719] puede ser algo más complejo.
+[36:33.719 -> 36:35.719] No puede ser un,
+[36:35.719 -> 36:36.719] un conjunto de,
+[36:36.719 -> 36:37.719] de funcioneridad de
+[36:37.719 -> 36:38.719] asocerbicios,
+[36:38.719 -> 36:39.719] sacada dentro,
+[36:39.719 -> 36:40.719] pero que sigue manteniendo
+[36:40.719 -> 36:41.719] esa lógica de,
+[36:41.719 -> 36:45.719] comunicar y traducir.
+[36:45.719 -> 36:46.719] Entonces,
+[36:46.719 -> 36:47.719] una próche,
+[36:47.719 -> 36:49.719] sería la comunicación
+[36:49.719 -> 36:50.719] sin cronó.
+[36:50.719 -> 36:51.719] Tenemos comunicación sin crona
+[36:51.719 -> 36:52.719] y así incrona.
+[36:52.719 -> 36:56.719] Entonces,
+[36:56.719 -> 36:57.719] lo que mencionaba es
+[36:57.719 -> 36:59.719] por en points sin crona.
+[36:59.719 -> 37:00.719] Entonces,
+[37:00.719 -> 37:01.719] quiere decir que,
+[37:01.719 -> 37:02.719] que va a ver una IPA
+[37:02.719 -> 37:03.719] y abierta,
+[37:03.719 -> 37:05.719] pero expuesta,
+[37:05.719 -> 37:06.719] a la cual mi o sea,
+[37:06.719 -> 37:07.719] puede llamar.
+[37:07.719 -> 37:09.719] No va a ser esla,
+[37:09.719 -> 37:10.719] IPA,
+[37:10.719 -> 37:11.719] B1,
+[37:11.719 -> 37:12.719] o sea,
+[37:12.719 -> 37:13.719] o sea,
+[37:13.719 -> 37:14.719] entonces aquí voy a mandar
+[37:14.719 -> 37:16.719] el payload que necesita.
+[37:17.719 -> 37:18.719] No lo va a traducir,
+[37:18.719 -> 37:19.719] si es que fue ser esla,
+[37:19.719 -> 37:20.719] y sólo van a dar al micrótero.
+[37:20.719 -> 37:21.719] Ok.
+[37:21.719 -> 37:24.719] Y lo mismo le vuelto.
+[37:24.719 -> 37:26.719] No puede ser un
+[37:26.719 -> 37:28.719] "Proces Response",
+[37:28.719 -> 37:30.719] a sumiendo que del modo
+[37:30.719 -> 37:31.719] elito del servicio viene algo
+[37:31.719 -> 37:32.719] un dato más complejo,
+[37:32.719 -> 37:34.719] necesitas ser simplificado
+[37:34.719 -> 37:35.719] para el mundo elito,
+[37:35.719 -> 37:36.719] entonces,
+[37:36.719 -> 37:37.719] acá también pasa eso.
+[37:37.719 -> 37:39.719] No pueden ser dos en points.
+[37:39.719 -> 37:41.719] Y creo que en alguna de las tareas,
+[37:41.719 -> 37:43.719] o algo de los laboratorias,
+[37:43.719 -> 37:44.719] les voy a decir que,
+[37:44.719 -> 37:46.719] en que se enen points.
+[37:46.719 -> 37:47.719] No.
+[37:47.719 -> 37:48.719] No,
+[37:48.719 -> 37:49.719] no está mal,
+[37:49.719 -> 37:50.719] y es una próche.
+[37:50.719 -> 37:51.719] ¿Y el ex?
+[37:51.719 -> 37:53.719] Sí,
+[37:53.719 -> 37:55.719] bueno,
+[37:55.719 -> 37:56.719] la gente rompimos en tico,
+[37:56.719 -> 37:57.719] pero bueno,
+[37:57.719 -> 37:58.719] en esa parte,
+[37:58.719 -> 37:59.719] y lo consideraría,
+[37:59.719 -> 38:02.719] que los empuens no sean lo mejor.
+[38:02.719 -> 38:03.719] Es un paso,
+[38:03.719 -> 38:04.719] me iba.
+[38:04.719 -> 38:05.719] Ah,
+[38:05.719 -> 38:06.719] perdón,
+[38:06.719 -> 38:07.719] bueno,
+[38:07.719 -> 38:07.719] principal,
+[38:07.719 -> 38:09.719] me lo te podiste a motelizar,
+[38:09.719 -> 38:10.719] se le arir y tan utilizando,
+[38:10.719 -> 38:11.719] y tan utilizando,
+[38:11.719 -> 38:14.719] y tan utilizando,
+[38:14.719 -> 38:15.719] por qué,
+[38:15.719 -> 38:15.719] entonces,
+[38:15.719 -> 38:16.719] se enlía más que todo
+[38:16.719 -> 38:17.719] mediante eventos,
+[38:17.719 -> 38:18.719] entonces,
+[38:18.719 -> 38:19.719] tener que hacer solamente
+[38:19.719 -> 38:21.719] en points para
+[38:21.719 -> 38:22.719] el océer,
+[38:22.719 -> 38:23.719] sería un trabajo,
+[38:23.719 -> 38:24.719] super difícil,
+[38:24.719 -> 38:25.719] y además,
+[38:25.719 -> 38:26.719] no aportaría mucho,
+[38:26.719 -> 38:27.719] incluso,
+[38:27.719 -> 38:28.719] quitaría,
+[38:28.719 -> 38:29.719] lo que tiene,
+[38:29.719 -> 38:30.719] lo que tiene,
+[38:30.719 -> 38:31.719] sincran la barita,
+[38:31.719 -> 38:32.719] mismo la aplicación,
+[38:32.719 -> 38:33.719] que es el plú que tiene,
+[38:33.719 -> 38:33.719] entonces,
+[38:33.719 -> 38:35.719] creo que no sería lo más conveniente,
+[38:35.719 -> 38:38.719] sería seguir utilizando el rey,
+[38:38.719 -> 38:39.719] tal como lo utiliza,
+[38:39.719 -> 38:40.719] que lo utiliza para en colacteticione,
+[38:40.719 -> 38:42.719] y con saler y así,
+[38:42.719 -> 38:44.719] evitar un poco esa,
+[38:44.719 -> 38:45.719] ese cuyo debo te ya que sea
+[38:45.719 -> 38:46.719] amarilla y,
+[38:46.719 -> 38:47.719] me diante eso en el momento.
+[38:47.719 -> 38:49.719] Exacto,
+[38:49.719 -> 38:51.719] ese es el punto que iba a tratar,
+[38:51.719 -> 38:52.719] no,
+[38:52.719 -> 38:52.719] entonces,
+[38:52.719 -> 38:53.719] bien la comunicación,
+[38:53.719 -> 38:54.719] sincrona,
+[38:54.719 -> 38:55.719] funciona,
+[38:55.719 -> 38:57.719] no es lindicada,
+[38:57.719 -> 38:58.719] por qué,
+[38:58.719 -> 38:59.719] porque imagina en que,
+[38:59.719 -> 39:01.719] mandamos una petición
+[39:01.719 -> 39:02.719] de un archivo enorme,
+[39:02.719 -> 39:03.719] y que puede tardar
+[39:03.719 -> 39:04.719] el día de su 20 minutos
+[39:04.719 -> 39:06.719] a dar un que se edición
+[39:06.719 -> 39:07.719] en transformar,
+[39:09.719 -> 39:10.719] y que no es la aplicación,
+[39:10.719 -> 39:11.719] que sería bloqueada,
+[39:11.719 -> 39:13.719] no esperando una respuesta,
+[39:13.719 -> 39:14.719] no esperando el,
+[39:14.719 -> 39:16.719] el 21,
+[39:16.719 -> 39:22.719] y si quisieramos mandar más archivos
+[39:22.719 -> 39:23.719] en coland,
+[39:23.719 -> 39:24.719] entonces,
+[39:24.719 -> 39:25.719] en esta aplicación,
+[39:25.719 -> 39:26.719] va a,
+[39:26.719 -> 39:26.719] pues,
+[39:26.719 -> 39:28.719] el que se va,
+[39:28.719 -> 39:30.719] va a consumir todos los exclusives
+[39:30.719 -> 39:31.719] que tienen el servidor,
+[39:31.719 -> 39:33.719] iba a colapsar de margon punto,
+[39:33.719 -> 39:34.719] entonces,
+[39:34.719 -> 39:36.719] convirtir en un cuyo debo te he dicho,
+[39:36.719 -> 39:37.719] es que voy a decir Alex,
+[39:37.719 -> 39:38.719] la idea,
+[39:38.719 -> 39:40.719] acá es preservar la,
+[39:40.719 -> 39:42.719] mi infraestructura que ella tenía,
+[39:42.719 -> 39:43.719] bueno,
+[39:43.719 -> 39:44.719] que ella tiene,
+[39:44.719 -> 39:46.719] a paperless,
+[39:46.719 -> 39:48.719] y este hace el,
+[39:48.719 -> 39:49.719] va a hacer la comunicación
+[39:49.719 -> 39:50.719] a cincro,
+[39:50.719 -> 39:50.719] entonces,
+[39:50.719 -> 39:51.719] vamos a mandar eventos,
+[39:51.719 -> 39:52.719] y este,
+[39:52.719 -> 39:52.719] acá,
+[39:52.719 -> 39:54.719] va a hacer escuchando eventos,
+[39:54.719 -> 39:59.719] entonces,
+[39:59.719 -> 40:01.719] esto nos va a dar flexibilidad,
+[40:01.719 -> 40:03.719] nos va a dar mayor,
+[40:03.719 -> 40:05.719] sensación de,
+[40:05.719 -> 40:09.719] desde a pides,
+[40:09.719 -> 40:10.719] no,
+[40:10.719 -> 40:12.719] porque no se va a
+[40:12.719 -> 40:13.719] atrancar un hilo de ejecución,
+[40:13.719 -> 40:14.719] sino vamos a tener
+[40:14.719 -> 40:17.719] colabarios documentos,
+[40:17.719 -> 40:18.719] entonces,
+[40:18.719 -> 40:20.719] eso conlleva todo lo,
+[40:20.719 -> 40:22.719] lo que se conocen de eventos
+[40:22.719 -> 40:23.719] ribbonos,
+[40:23.719 -> 40:25.719] consistencia eventual,
+[40:25.719 -> 40:27.719] no tolerancia fallos,
+[40:27.719 -> 40:29.719] no,
+[40:29.719 -> 40:30.719] pero,
+[40:30.719 -> 40:32.719] tiene un,
+[40:32.719 -> 40:34.719] japipad,
+[40:34.719 -> 40:36.719] con que funciona,
+[40:36.719 -> 40:38.719] que puede leer de una cola,
+[40:38.719 -> 40:38.719] estamos bien,
+[40:38.719 -> 40:40.719] porque hay un montón de cosas
+[40:40.719 -> 40:42.719] que hay que tomar en cuenta
+[40:42.719 -> 40:44.719] como el detle de cue,
+[40:44.719 -> 40:46.719] en caso de fallas,
+[40:46.719 -> 40:48.719] como hacemos rollback,
+[40:48.719 -> 40:50.719] no de una transacción,
+[40:50.719 -> 40:52.719] distribuida,
+[40:52.719 -> 40:54.719] hay detalles,
+[40:54.719 -> 40:55.719] pero,
+[40:55.719 -> 40:56.719] pero,
+[40:56.719 -> 40:58.719] concentrisiones, japipad,
+[40:58.719 -> 41:00.719] donde todo funciona,
+[41:00.719 -> 41:01.719] todo es totalmente
+[41:01.719 -> 41:03.719] ahora,
+[41:03.719 -> 41:05.719] tal,
+[41:05.719 -> 41:07.719] no es al hilo del H.
+[41:07.719 -> 41:08.719] acá,
+[41:08.719 -> 41:10.719] y es por eso que también les he diciendo
+[41:10.719 -> 41:12.719] que el improque es una mejor opción,
+[41:12.719 -> 41:13.719] porque tenemos,
+[41:13.719 -> 41:14.719] cierta infraestructura,
+[41:14.719 -> 41:15.719] que ya dentro,
+[41:15.719 -> 41:16.719] que podemos utilizar,
+[41:16.719 -> 41:17.719] mientras que si fuera,
+[41:17.719 -> 41:18.719] el proctor,
+[41:18.719 -> 41:19.719] que es describir,
+[41:19.719 -> 41:21.719] ahí afuera,
+[41:21.719 -> 41:23.719] en la capa de co-supción externa,
+[41:23.719 -> 41:24.719] algo de,
+[41:24.719 -> 41:26.719] esa funcionalidad,
+[41:26.719 -> 41:28.719] o de aplicar quisa,
+[41:28.719 -> 41:29.719] y en escacad dentro,
+[41:29.719 -> 41:30.719] podemos,
+[41:30.719 -> 41:31.719] verlo,
+[41:31.719 -> 41:33.719] en el que hay,
+[41:33.719 -> 41:39.719] entonces,
+[41:39.719 -> 41:40.719] hay un,
+[41:40.719 -> 41:45.719] de tal y demás,
+[41:45.719 -> 41:46.719] que,
+[41:46.719 -> 41:48.719] si lo ha sido mencionando,
+[41:48.719 -> 41:49.719] pero,
+[41:49.719 -> 41:51.719] creo que está más adelante,
+[41:51.719 -> 41:52.719] en las, en la,
+[41:52.719 -> 41:54.719] en la vance de materia,
+[41:54.719 -> 41:55.719] es el tipo de,
+[41:55.719 -> 41:56.719] de,
+[41:56.719 -> 41:57.719] ¿no?
+[41:57.719 -> 41:58.719] Entonces acá en el acélio,
+[41:58.719 -> 42:00.719] vamos a tener control sobre eso,
+[42:00.719 -> 42:02.719] y quisa ahí algún tipo de,
+[42:02.719 -> 42:03.719] la wood balance,
+[42:03.719 -> 42:04.719] o hay play,
+[42:04.719 -> 42:05.719] y aquí mismo,
+[42:05.719 -> 42:08.719] que nos va a permitir uno,
+[42:08.719 -> 42:10.719] se dirección artrafico
+[42:10.719 -> 42:11.719] hacia el,
+[42:11.719 -> 42:12.719] en que es servicio,
+[42:12.719 -> 42:13.719] entonces,
+[42:13.719 -> 42:14.719] primero approach,
+[42:14.719 -> 42:16.719] es solamente mandar información,
+[42:16.719 -> 42:18.719] pero no,
+[42:18.719 -> 42:20.719] pero no procesar,
+[42:20.719 -> 42:22.719] o procesarla y no hubo
+[42:22.719 -> 42:23.719] de la embacedad,
+[42:23.719 -> 42:25.719] no simplemente es para probar
+[42:25.719 -> 42:26.719] que los miclosericios funcionen,
+[42:26.719 -> 42:28.719] es un par de los miclosericios,
+[42:28.719 -> 42:29.719] y aquí,
+[42:29.719 -> 42:31.719] si hay un par de los miclosericios,
+[42:31.719 -> 42:32.719] es el par de los miclosericios,
+[42:32.719 -> 42:33.719] y aquí,
+[42:33.719 -> 42:35.719] es un par de los miclosericios,
+[42:35.719 -> 42:36.719] y aquí,
+[42:36.719 -> 42:38.719] es un par de los miclosericios,
+[42:38.719 -> 42:38.719] y aquí,
+[42:38.719 -> 42:40.719] que es un par de los miclosericios,
+[42:40.719 -> 42:41.719] y aquí,
+[42:41.719 -> 42:42.719] es un par de los miclosericios,
+[42:42.719 -> 42:43.719] y aquí,
+[42:43.719 -> 42:44.719] que es un par de los miclosericios,
+[42:44.719 -> 42:45.719] y aquí,
+[42:45.719 -> 42:47.719] es un par de los miclosericios,
+[42:47.719 -> 42:48.719] y aquí,
+[42:48.719 -> 42:49.719] que es un par de los miclosericios,
+[42:49.719 -> 42:49.719] y aquí,
+[42:49.719 -> 42:50.719] es un par de los miclosericios,
+[42:50.719 -> 42:51.719] y aquí,
+[42:51.719 -> 42:52.719] es un par de los miclosericios,
+[42:52.719 -> 42:53.719] y aquí,
+[42:53.719 -> 42:55.719] es un par de los miclosericios,
+[42:55.719 -> 42:56.719] y aquí,
+[42:56.719 -> 42:57.719] es un par de los miclosericios,
+[42:57.719 -> 42:58.719] y aquí,
+[42:58.719 -> 42:59.719] es un par de los miclosericios,
+[42:59.719 -> 43:00.719] y aquí,
+[43:00.719 -> 43:02.719] es un par de los miclosericios,
+[43:02.719 -> 43:02.719] y aquí,
+[43:02.719 -> 43:04.719] es un par de los miclosericios,
+[43:04.719 -> 43:05.719] y aquí,
+[43:05.719 -> 43:06.719] es un par de los miclosericios,
+[43:06.719 -> 43:07.719] y aquí,
+[43:07.719 -> 43:08.719] es un par de los miclosericios,
+[43:08.719 -> 43:09.719] y aquí,
+[43:09.719 -> 43:10.719] es un par de los miclosericios,
+[43:10.719 -> 43:11.719] y aquí,
+[43:11.719 -> 43:12.719] es un par de los miclosericios,
+[43:12.719 -> 43:13.719] y aquí,
+[43:13.719 -> 43:14.719] es un par de los miclosericios,
+[43:14.719 -> 43:15.719] y aquí,
+[43:15.719 -> 43:16.719] es un par de los miclosericios,
+[43:16.719 -> 43:16.719] y aquí,
+[43:16.719 -> 43:17.719] es un par de los miclosericios,
+[43:17.719 -> 43:18.719] y aquí,
+[43:18.719 -> 43:19.719] es un par de los miclosericios,
+[43:19.719 -> 43:20.719] y aquí,
+[43:20.719 -> 43:22.719] es un par de los miclosericios,
+[43:22.719 -> 43:23.719] y aquí,
+[43:23.719 -> 43:25.719] es un par de los miclosericios,
+[43:25.719 -> 43:25.719] y aquí,
+[43:25.719 -> 43:26.719] es un par de los miclosericios,
+[43:26.719 -> 43:27.719] y aquí,
+[43:27.719 -> 43:28.719] es un par de los miclosericios,
+[43:28.719 -> 43:29.719] y aquí,
+[43:29.719 -> 43:30.719] es un par de los miclosericios,
+[43:30.719 -> 43:31.719] y aquí,
+[43:31.719 -> 43:33.719] es un par de los miclosericios,
+[43:33.719 -> 43:34.719] y aquí,
+[43:34.719 -> 43:35.719] es un par de los miclosericios,
+[43:35.719 -> 43:35.719] y aquí,
+[43:35.719 -> 43:37.719] es un par de los miclosericios,
+[43:37.719 -> 43:38.719] y aquí,
+[43:38.719 -> 43:39.719] es un par de los miclosericios,
+[43:39.719 -> 43:39.719] y aquí,
+[43:39.719 -> 43:40.719] es un par de los miclosericios,
+[43:40.719 -> 43:40.719] y aquí,
+[43:40.719 -> 43:41.719] es un par de los miclosericios,
+[43:41.719 -> 43:42.719] y aquí,
+[43:42.719 -> 43:43.719] es un par de los miclosericios,
+[43:43.719 -> 43:44.719] y aquí,
+[43:44.719 -> 43:47.719] es un par de los miclosericios,
+[43:47.719 -> 43:49.719] y aquí,
+[43:49.719 -> 43:50.719] es un par de los miclosericios,
+[43:50.719 -> 43:51.719] y aquí,
+[43:51.719 -> 43:53.719] es un par de los miclosericios,
+[43:53.719 -> 43:54.719] y aquí,
+[43:54.719 -> 43:55.719] es un par de los miclosericios,
+[43:55.719 -> 43:56.719] y aquí,
+[43:56.719 -> 43:58.719] es un par de los miclosericios,
+[43:58.719 -> 43:59.719] y aquí,
+[43:59.719 -> 44:00.719] es un par de los miclosericios,
+[44:00.719 -> 44:01.719] y aquí,
+[44:01.719 -> 44:02.719] es un par de los miclosericios,
+[44:02.719 -> 44:03.719] y aquí,
+[44:03.719 -> 44:04.719] es un par de los miclosericios,
+[44:04.719 -> 44:05.719] y aquí,
+[44:05.719 -> 44:05.719] es un par de los miclosericios,
+[44:05.719 -> 44:07.719] y aquí,
+[44:07.719 -> 44:07.719] es un par de los miclosericios,
+[44:07.719 -> 44:08.719] y aquí,
+[44:08.719 -> 44:09.719] es un par de los miclosericios,
+[44:09.719 -> 44:10.719] y aquí,
+[44:10.719 -> 44:11.719] es un par de los miclosericios,
+[44:11.719 -> 44:11.719] y aquí,
+[44:11.719 -> 44:13.719] es un par de los miclosericios,
+[44:13.719 -> 44:14.719] y aquí,
+[44:14.719 -> 44:15.719] es un par de los miclosericios,
+[44:15.719 -> 44:16.719] y aquí,
+[44:16.719 -> 44:17.719] es un par de los miclosericios,
+[44:17.719 -> 44:18.719] y aquí,
+[44:18.719 -> 44:19.719] es un par de los miclosericios,
+[44:19.719 -> 44:19.719] y aquí,
+[44:19.719 -> 44:20.719] es un par de los miclosericios,
+[44:20.719 -> 44:20.719] y aquí,
+[44:20.719 -> 44:21.719] es un par de los miclosericios,
+[44:21.719 -> 44:22.719] y aquí,
+[44:22.719 -> 44:23.719] es un par de los miclosericios,
+[44:23.719 -> 44:23.719] y aquí,
+[44:23.719 -> 44:24.719] es un par de los miclosericios,
+[44:24.719 -> 44:25.719] y aquí,
+[44:25.719 -> 44:26.719] es un par de los miclosericios,
+[44:26.719 -> 44:27.719] y aquí,
+[44:27.719 -> 44:28.719] es un par de los miclosericios,
+[44:28.719 -> 44:28.719] y aquí,
+[44:28.719 -> 44:30.719] es un par de los miclosericios,
+[44:30.719 -> 44:31.719] y aquí,
+[44:31.719 -> 44:32.719] es un par de los miclosericios,
+[44:32.719 -> 44:32.719] y aquí,
+[44:32.719 -> 44:33.719] es un par de los miclosericios,
+[44:33.719 -> 44:33.719] y aquí,
+[44:33.719 -> 44:34.719] es un par de los miclosericios,
+[44:34.719 -> 44:35.719] y aquí,
+[44:35.719 -> 44:36.719] es un par de los miclosericios,
+[44:36.719 -> 44:38.719] y aquí,
+[44:38.719 -> 44:39.719] es un par de los miclosericios,
+[44:39.719 -> 44:40.719] y aquí,
+[44:40.719 -> 44:41.719] es un par de los miclosericios,
+[44:41.719 -> 44:42.719] y aquí,
+[44:42.719 -> 44:43.719] es un par de los miclosericios,
+[44:43.719 -> 44:44.719] y aquí,
+[44:44.719 -> 44:45.719] es un par de los miclosericios,
+[44:45.719 -> 44:46.719] y aquí,
+[44:46.719 -> 44:47.719] es un par de los miclosericios,
+[44:47.719 -> 44:48.719] y aquí,
+[44:48.719 -> 44:49.719] es un par de los miclosericios,
+[44:49.719 -> 44:49.719] y aquí,
+[44:49.719 -> 44:50.719] es un par de los miclosericios,
+[44:50.719 -> 44:51.719] y aquí,
+[44:51.719 -> 44:52.719] es un par de los miclosericios,
+[44:52.719 -> 44:53.719] y aquí,
+[44:53.719 -> 44:54.719] es un par de los miclosericios,
+[44:54.719 -> 44:55.719] y aquí,
+[44:55.719 -> 44:56.719] es un par de los miclosericios,
+[44:56.719 -> 44:56.719] y aquí,
+[44:56.719 -> 44:57.719] es un par de los miclosericios,
+[44:57.719 -> 45:04.719] y aquí,
+[45:04.719 -> 45:05.719] es un par de los miclosericios,
+[45:05.719 -> 45:06.719] y aquí,
+[45:06.719 -> 45:08.719] es un par de los miclosericios,
+[45:08.719 -> 45:09.719] y aquí,
+[45:09.719 -> 45:11.719] es un par de los miclosericios,
+[45:11.719 -> 45:12.719] y aquí,
+[45:12.719 -> 45:13.719] es un par de los miclosericios,
+[45:13.719 -> 45:14.719] y aquí,
+[45:14.719 -> 45:16.719] es un par de los miclosericios,
+[45:16.719 -> 45:17.719] y aquí,
+[45:17.719 -> 45:18.719] es un par de los miclosericios,
+[45:18.719 -> 45:18.719] y aquí,
+[45:18.719 -> 45:19.719] es un par de los miclosericios,
+[45:19.719 -> 45:20.719] y aquí,
+[45:20.719 -> 45:21.719] es un par de los miclosericios,
+[45:21.719 -> 45:22.719] y aquí,
+[45:22.719 -> 45:23.719] es un par de los miclosericios,
+[45:23.719 -> 45:24.719] y aquí,
+[45:24.719 -> 45:26.719] es un par de los miclosericios,
+[45:26.719 -> 45:28.719] y aquí,
+[45:28.719 -> 45:30.719] es donde se complique todo,
+[45:30.719 -> 45:31.719] entonces,
+[45:31.719 -> 45:34.719] es donde explota,
+[45:34.719 -> 45:35.719] entonces,
+[45:35.719 -> 45:38.719] voy a
+[45:38.719 -> 45:40.719] copiar esto,
+[45:40.719 -> 45:46.719] me quité este secado,
+[45:46.719 -> 45:47.719] y acá,
+[45:47.719 -> 45:47.719] abajo,
+[45:47.719 -> 45:50.719] voy a continuar con la siguiente fase,
+[45:55.719 -> 45:56.719] pero,
+[45:56.719 -> 45:57.719] me dan dos minutos,
+[45:57.719 -> 45:59.719] que voy a deportar que no voy a estar en
+[45:59.719 -> 46:00.719] permitting,
+[46:00.719 -> 46:03.719] así no nos cortamos el,
+[46:03.719 -> 46:05.719] real analiz que estamos haciendo,
+[46:26.719 -> 46:30.719] pero,
+[46:30.719 -> 46:48.719] y,
+[46:48.719 -> 46:50.719] ok,
+[46:50.719 -> 46:51.719] y,
+[46:51.719 -> 46:51.719] yo,
+[46:51.719 -> 46:53.719] el que no he bastado,
+[46:56.719 -> 46:57.719] ahora,
+[46:57.719 -> 46:58.719] el,
+[46:58.719 -> 46:59.719] lo que les decía,
+[46:59.719 -> 47:00.719] el siguiente,
+[47:00.719 -> 47:01.719] gol,
+[47:01.719 -> 47:02.719] bueno,
+[47:02.719 -> 47:03.719] el final,
+[47:03.719 -> 47:04.719] es que nuestro mico se dice,
+[47:04.719 -> 47:06.719] se han autónolo,
+[47:06.719 -> 47:11.719] quiere decir que va a tener
+[47:11.719 -> 47:13.719] propio mecanismo adíngel,
+[47:13.719 -> 47:19.719] voy a mover esto un poco más abajo,
+[47:24.719 -> 47:26.719] voy a subir esta acá,
+[47:26.719 -> 47:35.719] hago que no puse en nosotros,
+[47:35.719 -> 47:37.719] es que más este esto,
+[47:37.719 -> 47:40.719] pero,
+[47:40.719 -> 47:42.719] monolito tiene un ayue,
+[47:42.719 -> 47:43.719] una,
+[47:43.719 -> 47:44.719] ese p,
+[47:44.719 -> 47:45.719] creo que se nada a ver,
+[47:55.719 -> 47:57.719] ahora,
+[47:57.719 -> 47:59.719] no entonces,
+[47:59.719 -> 47:59.719] esto,
+[47:59.719 -> 47:59.719] bueno,
+[47:59.719 -> 48:00.719] esto se pena,
+[48:00.719 -> 48:01.719] ese pena angular,
+[48:01.719 -> 48:03.719] esto es piellena angular,
+[48:03.719 -> 48:04.719] básicamente nos da,
+[48:04.719 -> 48:05.719] los que payas de upload,
+[48:05.719 -> 48:07.719] los de capacidades de,
+[48:07.719 -> 48:08.719] de ver documentos,
+[48:08.719 -> 48:12.719] pero,
+[48:12.719 -> 48:12.719] pero,
+[48:12.719 -> 48:13.719] ellos documentos,
+[48:13.719 -> 48:15.719] y más,
+[48:15.719 -> 48:16.719] o sea,
+[48:16.719 -> 48:17.719] no,
+[48:17.719 -> 48:17.719] no,
+[48:17.719 -> 48:19.719] no lo levantado,
+[48:19.719 -> 48:20.719] y más,
+[48:20.719 -> 48:21.719] o sea,
+[48:21.719 -> 48:21.719] no,
+[48:21.719 -> 48:22.719] no lo levantado,
+[48:22.719 -> 48:24.719] no,
+[48:24.719 -> 48:25.719] porque,
+[48:25.719 -> 48:27.719] no me dejan tener
+[48:27.719 -> 48:28.719] dockere en esta computadora,
+[48:28.719 -> 48:33.719] ahora,
+[48:33.719 -> 48:39.719] podría tener mi propia
+[48:39.719 -> 48:42.719] UI para mi cosa de visio,
+[48:42.719 -> 48:46.719] podría ser una SPA en,
+[48:46.719 -> 48:48.719] en sí que lo una SPA
+[48:48.719 -> 48:49.719] podría estar en React,
+[48:51.719 -> 48:53.719] tan Urlar,
+[48:53.719 -> 48:55.719] View,
+[48:55.719 -> 48:57.719] S Belt,
+[48:57.719 -> 49:05.719] ¿Vale?
+[49:05.719 -> 49:13.719] Entonces,
+[49:13.719 -> 49:15.719] si vamos a tener mi cosa de visio,
+[49:15.719 -> 49:18.719] y si estamos pensando en mi grara,
+[49:18.719 -> 49:21.719] si vamos a tener una SPA,
+[49:21.719 -> 49:22.719] pero,
+[49:22.719 -> 49:24.719] si vamos a tener una SPA,
+[49:24.719 -> 49:26.719] si vamos a tener una SPA,
+[49:26.719 -> 49:27.719] si vamos a tener una SPA,
+[49:27.719 -> 49:28.719] si vamos a tener una SPA,
+[49:28.719 -> 49:29.719] si vamos a tener una SPA,
+[49:29.719 -> 49:30.719] si vamos a tener una SPA,
+[49:30.719 -> 49:32.719] si vamos a tener una SPA,
+[49:32.719 -> 49:34.719] si vamos a tener una SPA,
+[49:34.719 -> 49:36.719] si vamos a tener una SPA,
+[49:36.719 -> 49:37.719] si vamos a tener una SPA,
+[49:37.719 -> 49:38.719] si vamos a tener una SPA,
+[49:38.719 -> 49:39.719] si vamos a tener una SPA,
+[49:39.719 -> 49:41.719] si vamos a tener una SPA,
+[49:41.719 -> 49:42.719] si vamos a tener una SPA,
+[49:42.719 -> 49:43.719] si vamos a tener una SPA,
+[49:43.719 -> 49:44.719] si vamos a tener una SPA,
+[49:44.719 -> 49:45.719] si vamos a tener una SPA,
+[49:45.719 -> 49:46.719] si vamos a tener una SPA,
+[49:46.719 -> 49:47.719] si vamos a tener una SPA,
+[49:47.719 -> 49:49.719] si vamos a tener una SPA,
+[49:49.719 -> 49:51.719] si vamos a tener una SPA,
+[49:51.719 -> 49:53.719] si vamos a tener una SPA,
+[49:53.719 -> 49:55.719] si vamos a tener una SPA,
+[49:55.719 -> 49:56.719] si vamos a tener una SPA,
+[49:56.719 -> 49:57.719] si vamos a tener una SPA,
+[49:57.719 -> 49:58.719] si vamos a tener una SPA,
+[49:58.719 -> 49:59.719] si vamos a tener una SPA,
+[49:59.719 -> 50:01.719] si vamos a tener una SPA,
+[50:01.719 -> 50:02.719] si vamos a tener una SPA,
+[50:02.719 -> 50:03.719] si vamos a tener una SPA,
+[50:03.719 -> 50:04.719] si vamos a tener una SPA,
+[50:04.719 -> 50:05.719] si vamos a tener una SPA,
+[50:05.719 -> 50:06.719] si vamos a tener una SPA,
+[50:06.719 -> 50:07.719] si vamos a tener una SPA,
+[50:07.719 -> 50:08.719] si vamos a tener una SPA,
+[50:08.719 -> 50:10.719] si vamos a tener una SPA,
+[50:10.719 -> 50:11.719] si vamos a tener una SPA,
+[50:11.719 -> 50:12.719] si vamos a tener una SPA,
+[50:12.719 -> 50:13.719] si vamos a tener una SPA,
+[50:13.719 -> 50:14.719] si vamos a tener una SPA,
+[50:14.719 -> 50:15.719] si vamos a tener una SPA,
+[50:17.719 -> 50:19.719] si vamos a tener una SPA,
+[50:19.719 -> 50:20.719] si vamos a tener una SPA,
+[50:20.719 -> 50:21.719] si vamos a tener una SPA,
+[50:21.719 -> 50:23.719] si vamos a tener una SPA,
+[50:23.719 -> 50:24.719] si vamos a tener una SPA,
+[50:24.719 -> 50:25.719] si vamos a tener una SPA,
+[50:25.719 -> 50:26.719] si vamos a tener una SPA,
+[50:26.719 -> 50:27.719] si vamos a tener una SPA,
+[50:27.719 -> 50:29.719] si vamos a tener una SPA,
+[50:29.719 -> 50:31.719] si vamos a tener una SPA,
+[50:31.719 -> 50:32.719] si vamos a tener una SPA,
+[50:32.719 -> 50:33.719] si vamos a tener una SPA,
+[50:33.719 -> 50:34.719] si vamos a tener una SPA,
+[50:34.719 -> 50:35.719] si vamos a tener una SPA,
+[50:35.719 -> 50:36.719] si vamos a tener una SPA,
+[50:36.719 -> 50:37.719] si vamos a tener una SPA,
+[50:37.719 -> 50:38.719] si vamos a tener una SPA,
+[50:38.719 -> 50:39.719] si vamos a tener una SPA,
+[50:39.719 -> 50:40.719] si vamos a tener una SPA,
+[50:40.719 -> 50:41.719] si vamos a tener una SPA,
+[50:41.719 -> 50:42.719] si vamos a tener una SPA,
+[50:42.719 -> 50:43.719] si vamos a tener una SPA,
+[50:48.719 -> 50:50.719] si vamos a tener una SPA,
+[50:50.719 -> 50:51.719] si vamos a tener una SPA,
+[50:51.719 -> 50:53.719] si vamos a tener una SPA,
+[50:53.719 -> 50:54.719] si vamos a tener una SPA,
+[50:54.719 -> 50:55.719] si vamos a tener una SPA,
+[50:55.719 -> 50:56.719] si vamos a tener una SPA,
+[50:56.719 -> 50:57.719] si vamos a tener una SPA,
+[50:57.719 -> 50:59.719] si vamos a tener una SPA,
+[50:59.719 -> 51:01.719] si vamos a tener una SPA,
+[51:01.719 -> 51:02.719] si vamos a tener una SPA,
+[51:02.719 -> 51:03.719] si vamos a tener una SPA,
+[51:03.719 -> 51:04.719] si vamos a tener una SPA,
+[51:04.719 -> 51:05.719] si vamos a tener una SPA,
+[51:05.719 -> 51:06.719] si vamos a tener una SPA,
+[51:06.719 -> 51:07.719] si vamos a tener una SPA,
+[51:07.719 -> 51:08.719] si vamos a tener una SPA,
+[51:08.719 -> 51:08.719] si vamos a tener una SPA,
+[51:08.719 -> 51:09.719] si vamos a tener una SPA,
+[51:09.719 -> 51:10.719] si vamos a tener una SPA,
+[51:10.719 -> 51:11.719] si vamos a tener una SPA,
+[51:11.719 -> 51:12.719] si vamos a tener una SPA,
+[51:12.719 -> 51:13.719] si vamos a tener una SPA,
+[51:17.719 -> 51:19.719] si vamos a tener una SPA,
+[51:19.719 -> 51:20.719] si vamos a tener una SPA,
+[51:20.719 -> 51:21.719] si vamos a tener una SPA,
+[51:21.719 -> 51:23.719] si vamos a tener una SPA,
+[51:23.719 -> 51:24.719] si vamos a tener una SPA,
+[51:24.719 -> 51:25.719] si vamos a tener una SPA,
+[51:25.719 -> 51:26.719] si vamos a tener una SPA,
+[51:26.719 -> 51:28.719] si vamos a tener una SPA,
+[51:28.719 -> 51:29.719] si vamos a tener una SPA,
+[51:29.719 -> 51:30.719] si vamos a tener una SPA,
+[51:30.719 -> 51:31.719] si vamos a tener una SPA,
+[51:31.719 -> 51:32.719] si vamos a tener una SPA,
+[51:32.719 -> 51:33.719] si vamos a tener una SPA,
+[51:33.719 -> 51:34.719] si vamos a tener una SPA,
+[51:34.719 -> 51:35.719] si vamos a tener una SPA,
+[51:35.719 -> 51:36.719] si vamos a tener una SPA,
+[51:36.719 -> 51:37.719] si vamos a tener una SPA,
+[51:37.719 -> 51:38.719] si vamos a tener una SPA,
+[51:38.719 -> 51:38.719] si vamos a tener una SPA,
+[51:38.719 -> 51:40.719] si vamos a tener una SPA,
+[51:40.719 -> 51:41.719] si vamos a tener una SPA,
+[51:41.719 -> 51:42.719] si vamos a tener una SPA,
+[51:48.719 -> 51:50.719] si vamos a tener una SPA,
+[51:50.719 -> 51:51.719] si vamos a tener una SPA,
+[51:51.719 -> 51:52.719] si vamos a tener una SPA,
+[51:52.719 -> 51:53.719] si vamos a tener una SPA,
+[51:53.719 -> 51:54.719] si vamos a tener una SPA,
+[51:54.719 -> 51:55.719] si vamos a tener una SPA,
+[51:55.719 -> 51:56.719] si vamos a tener una SPA,
+[51:56.719 -> 51:57.719] si vamos a tener una SPA,
+[51:57.719 -> 51:58.719] si vamos a tener una SPA,
+[51:58.719 -> 51:59.719] si vamos a tener una SPA,
+[51:59.719 -> 52:00.719] si vamos a tener una SPA,
+[52:00.719 -> 52:01.719] si vamos a tener una SPA,
+[52:01.719 -> 52:02.719] si vamos a tener una SPA,
+[52:02.719 -> 52:03.719] si vamos a tener una SPA,
+[52:03.719 -> 52:04.719] si vamos a tener una SPA,
+[52:04.719 -> 52:05.719] si vamos a tener una SPA,
+[52:05.719 -> 52:06.719] si vamos a tener una SPA,
+[52:06.719 -> 52:07.719] si vamos a tener una SPA,
+[52:07.719 -> 52:08.719] si vamos a tener una SPA,
+[52:08.719 -> 52:09.719] si vamos a tener una SPA,
+[52:09.719 -> 52:10.719] si vamos a tener una SPA,
+[52:10.719 -> 52:11.719] si vamos a tener una SPA,
+[52:18.719 -> 52:20.719] si vamos a tener una SPA,
+[52:20.719 -> 52:21.719] si vamos a tener una SPA,
+[52:21.719 -> 52:23.719] si vamos a tener una SPA,
+[52:23.719 -> 52:24.719] si vamos a tener una SPA,
+[52:24.719 -> 52:26.719] si vamos a tener una SPA,
+[52:26.719 -> 52:27.719] si vamos a tener una SPA,
+[52:27.719 -> 52:29.719] si vamos a tener una SPA,
+[52:29.719 -> 52:31.719] si vamos a tener una SPA,
+[52:31.719 -> 52:32.719] si vamos a tener una SPA,
+[52:32.719 -> 52:33.719] si vamos a tener una SPA,
+[52:33.719 -> 52:34.719] si vamos a tener una SPA,
+[52:34.719 -> 52:35.719] si vamos a tener una SPA,
+[52:35.719 -> 52:36.719] si vamos a tener una SPA,
+[52:36.719 -> 52:37.719] si vamos a tener una SPA,
+[52:37.719 -> 52:38.719] si vamos a tener una SPA,
+[52:38.719 -> 52:40.719] si vamos a tener una SPA,
+[52:40.719 -> 52:41.719] si vamos a tener una SPA,
+[52:41.719 -> 52:42.719] si vamos a tener una SPA,
+[52:42.719 -> 52:43.719] si vamos a tener una SPA,
+[52:43.719 -> 52:44.719] si vamos a tener una SPA,
+[52:44.719 -> 52:45.719] si vamos a tener una SPA,
+[52:45.719 -> 52:47.719] si vamos a tener una SPA,
+[52:47.719 -> 52:48.719] si vamos a tener una SPA,
+[52:48.719 -> 52:49.719] si vamos a tener una SPA,
+[52:49.719 -> 52:51.719] si vamos a tener una SPA,
+[52:51.719 -> 52:52.719] si vamos a tener una SPA,
+[52:52.719 -> 52:53.719] si vamos a tener una SPA,
+[52:53.719 -> 52:54.719] si vamos a tener una SPA,
+[52:54.719 -> 52:55.719] si vamos a tener una SPA,
+[52:55.719 -> 52:56.719] si vamos a tener una SPA,
+[52:56.719 -> 52:57.719] si vamos a tener una SPA,
+[52:57.719 -> 52:59.719] si vamos a tener una SPA,
+[52:59.719 -> 53:00.719] si vamos a tener una SPA,
+[53:00.719 -> 53:01.719] si vamos a tener una SPA,
+[53:01.719 -> 53:02.719] si vamos a tener una SPA,
+[53:02.719 -> 53:03.719] si vamos a tener una SPA,
+[53:03.719 -> 53:04.719] si vamos a tener una SPA,
+[53:04.719 -> 53:05.719] si vamos a tener una SPA,
+[53:05.719 -> 53:06.719] si vamos a tener una SPA,
+[53:06.719 -> 53:07.719] si vamos a tener una SPA,
+[53:07.719 -> 53:08.719] si vamos a tener una SPA,
+[53:08.719 -> 53:09.719] si vamos a tener una SPA,
+[53:09.719 -> 53:10.719] si vamos a tener una SPA,
+[53:15.719 -> 53:17.719] si vamos a tener una SPA,
+[53:17.719 -> 53:18.719] si vamos a tener una SPA,
+[53:18.719 -> 53:19.719] si vamos a tener una SPA,
+[53:19.719 -> 53:21.719] si vamos a tener una SPA,
+[53:21.719 -> 53:22.719] si vamos a tener una SPA,
+[53:22.719 -> 53:23.719] si vamos a tener una SPA,
+[53:23.719 -> 53:24.719] si vamos a tener una SPA,
+[53:24.719 -> 53:25.719] si vamos a tener una SPA,
+[53:25.719 -> 53:26.719] si vamos a tener una SPA,
+[53:26.719 -> 53:27.719] si vamos a tener una SPA,
+[53:27.719 -> 53:28.719] si vamos a tener una SPA,
+[53:28.719 -> 53:29.719] si vamos a tener una SPA,
+[53:29.719 -> 53:30.719] si vamos a tener una SPA,
+[53:30.719 -> 53:32.719] si vamos a tener una SPA,
+[53:32.719 -> 53:34.719] si vamos a tener una SPA,
+[53:34.719 -> 53:35.719] si vamos a tener una SPA,
+[53:35.719 -> 53:36.719] si vamos a tener una SPA,
+[53:36.719 -> 53:38.719] si vamos a tener una SPA,
+[53:38.719 -> 53:39.719] si vamos a tener una SPA,
+[53:39.719 -> 53:40.719] si vamos a tener una SPA,
+[53:40.719 -> 53:41.719] si vamos a tener una SPA,
+[53:41.719 -> 53:42.719] si vamos a tener una SPA,
+[53:45.719 -> 53:47.719] si vamos a tener una SPA,
+[53:47.719 -> 53:48.719] si vamos a tener una SPA,
+[53:48.719 -> 53:49.719] si vamos a tener una SPA,
+[53:49.719 -> 53:51.719] si vamos a tener una SPA,
+[53:51.719 -> 53:52.719] si vamos a tener una SPA,
+[53:52.719 -> 53:53.719] si vamos a tener una SPA,
+[53:53.719 -> 53:54.719] si vamos a tener una SPA,
+[53:54.719 -> 53:55.719] si vamos a tener una SPA,
+[53:55.719 -> 53:56.719] si vamos a tener una SPA,
+[53:56.719 -> 53:57.719] si vamos a tener una SPA,
+[53:57.719 -> 53:58.719] si vamos a tener una SPA,
+[53:58.719 -> 53:59.719] si vamos a tener una SPA,
+[53:59.719 -> 54:00.719] si vamos a tener una SPA,
+[54:00.719 -> 54:01.719] si vamos a tener una SPA,
+[54:01.719 -> 54:02.719] si vamos a tener una SPA,
+[54:02.719 -> 54:03.719] si vamos a tener una SPA,
+[54:03.719 -> 54:04.719] si vamos a tener una SPA,
+[54:04.719 -> 54:05.719] si vamos a tener una SPA,
+[54:05.719 -> 54:06.719] si vamos a tener una SPA,
+[54:06.719 -> 54:07.719] si vamos a tener una SPA,
+[54:07.719 -> 54:08.719] si vamos a tener una SPA,
+[54:08.719 -> 54:09.719] si vamos a tener una SPA,
+[54:16.719 -> 54:18.719] si vamos a tener una SPA,
+[54:18.719 -> 54:19.719] si vamos a tener una SPA,
+[54:19.719 -> 54:21.719] si vamos a tener una SPA,
+[54:21.719 -> 54:22.719] si vamos a tener una SPA,
+[54:22.719 -> 54:23.719] si vamos a tener una SPA,
+[54:23.719 -> 54:24.719] si vamos a tener una SPA,
+[54:24.719 -> 54:25.719] si vamos a tener una SPA,
+[54:25.719 -> 54:27.719] si vamos a tener una SPA,
+[54:27.719 -> 54:28.719] si vamos a tener una SPA,
+[54:28.719 -> 54:29.719] si vamos a tener una SPA,
+[54:29.719 -> 54:30.719] si vamos a tener una SPA,
+[54:30.719 -> 54:31.719] si vamos a tener una SPA,
+[54:31.719 -> 54:32.719] si vamos a tener una SPA,
+[54:32.719 -> 54:34.719] si vamos a tener una SPA,
+[54:34.719 -> 54:35.719] si vamos a tener una SPA,
+[54:35.719 -> 54:36.719] si vamos a tener una SPA,
+[54:36.719 -> 54:37.719] si vamos a tener una SPA,
+[54:37.719 -> 54:38.719] si vamos a tener una SPA,
+[54:38.719 -> 54:39.719] si vamos a tener una SPA,
+[54:39.719 -> 54:40.719] si vamos a tener una SPA,
+[54:40.719 -> 54:41.719] si vamos a tener una SPA,
+[54:41.719 -> 54:42.719] si vamos a tener una SPA,
+[54:45.719 -> 54:47.719] si vamos a tener una SPA,
+[54:47.719 -> 54:48.719] si vamos a tener una SPA,
+[54:48.719 -> 54:49.719] si vamos a tener una SPA,
+[54:49.719 -> 54:51.719] si vamos a tener una SPA,
+[54:51.719 -> 54:53.719] si vamos a tener una SPA,
+[54:53.719 -> 54:54.719] si vamos a tener una SPA,
+[54:54.719 -> 54:55.719] si vamos a tener una SPA,
+[54:55.719 -> 54:57.719] si vamos a tener una SPA,
+[54:57.719 -> 54:59.719] si vamos a tener una SPA,
+[54:59.719 -> 55:00.719] si vamos a tener una SPA,
+[55:00.719 -> 55:01.719] si vamos a tener una SPA,
+[55:01.719 -> 55:02.719] si vamos a tener una SPA,
+[55:02.719 -> 55:03.719] si vamos a tener una SPA,
+[55:03.719 -> 55:04.719] si vamos a tener una SPA,
+[55:04.719 -> 55:05.719] si vamos a tener una SPA,
+[55:05.719 -> 55:06.719] si vamos a tener una SPA,
+[55:06.719 -> 55:07.719] si vamos a tener una SPA,
+[55:07.719 -> 55:08.719] si vamos a tener una SPA,
+[55:08.719 -> 55:09.719] si vamos a tener una SPA,
+[55:09.719 -> 55:10.719] si vamos a tener una SPA,
+[55:10.719 -> 55:11.719] si vamos a tener una SPA,
+[55:11.719 -> 55:12.719] si vamos a tener una SPA,
+[55:15.719 -> 55:17.719] si vamos a tener una SPA,
+[55:17.719 -> 55:18.719] si vamos a tener una SPA,
+[55:18.719 -> 55:19.719] si vamos a tener una SPA,
+[55:19.719 -> 55:21.719] si vamos a tener una SPA,
+[55:21.719 -> 55:22.719] si vamos a tener una SPA,
+[55:22.719 -> 55:23.719] si vamos a tener una SPA,
+[55:23.719 -> 55:24.719] si vamos a tener una SPA,
+[55:24.719 -> 55:26.719] si vamos a tener una SPA,
+[55:26.719 -> 55:27.719] si vamos a tener una SPA,
+[55:27.719 -> 55:28.719] si vamos a tener una SPA,
+[55:28.719 -> 55:29.719] si vamos a tener una SPA,
+[55:29.719 -> 55:30.719] si vamos a tener una SPA,
+[55:30.719 -> 55:31.719] si vamos a tener una SPA,
+[55:31.719 -> 55:32.719] si vamos a tener una SPA,
+[55:32.719 -> 55:33.719] si vamos a tener una SPA,
+[55:33.719 -> 55:34.719] si vamos a tener una SPA,
+[55:34.719 -> 55:35.719] si vamos a tener una SPA,
+[55:35.719 -> 55:36.719] si vamos a tener una SPA,
+[55:36.719 -> 55:36.719] si vamos a tener una SPA,
+[55:36.719 -> 55:38.719] si vamos a tener una SPA,
+[55:38.719 -> 55:39.719] si vamos a tener una SPA,
+[55:39.719 -> 55:40.719] si vamos a tener una SPA,
+[55:45.719 -> 55:47.719] si vamos a tener una SPA,
+[55:47.719 -> 55:48.719] si vamos a tener una SPA,
+[55:48.719 -> 55:49.719] si vamos a tener una SPA,
+[55:49.719 -> 55:51.719] si vamos a tener una SPA,
+[55:51.719 -> 55:52.719] si vamos a tener una SPA,
+[55:52.719 -> 55:53.719] si vamos a tener una SPA,
+[55:53.719 -> 55:54.719] si vamos a tener una SPA,
+[55:54.719 -> 55:55.719] si vamos a tener una SPA,
+[55:55.719 -> 55:56.719] si vamos a tener una SPA,
+[55:56.719 -> 55:57.719] si vamos a tener una SPA,
+[55:57.719 -> 55:58.719] si vamos a tener una SPA,
+[55:58.719 -> 55:59.719] si vamos a tener una SPA,
+[55:59.719 -> 56:00.719] si vamos a tener una SPA,
+[56:00.719 -> 56:01.719] si vamos a tener una SPA,
+[56:01.719 -> 56:02.719] si vamos a tener una SPA,
+[56:02.719 -> 56:03.719] si vamos a tener una SPA,
+[56:03.719 -> 56:04.719] si vamos a tener una SPA,
+[56:04.719 -> 56:05.719] si vamos a tener una SPA,
+[56:05.719 -> 56:06.719] si vamos a tener una SPA,
+[56:06.719 -> 56:07.719] si vamos a tener una SPA,
+[56:07.719 -> 56:08.719] si vamos a tener una SPA,
+[56:08.719 -> 56:09.719] si vamos a tener una SPA,
+[56:15.719 -> 56:18.719] si vamos a tener una SPA,
+[56:18.719 -> 56:19.719] si vamos a tener una SPA,
+[56:19.719 -> 56:21.719] si vamos a tener una SPA,
+[56:21.719 -> 56:22.719] si vamos a tener una SPA,
+[56:22.719 -> 56:24.719] si vamos a tener una SPA,
+[56:24.719 -> 56:25.719] si vamos a tener una SPA,
+[56:25.719 -> 56:27.719] si vamos a tener una SPA,
+[56:27.719 -> 56:28.719] si vamos a tener una SPA,
+[56:28.719 -> 56:29.719] si vamos a tener una SPA,
+[56:29.719 -> 56:30.719] si vamos a tener una SPA,
+[56:30.719 -> 56:31.719] si vamos a tener una SPA,
+[56:31.719 -> 56:32.719] si vamos a tener una SPA,
+[56:32.719 -> 56:33.719] si vamos a tener una SPA,
+[56:33.719 -> 56:34.719] si vamos a tener una SPA,
+[56:34.719 -> 56:35.719] si vamos a tener una SPA,
+[56:35.719 -> 56:36.719] si vamos a tener una SPA,
+[56:36.719 -> 56:38.719] si vamos a tener una SPA,
+[56:38.719 -> 56:38.719] si vamos a tener una SPA,
+[56:38.719 -> 56:40.719] si vamos a tener una SPA,
+[56:40.719 -> 56:41.719] si vamos a tener una SPA,
+[56:41.719 -> 56:42.719] si vamos a tener una SPA,
+[56:42.719 -> 56:43.719] si vamos a tener una SPA,
+[56:45.719 -> 56:47.719] si vamos a tener una SPA,
+[56:47.719 -> 56:48.719] si vamos a tener una SPA,
+[56:48.719 -> 56:49.719] si vamos a tener una SPA,
+[56:49.719 -> 56:51.719] si vamos a tener una SPA,
+[56:51.719 -> 56:52.719] si vamos a tener una SPA,
+[56:52.719 -> 56:53.719] si vamos a tener una SPA,
+[56:53.719 -> 56:54.719] si vamos a tener una SPA,
+[56:54.719 -> 56:55.719] si vamos a tener una SPA,
+[56:55.719 -> 56:56.719] si vamos a tener una SPA,
+[56:56.719 -> 56:57.719] si vamos a tener una SPA,
+[56:57.719 -> 56:58.719] si vamos a tener una SPA,
+[56:58.719 -> 56:59.719] si vamos a tener una SPA,
+[56:59.719 -> 57:00.719] si vamos a tener una SPA,
+[57:00.719 -> 57:01.719] si vamos a tener una SPA,
+[57:01.719 -> 57:02.719] si vamos a tener una SPA,
+[57:02.719 -> 57:03.719] si vamos a tener una SPA,
+[57:03.719 -> 57:04.719] si vamos a tener una SPA,
+[57:04.719 -> 57:05.719] si vamos a tener una SPA,
+[57:05.719 -> 57:06.719] si vamos a tener una SPA,
+[57:06.719 -> 57:07.719] si vamos a tener una SPA,
+[57:07.719 -> 57:08.719] si vamos a tener una SPA,
+[57:08.719 -> 57:09.719] si vamos a tener una SPA,
+[57:15.719 -> 57:17.720] si vamos a tener una SPA,
+[57:17.720 -> 57:18.720] si vamos a tener una SPA,
+[57:18.720 -> 57:19.720] si vamos a tener una SPA,
+[57:19.720 -> 57:21.720] si vamos a tener una SPA,
+[57:21.720 -> 57:23.720] si vamos a tener una SPA,
+[57:23.720 -> 57:24.720] si vamos a tener una SPA,
+[57:24.720 -> 57:25.720] si vamos a tener una SPA,
+[57:25.720 -> 57:27.720] si vamos a tener una SPA,
+[57:27.720 -> 57:29.720] si vamos a tener una SPA,
+[57:29.720 -> 57:31.720] si vamos a tener una SPA,
+[57:31.720 -> 57:32.720] si vamos a tener una SPA,
+[57:32.720 -> 57:33.720] si vamos a tener una SPA,
+[57:33.720 -> 57:34.720] si vamos a tener una SPA,
+[57:34.720 -> 57:35.720] si vamos a tener una SPA,
+[57:35.720 -> 57:36.720] si vamos a tener una SPA,
+[57:36.720 -> 57:38.720] si vamos a tener una SPA,
+[57:38.720 -> 57:39.720] si vamos a tener una SPA,
+[57:39.720 -> 57:40.720] si vamos a tener una SPA,
+[57:40.720 -> 57:41.720] si vamos a tener una SPA,
+[57:41.720 -> 57:42.720] si vamos a tener una SPA,
+[57:42.720 -> 57:43.720] si vamos a tener una SPA,
+[57:43.720 -> 57:44.720] si vamos a tener una SPA,
+[57:45.720 -> 57:47.720] si vamos a tener una SPA,
+[57:47.720 -> 57:48.720] si vamos a tener una SPA,
+[57:48.720 -> 57:49.720] si vamos a tener una SPA,
+[57:49.720 -> 57:51.720] si vamos a tener una SPA,
+[57:51.720 -> 57:52.720] si vamos a tener una SPA,
+[57:52.720 -> 57:53.720] si vamos a tener una SPA,
+[57:53.720 -> 57:54.720] si vamos a tener una SPA,
+[57:54.720 -> 57:55.720] si vamos a tener una SPA,
+[57:55.720 -> 57:57.720] si vamos a tener una SPA,
+[57:57.720 -> 57:59.720] si vamos a tener una SPA,
+[57:59.720 -> 58:01.720] si vamos a tener una SPA,
+[58:01.720 -> 58:03.720] si vamos a tener una SPA,
+[58:03.720 -> 58:04.720] si vamos a tener una SPA,
+[58:04.720 -> 58:05.720] si vamos a tener una SPA,
+[58:05.720 -> 58:06.720] si vamos a tener una SPA,
+[58:06.720 -> 58:06.720] si vamos a tener una SPA,
+[58:06.720 -> 58:08.720] si vamos a tener una SPA,
+[58:08.720 -> 58:08.720] si vamos a tener una SPA,
+[58:08.720 -> 58:09.720] si vamos a tener una SPA,
+[58:09.720 -> 58:10.720] si vamos a tener una SPA,
+[58:10.720 -> 58:11.720] si vamos a tener una SPA,
+[58:11.720 -> 58:12.720] si vamos a tener una SPA,
+[58:16.720 -> 58:18.720] si vamos a tener una SPA,
+[58:18.720 -> 58:19.720] si vamos a tener una SPA,
+[58:19.720 -> 58:20.720] si vamos a tener una SPA,
+[58:20.720 -> 58:21.720] si vamos a tener una SPA,
+[58:21.720 -> 58:23.720] si vamos a tener una SPA,
+[58:23.720 -> 58:24.720] si vamos a tener una SPA,
+[58:24.720 -> 58:25.720] si vamos a tener una SPA,
+[58:25.720 -> 58:26.720] si vamos a tener una SPA,
+[58:26.720 -> 58:27.720] si vamos a tener una SPA,
+[58:27.720 -> 58:28.720] si vamos a tener una SPA,
+[58:28.720 -> 58:30.720] si vamos a tener una SPA,
+[58:30.720 -> 58:32.720] si vamos a tener una SPA,
+[58:32.720 -> 58:33.720] si vamos a tener una SPA,
+[58:33.720 -> 58:34.720] si vamos a tener una SPA,
+[58:34.720 -> 58:35.720] si vamos a tener una SPA,
+[58:35.720 -> 58:36.720] si vamos a tener una SPA,
+[58:36.720 -> 58:36.720] si vamos a tener una SPA,
+[58:36.720 -> 58:37.720] si vamos a tener una SPA,
+[58:37.720 -> 58:38.720] si vamos a tener una SPA,
+[58:38.720 -> 58:39.720] si vamos a tener una SPA,
+[58:39.720 -> 58:40.720] si vamos a tener una SPA,
+[58:40.720 -> 58:41.720] si vamos a tener una SPA,
+[58:45.720 -> 58:47.720] si vamos a tener una SPA,
+[58:47.720 -> 58:49.720] si vamos a tener una SPA,
+[58:49.720 -> 58:51.720] si vamos a tener una SPA,
+[58:51.720 -> 58:52.720] si vamos a tener una SPA,
+[58:52.720 -> 58:54.720] si vamos a tener una SPA,
+[58:54.720 -> 58:55.720] si vamos a tener una SPA,
+[58:55.720 -> 58:57.720] si vamos a tener una SPA,
+[58:57.720 -> 58:58.720] si vamos a tener una SPA,
+[58:58.720 -> 59:00.720] si vamos a tener una SPA,
+[59:00.720 -> 59:02.720] si vamos a tener una SPA,
+[59:02.720 -> 59:04.720] si vamos a tener una SPA,
+[59:04.720 -> 59:05.720] si vamos a tener una SPA,
+[59:05.720 -> 59:06.720] si vamos a tener una SPA,
+[59:06.720 -> 59:08.720] si vamos a tener una SPA,
+[59:08.720 -> 59:09.720] si vamos a tener una SPA,
+[59:09.720 -> 59:10.720] si vamos a tener una SPA,
+[59:10.720 -> 59:11.720] si vamos a tener una SPA,
+[59:11.720 -> 59:12.720] si vamos a tener una SPA,
+[59:12.720 -> 59:13.720] si vamos a tener una SPA,
+[59:13.720 -> 59:14.720] si vamos a tener una SPA,
+[59:14.720 -> 59:16.720] si vamos a tener una SPA,
+[59:16.720 -> 59:17.720] si vamos a tener una SPA,
+[59:17.720 -> 59:18.720] si vamos a tener una SPA,
+[59:18.720 -> 59:20.720] si vamos a tener una SPA,
+[59:20.720 -> 59:21.720] si vamos a tener una SPA,
+[59:21.720 -> 59:22.720] si vamos a tener una SPA,
+[59:22.720 -> 59:23.720] si vamos a tener una SPA,
+[59:23.720 -> 59:24.720] si vamos a tener una SPA,
+[59:24.720 -> 59:25.720] si vamos a tener una SPA,
+[59:25.720 -> 59:26.720] si vamos a tener una SPA,
+[59:26.720 -> 59:27.720] si vamos a tener una SPA,
+[59:27.720 -> 59:29.720] si vamos a tener una SPA,
+[59:29.720 -> 59:31.720] si vamos a tener una SPA,
+[59:31.720 -> 59:32.720] si vamos a tener una SPA,
+[59:32.720 -> 59:33.720] si vamos a tener una SPA,
+[59:33.720 -> 59:34.720] si vamos a tener una SPA,
+[59:34.720 -> 59:35.720] si vamos a tener una SPA,
+[59:35.720 -> 59:35.720] si vamos a tener una SPA,
+[59:35.720 -> 59:36.720] si vamos a tener una SPA,
+[59:36.720 -> 59:37.720] si vamos a tener una SPA,
+[59:37.720 -> 59:38.720] si vamos a tener una SPA,
+[59:38.720 -> 59:39.720] si vamos a tener una SPA,
+[59:44.720 -> 59:47.720] si vamos a tener una SPA,
+[59:47.720 -> 59:48.720] si vamos a tener una SPA,
+[59:48.720 -> 59:50.720] si vamos a tener una SPA,
+[59:50.720 -> 59:51.720] si vamos a tener una SPA,
+[59:51.720 -> 59:53.720] si vamos a tener una SPA,
+[59:53.720 -> 59:54.720] si vamos a tener una SPA,
+[59:54.720 -> 59:56.720] si vamos a tener una SPA,
+[59:56.720 -> 59:57.720] si vamos a tener una SPA,
+[59:57.720 -> 59:58.720] si vamos a tener una SPA,
+[59:58.720 -> 59:59.720] si vamos a tener una SPA,
+[59:59.720 -> 60:00.720] si vamos a tener una SPA,
+[60:00.720 -> 60:01.720] si vamos a tener una SPA,
+[60:01.720 -> 60:02.720] si vamos a tener una SPA,
+[60:02.720 -> 60:03.720] si vamos a tener una SPA,
+[60:03.720 -> 60:04.720] si vamos a tener una SPA,
+[60:04.720 -> 60:05.720] si vamos a tener una SPA,
+[60:05.720 -> 60:05.720] si vamos a tener una SPA,
+[60:05.720 -> 60:06.720] si vamos a tener una SPA,
+[60:06.720 -> 60:07.720] si vamos a tener una SPA,
+[60:07.720 -> 60:08.720] si vamos a tener una SPA,
+[60:08.720 -> 60:09.720] si vamos a tener una SPA,
+[60:09.720 -> 60:10.720] si vamos a tener una SPA,
+[60:14.720 -> 60:16.720] si vamos a tener una SPA,
+[60:16.720 -> 60:17.720] si vamos a tener una SPA,
+[60:17.720 -> 60:18.720] si vamos a tener una SPA,
+[60:18.720 -> 60:20.720] si vamos a tener una SPA,
+[60:20.720 -> 60:21.720] si vamos a tener una SPA,
+[60:21.720 -> 60:22.720] si vamos a tener una SPA,
+[60:22.720 -> 60:23.720] si vamos a tener una SPA,
+[60:23.720 -> 60:24.720] si vamos a tener una SPA,
+[60:24.720 -> 60:26.720] si vamos a tener una SPA,
+[60:26.720 -> 60:27.720] si vamos a tener una SPA,
+[60:27.720 -> 60:28.720] si vamos a tener una SPA,
+[60:28.720 -> 60:29.720] si vamos a tener una SPA,
+[60:29.720 -> 60:30.720] si vamos a tener una SPA,
+[60:30.720 -> 60:31.720] si vamos a tener una SPA,
+[60:31.720 -> 60:32.720] si vamos a tener una SPA,
+[60:32.720 -> 60:33.720] si vamos a tener una SPA,
+[60:33.720 -> 60:34.720] si vamos a tener una SPA,
+[60:34.720 -> 60:35.720] si vamos a tener una SPA,
+[60:35.720 -> 60:35.720] si vamos a tener una SPA,
+[60:35.720 -> 60:36.720] si vamos a tener una SPA,
+[60:36.720 -> 60:37.720] si vamos a tener una SPA,
+[60:37.720 -> 60:38.720] si vamos a tener una SPA,
+[60:44.720 -> 60:47.720] si vamos a tener una SPA,
+[60:47.720 -> 60:48.720] si vamos a tener una SPA,
+[60:48.720 -> 60:50.720] si vamos a tener una SPA,
+[60:50.720 -> 60:51.720] si vamos a tener una SPA,
+[60:51.720 -> 60:52.720] si vamos a tener una SPA,
+[60:52.720 -> 60:53.720] si vamos a tener una SPA,
+[60:53.720 -> 60:55.720] si vamos a tener una SPA,
+[60:55.720 -> 60:56.720] si vamos a tener una SPA,
+[60:56.720 -> 60:57.720] si vamos a tener una SPA,
+[60:57.720 -> 60:58.720] si vamos a tener una SPA,
+[60:58.720 -> 60:59.720] si vamos a tener una SPA,
+[60:59.720 -> 61:00.720] si vamos a tener una SPA,
+[61:00.720 -> 61:01.720] si vamos a tener una SPA,
+[61:01.720 -> 61:02.720] si vamos a tener una SPA,
+[61:02.720 -> 61:03.720] si vamos a tener una SPA,
+[61:03.720 -> 61:04.720] si vamos a tener una SPA,
+[61:04.720 -> 61:05.720] si vamos a tener una SPA,
+[61:05.720 -> 61:07.720] si vamos a tener una SPA,
+[61:07.720 -> 61:07.720] si vamos a tener una SPA,
+[61:07.720 -> 61:08.720] si vamos a tener una SPA,
+[61:08.720 -> 61:09.720] si vamos a tener una SPA,
+[61:09.720 -> 61:10.720] si vamos a tener una SPA,
+[61:14.720 -> 61:16.720] si vamos a tener una SPA,
+[61:16.720 -> 61:17.720] si vamos a tener una SPA,
+[61:17.720 -> 61:18.720] si vamos a tener una SPA,
+[61:18.720 -> 61:20.720] si vamos a tener una SPA,
+[61:20.720 -> 61:21.720] si vamos a tener una SPA,
+[61:21.720 -> 61:23.720] si vamos a tener una SPA,
+[61:23.720 -> 61:25.720] si vamos a tener una SPA,
+[61:25.720 -> 61:26.720] si vamos a tener una SPA,
+[61:26.720 -> 61:27.720] si vamos a tener una SPA,
+[61:27.720 -> 61:28.720] si vamos a tener una SPA,
+[61:28.720 -> 61:29.720] si vamos a tener una SPA,
+[61:29.720 -> 61:30.720] si vamos a tener una SPA,
+[61:30.720 -> 61:31.720] si vamos a tener una SPA,
+[61:31.720 -> 61:32.720] si vamos a tener una SPA,
+[61:32.720 -> 61:33.720] si vamos a tener una SPA,
+[61:33.720 -> 61:34.720] si vamos a tener una SPA,
+[61:34.720 -> 61:35.720] si vamos a tener una SPA,
+[61:35.720 -> 61:36.720] si vamos a tener una SPA,
+[61:36.720 -> 61:37.720] si vamos a tener una SPA,
+[61:37.720 -> 61:38.720] si vamos a tener una SPA,
+[61:38.720 -> 61:39.720] si vamos a tener una SPA,
+[61:39.720 -> 61:40.720] si vamos a tener una SPA,
+[61:44.720 -> 61:47.720] si vamos a tener una SPA,
+[61:47.720 -> 61:49.720] si vamos a tener una SPA,
+[61:49.720 -> 61:51.720] si vamos a tener una SPA,
+[61:51.720 -> 61:53.720] si vamos a tener una SPA,
+[61:53.720 -> 61:55.720] si vamos a tener una SPA,
+[61:55.720 -> 61:56.720] si vamos a tener una SPA,
+[61:56.720 -> 61:57.720] si vamos a tener una SPA,
+[61:57.720 -> 61:58.720] si vamos a tener una SPA,
+[61:58.720 -> 61:59.720] si vamos a tener una SPA,
+[61:59.720 -> 62:00.720] si vamos a tener una SPA,
+[62:00.720 -> 62:01.720] si vamos a tener una SPA,
+[62:01.720 -> 62:02.720] si vamos a tener una SPA,
+[62:02.720 -> 62:03.720] si vamos a tener una SPA,
+[62:03.720 -> 62:04.720] si vamos a tener una SPA,
+[62:04.720 -> 62:05.720] si vamos a tener una SPA,
+[62:05.720 -> 62:05.720] si vamos a tener una SPA,
+[62:05.720 -> 62:07.720] si vamos a tener una SPA,
+[62:07.720 -> 62:07.720] si vamos a tener una SPA,
+[62:07.720 -> 62:08.720] si vamos a tener una SPA,
+[62:08.720 -> 62:09.720] si vamos a tener una SPA,
+[62:09.720 -> 62:10.720] si vamos a tener una SPA,
+[62:10.720 -> 62:11.720] si vamos a tener una SPA,
+[62:15.720 -> 62:17.720] si vamos a tener una SPA,
+[62:17.720 -> 62:18.720] si vamos a tener una SPA,
+[62:18.720 -> 62:20.720] si vamos a tener una SPA,
+[62:20.720 -> 62:22.720] si vamos a tener una SPA,
+[62:22.720 -> 62:23.720] si vamos a tener una SPA,
+[62:23.720 -> 62:24.720] si vamos a tener una SPA,
+[62:24.720 -> 62:26.720] si vamos a tener una SPA,
+[62:26.720 -> 62:27.720] si vamos a tener una SPA,
+[62:27.720 -> 62:28.720] si vamos a tener una SPA,
+[62:28.720 -> 62:29.720] si vamos a tener una SPA,
+[62:29.720 -> 62:30.720] si vamos a tener una SPA,
+[62:30.720 -> 62:31.720] si vamos a tener una SPA,
+[62:31.720 -> 62:32.720] si vamos a tener una SPA,
+[62:32.720 -> 62:33.720] si vamos a tener una SPA,
+[62:33.720 -> 62:34.720] si vamos a tener una SPA,
+[62:34.720 -> 62:35.720] si vamos a tener una SPA,
+[62:35.720 -> 62:35.720] si vamos a tener una SPA,
+[62:35.720 -> 62:37.720] si vamos a tener una SPA,
+[62:37.720 -> 62:37.720] si vamos a tener una SPA,
+[62:37.720 -> 62:38.720] si vamos a tener una SPA,
+[62:38.720 -> 62:39.720] si vamos a tener una SPA,
+[62:39.720 -> 62:40.720] si vamos a tener una SPA,
+[62:44.720 -> 62:46.720] si vamos a tener una SPA,
+[62:46.720 -> 62:47.720] si vamos a tener una SPA,
+[62:47.720 -> 62:48.720] si vamos a tener una SPA,
+[62:48.720 -> 62:50.720] si vamos a tener una SPA,
+[62:50.720 -> 62:51.720] si vamos a tener una SPA,
+[62:51.720 -> 62:52.720] si vamos a tener una SPA,
+[62:52.720 -> 62:53.720] si vamos a tener una SPA,
+[62:53.720 -> 62:55.720] si vamos a tener una SPA,
+[62:55.720 -> 62:56.720] si vamos a tener una SPA,
+[62:56.720 -> 62:57.720] si vamos a tener una SPA,
+[62:57.720 -> 62:58.720] si vamos a tener una SPA,
+[62:58.720 -> 62:59.720] si vamos a tener una SPA,
+[62:59.720 -> 63:00.720] si vamos a tener una SPA,
+[63:00.720 -> 63:01.720] si vamos a tener una SPA,
+[63:01.720 -> 63:02.720] si vamos a tener una SPA,
+[63:02.720 -> 63:03.720] si vamos a tener una SPA,
+[63:03.720 -> 63:04.720] si vamos a tener una SPA,
+[63:04.720 -> 63:05.720] si vamos a tener una SPA,
+[63:05.720 -> 63:06.720] si vamos a tener una SPA,
+[63:06.720 -> 63:07.720] si vamos a tener una SPA,
+[63:07.720 -> 63:08.720] si vamos a tener una SPA,
+[63:08.720 -> 63:09.720] si vamos a tener una SPA,
+[63:14.720 -> 63:16.720] si vamos a tener una SPA,
+[63:16.720 -> 63:18.720] si vamos a tener una SPA,
+[63:18.720 -> 63:20.720] si vamos a tener una SPA,
+[63:20.720 -> 63:22.720] si vamos a tener una SPA,
+[63:22.720 -> 63:23.720] si vamos a tener una SPA,
+[63:23.720 -> 63:24.720] si vamos a tener una SPA,
+[63:24.720 -> 63:25.720] si vamos a tener una SPA,
+[63:25.720 -> 63:26.720] si vamos a tener una SPA,
+[63:26.720 -> 63:27.720] si vamos a tener una SPA,
+[63:27.720 -> 63:28.720] si vamos a tener una SPA,
+[63:28.720 -> 63:29.720] si vamos a tener una SPA,
+[63:29.720 -> 63:30.720] si vamos a tener una SPA,
+[63:30.720 -> 63:31.720] si vamos a tener una SPA,
+[63:31.720 -> 63:32.720] si vamos a tener una SPA,
+[63:32.720 -> 63:33.720] si vamos a tener una SPA,
+[63:33.720 -> 63:34.720] si vamos a tener una SPA,
+[63:34.720 -> 63:35.720] si vamos a tener una SPA,
+[63:35.720 -> 63:36.720] si vamos a tener una SPA,
+[63:36.720 -> 63:37.720] si vamos a tener una SPA,
+[63:37.720 -> 63:38.720] si vamos a tener una SPA,
+[63:38.720 -> 63:39.720] si vamos a tener una SPA,
+[63:39.720 -> 63:40.720] si vamos a tener una SPA,
+[63:44.720 -> 63:46.720] si vamos a tener una SPA,
+[63:46.720 -> 63:47.720] si vamos a tener una SPA,
+[63:47.720 -> 63:48.720] si vamos a tener una SPA,
+[63:48.720 -> 63:50.720] si vamos a tener una SPA,
+[63:50.720 -> 63:51.720] si vamos a tener una SPA,
+[63:51.720 -> 63:52.720] si vamos a tener una SPA,
+[63:52.720 -> 63:53.720] si vamos a tener una SPA,
+[63:53.720 -> 63:54.720] si vamos a tener una SPA,
+[63:54.720 -> 63:55.720] si vamos a tener una SPA,
+[63:55.720 -> 63:56.720] si vamos a tener una SPA,
+[63:56.720 -> 63:57.720] si vamos a tener una SPA,
+[63:57.720 -> 63:58.720] si vamos a tener una SPA,
+[63:58.720 -> 63:59.720] si vamos a tener una SPA,
+[63:59.720 -> 64:00.720] si vamos a tener una SPA,
+[64:00.720 -> 64:01.720] si vamos a tener una SPA,
+[64:01.720 -> 64:02.720] si vamos a tener una SPA,
+[64:02.720 -> 64:03.720] si vamos a tener una SPA,
+[64:03.720 -> 64:04.720] si vamos a tener una SPA,
+[64:04.720 -> 64:05.720] si vamos a tener una SPA,
+[64:05.720 -> 64:06.720] si vamos a tener una SPA,
+[64:06.720 -> 64:07.720] si vamos a tener una SPA,
+[64:07.720 -> 64:08.720] si vamos a tener una SPA,
+[64:14.720 -> 64:16.720] si vamos a tener una SPA,
+[64:16.720 -> 64:17.720] si vamos a tener una SPA,
+[64:17.720 -> 64:18.720] si vamos a tener una SPA,
+[64:18.720 -> 64:20.720] si vamos a tener una SPA,
+[64:20.720 -> 64:21.720] si vamos a tener una SPA,
+[64:21.720 -> 64:22.720] si vamos a tener una SPA,
+[64:22.720 -> 64:23.720] si vamos a tener una SPA,
+[64:23.720 -> 64:25.720] si vamos a tener una SPA,
+[64:25.720 -> 64:26.720] si vamos a tener una SPA,
+[64:26.720 -> 64:27.720] si vamos a tener una SPA,
+[64:27.720 -> 64:28.720] si vamos a tener una SPA,
+[64:28.720 -> 64:29.720] si vamos a tener una SPA,
+[64:29.720 -> 64:30.720] si vamos a tener una SPA,
+[64:30.720 -> 64:31.720] si vamos a tener una SPA,
+[64:31.720 -> 64:32.720] si vamos a tener una SPA,
+[64:32.720 -> 64:33.720] si vamos a tener una SPA,
+[64:33.720 -> 64:34.720] si vamos a tener una SPA,
+[64:34.720 -> 64:35.720] si vamos a tener una SPA,
+[64:35.720 -> 64:36.720] si vamos a tener una SPA,
+[64:36.720 -> 64:37.720] si vamos a tener una SPA,
+[64:37.720 -> 64:38.720] si vamos a tener una SPA,
+[64:38.720 -> 64:39.720] si vamos a tener una SPA,
+[64:44.720 -> 64:46.720] si vamos a tener una SPA,
+[64:46.720 -> 64:48.720] si vamos a tener una SPA,
+[64:48.720 -> 64:50.720] si vamos a tener una SPA,
+[64:50.720 -> 64:51.720] si vamos a tener una SPA,
+[64:51.720 -> 64:52.720] si vamos a tener una SPA,
+[64:52.720 -> 64:53.720] si vamos a tener una SPA,
+[64:53.720 -> 64:54.720] si vamos a tener una SPA,
+[64:54.720 -> 64:55.720] si vamos a tener una SPA,
+[64:55.720 -> 64:56.720] si vamos a tener una SPA,
+[64:56.720 -> 64:57.720] si vamos a tener una SPA,
+[64:57.720 -> 64:58.720] si vamos a tener una SPA,
+[64:58.720 -> 64:59.720] si vamos a tener una SPA,
+[64:59.720 -> 65:00.720] si vamos a tener una SPA,
+[65:00.720 -> 65:01.720] si vamos a tener una SPA,
+[65:01.720 -> 65:02.720] si vamos a tener una SPA,
+[65:02.720 -> 65:03.720] si vamos a tener una SPA,
+[65:03.720 -> 65:04.720] si vamos a tener una SPA,
+[65:04.720 -> 65:05.720] si vamos a tener una SPA,
+[65:05.720 -> 65:06.720] si vamos a tener una SPA,
+[65:06.720 -> 65:07.720] si vamos a tener una SPA,
+[65:07.720 -> 65:08.720] si vamos a tener una SPA,
+[65:08.720 -> 65:09.720] si vamos a tener una SPA,
+[65:14.720 -> 65:15.720] si vamos a tener una SPA,
+[65:15.720 -> 65:16.720] si vamos a tener una SPA,
+[65:16.720 -> 65:17.720] si vamos a tener una SPA,
+[65:17.720 -> 65:18.720] si vamos a tener una SPA,
+[65:18.720 -> 65:19.720] si vamos a tener una SPA,
+[65:19.720 -> 65:20.720] si vamos a tener una SPA,
+[65:20.720 -> 65:21.720] si vamos a tener una SPA,
+[65:21.720 -> 65:22.720] si vamos a tener una SPA,
+[65:22.720 -> 65:23.720] si vamos a tener una SPA,
+[65:23.720 -> 65:24.720] si vamos a tener una SPA,
+[65:24.720 -> 65:26.720] si vamos a tener una SPA,
+[65:26.720 -> 65:27.720] si vamos a tener una SPA,
+[65:27.720 -> 65:28.720] si vamos a tener una SPA,
+[65:28.720 -> 65:29.720] si vamos a tener una SPA,
+[65:29.720 -> 65:30.720] si vamos a tener una SPA,
+[65:30.720 -> 65:31.720] si vamos a tener una SPA,
+[65:31.720 -> 65:32.720] si vamos a tener una SPA,
+[65:32.720 -> 65:33.720] si vamos a tener una SPA,
+[65:33.720 -> 65:34.720] si vamos a tener una SPA,
+[65:34.720 -> 65:35.720] si vamos a tener una SPA,
+[65:35.720 -> 65:36.720] si vamos a tener una SPA,
+[65:36.720 -> 65:37.720] si vamos a tener una SPA,
+[65:45.720 -> 65:47.720] si vamos a tener una SPA,
+[65:47.720 -> 65:48.720] si vamos a tener una SPA,
+[65:48.720 -> 65:50.720] si vamos a tener una SPA,
+[65:50.720 -> 65:51.720] si vamos a tener una SPA,
+[65:51.720 -> 65:52.720] si vamos a tener una SPA,
+[65:52.720 -> 65:53.720] si vamos a tener una SPA,
+[65:53.720 -> 65:54.720] si vamos a tener una SPA,
+[65:54.720 -> 65:55.720] si vamos a tener una SPA,
+[65:55.720 -> 65:56.720] si vamos a tener una SPA,
+[65:56.720 -> 65:58.720] si vamos a tener una SPA,
+[65:58.720 -> 65:59.720] si vamos a tener una SPA,
+[65:59.720 -> 66:00.720] si vamos a tener una SPA,
+[66:00.720 -> 66:01.720] si vamos a tener una SPA,
+[66:01.720 -> 66:02.720] si vamos a tener una SPA,
+[66:02.720 -> 66:03.720] si vamos a tener una SPA,
+[66:03.720 -> 66:04.720] si vamos a tener una SPA,
+[66:04.720 -> 66:05.720] si vamos a tener una SPA,
+[66:05.720 -> 66:05.720] si vamos a tener una SPA,
+[66:05.720 -> 66:05.720] si vamos a tener una SPA,
+[66:05.720 -> 66:06.720] si vamos a tener una SPA,
+[66:06.720 -> 66:07.720] si vamos a tener una SPA,
+[66:07.720 -> 66:08.720] si vamos a tener una SPA,
+[66:15.720 -> 66:16.720] entonces,
+[66:16.720 -> 66:20.720] el modo que tengo en ver información
+[66:20.720 -> 66:22.720] del nuevo metad de los nuevos metadados
+[66:22.720 -> 66:25.720] obtenidos al micóserveo y lo va a guardar.
+[66:25.720 -> 66:34.720] Es como tener dos hermanos si a meses,
+[66:34.720 -> 66:36.720] unidos por la cabeza,
+[66:36.720 -> 66:38.720] trabajando juntos.
+[66:45.720 -> 66:47.720] Pero nuestro punto de división
+[66:47.720 -> 66:48.720] tiene que ser la SLA
+[66:48.720 -> 66:49.720] y tiene que ser bien definido
+[66:49.720 -> 66:50.720] porque si no,
+[66:50.720 -> 66:52.720] hacemos la división y si nos mueren los dos.
+[66:52.720 -> 66:57.720] Pero como bueno,
+[66:57.720 -> 66:58.720] como le mencionaba,
+[66:58.720 -> 67:00.720] ese es nuestro gol final,
+[67:00.720 -> 67:02.720] el gol al que tenemos llegar.
+[67:02.720 -> 67:03.720] O sea,
+[67:03.720 -> 67:07.720] sé que las clases y el tiempo es corto,
+[67:07.720 -> 67:10.720] incluso con ella y se puede,
+[67:10.720 -> 67:13.720] pero complejo ahora no es la codificación.
+[67:13.720 -> 67:15.720] Es normal este tipo de
+[67:15.720 -> 67:18.720] de garabatos y deskemas y entender
+[67:18.720 -> 67:21.720] no la soluciona esta aquí en este garabato.
+[67:21.720 -> 67:28.720] No, cualquier gente de ella puede codificar esto.
+[67:28.720 -> 67:36.720] Pero hasta aquí sería
+[67:36.720 -> 67:38.720] digamos la explicación de lo que
+[67:38.720 -> 67:41.720] se espera para el final del capstone.
+[67:41.720 -> 67:44.720] Bueno, aquí falta en el microsoft busque.
+[67:44.720 -> 67:55.720] Voy a hacer esto.
+[67:55.720 -> 68:09.720] Voy a copiarlo.
+[68:12.720 -> 68:13.720] Y vamos a hacer esto.
+[68:13.720 -> 68:23.720] Voy a chequear.
+[68:23.720 -> 68:25.720] Voy a hacer este cartolo.
+[68:25.720 -> 68:35.720] Este es Search.
+[68:41.720 -> 68:43.720] Y vamos a hacer esto.
+[68:43.720 -> 68:51.720] Sí, creo que el monorillo de 10,000 más grandes.
+[68:51.720 -> 68:53.720] Creo que sí.
+[68:53.720 -> 68:56.720] Ahora.
+[68:56.720 -> 69:07.720] Bueno, ella se yo grabate a un documento.
+[69:07.720 -> 69:09.720] Tú las preguntas.
+[69:09.720 -> 69:11.720] ¿Qué?
+[69:11.720 -> 69:12.720] Se pedieron despaldas.
+[69:12.720 -> 69:14.720] ¿Siguien vivos?
+[69:14.720 -> 69:19.720] Vamos con Mirco y luego con Alex.
+[69:19.720 -> 69:24.720] Es necesario crear nuevas.
+[69:24.720 -> 69:28.720] Espeas para cada uno de los micros servicios.
+[69:28.720 -> 69:30.720] Podría.
+[69:30.720 -> 69:31.720] Va, es valido.
+[69:31.720 -> 69:34.720] Creo, por ejemplo, al al que tenemos ahorita en monorlito
+[69:34.720 -> 69:38.720] simplemente agregarlo un componente que nos iba
+[69:38.720 -> 69:41.720] para hacer funcionar ese microsoft visual como un tal.
+[69:41.720 -> 69:47.720] Bueno, pregunta.
+[69:47.720 -> 69:49.720] Pero nos estaríamos,
+[69:49.720 -> 69:52.720] como que casando a la SEPA del monorito.
+[69:52.720 -> 69:53.720] Es verdad, por favor.
+[69:53.720 -> 69:56.720] Ok.
+[69:56.720 -> 69:57.720] Tome, gracias.
+[69:57.720 -> 69:58.720] Sí.
+[69:58.720 -> 70:00.720] Como les digo, no sería muy complicado
+[70:00.720 -> 70:01.720] de los puntos de vista de UI.
+[70:01.720 -> 70:03.720] Creo que no va a UI.
+[70:03.720 -> 70:07.720] Incluso el gol, bueno, eso es la fuera de lo que se planteó.
+[70:07.720 -> 70:09.720] Entonces, es que no es otro SEPA en Angular.
+[70:09.720 -> 70:11.720] Se ha como que un Shell, un cascaron vacío.
+[70:11.720 -> 70:13.720] Y comenzar de la microfronense.
+[70:13.720 -> 70:15.720] Que carga microfonente.
+[70:15.720 -> 70:17.720] O sea, que carga microfonente.
+[70:17.720 -> 70:19.720] O sea, que carga microfonente.
+[70:19.720 -> 70:22.720] Entonces, Angular y este preparado pasarezo.
+[70:22.720 -> 70:39.720] No sé qué versión de Angular tendrá paperless.
+[70:39.720 -> 70:43.720] Pero Angular y Apple se puede transformar esto en un Shell.
+[70:43.720 -> 70:47.720] Y cada uno de los posibilos servicios no quieren Angular.
+[70:47.720 -> 70:53.720] Pero si es el que se puede transformar esto en Angular,
+[70:53.720 -> 70:55.720] puede ser el RVAC 4 que se ha soportado.
+[70:55.720 -> 71:00.720] Entonces, por native Federation creo que es el technique.
+[71:00.720 -> 71:04.720] Entonces, por native Federation, se puede quemar a cada microfronente.
+[71:04.720 -> 71:08.720] Pero bueno, eso solamente ya yo dipagando, pero se puede.
+[71:08.720 -> 71:10.720] Alex, ahora sí tú.
+[71:10.720 -> 71:12.720] Yo tengo, tengo ahora.
+[71:12.720 -> 71:17.720] Yo tengo que confundir un poco. No sé qué le va a hacer un poquito de su ingas en el micro servicio.
+[71:17.720 -> 71:20.720] Estamos antes en esa parte de la ingesta.
+[71:20.720 -> 71:24.720] Es que la colocáis y me confundo un poco.
+[71:24.720 -> 71:28.720] Porque esa es el micro servicio.
+[71:28.720 -> 71:33.720] Esa es como que está representando todo eso,
+[71:33.720 -> 71:35.720] como el flujo.
+[71:35.720 -> 71:38.720] Y la ingetas sería el monolito actual.
+[71:38.720 -> 71:44.720] Si, el monolito actual tiene, tiene eso propio.
+[71:44.720 -> 71:46.720] Me que no es bien ingesta.
+[71:46.720 -> 71:49.720] Ok, ahora sí, ya se, esa parte de esa parte de ese.
+[71:49.720 -> 71:53.720] El OSA R, ok. Entonces,
+[71:53.720 -> 71:57.720] yo lo pienso de esta forma, no, o sea como que un mic otro micro servicio.
+[71:57.720 -> 72:00.720] Que solamente se encargué de la parte de la ingesta.
+[72:00.720 -> 72:03.720] Que se comunique mediante, de ver.
+[72:03.720 -> 72:07.720] Porque automáticamente cuando uno subo archivo, cualquier que sea.
+[72:07.720 -> 72:12.720] El se procesa de manera inmediata como en los de que no hay que ni siquiera solicitarlo en la UI.
+[72:12.720 -> 72:14.720] Simplemente se hace.
+[72:14.720 -> 72:16.720] Entonces, sería como ingesta.
+[72:16.720 -> 72:17.720] Esa documento.
+[72:17.720 -> 72:21.720] Se guarda y se llama, es lo principal es que se guarda como un archivo.
+[72:21.720 -> 72:25.720] Simple ahí en el escritor y luego se tiene la rota.
+[72:25.720 -> 72:28.720] Se sería pasar esa rota, procesarlo.
+[72:28.720 -> 72:32.720] Guardar los metadatos y luego encontrarles ahora bien.
+[72:32.720 -> 72:38.720] El search, usted dice que deberían tener bases de la dos diferentes,
+[72:38.720 -> 72:44.720] pero la metadata del OSA era y la metadata del OSA,
+[72:44.720 -> 72:49.720] la URL específica en el ordenador en este caso,
+[72:49.720 -> 72:52.720] sería el doker, un sabor dando.
+[72:52.720 -> 72:58.720] Un descedo en la ubicación en el escritorio de desdabor dando esa información.
+[72:58.720 -> 73:02.720] Deberían de alguna forma poder se conectar,
+[73:02.720 -> 73:07.720] porque si no, como o sea si, a mi base de datos guarda en información.
+[73:07.720 -> 73:11.720] O debería ver un puente que ya me es información de una base de datos
+[73:11.720 -> 73:14.720] y de otra base de datos y luego la zona de alguna forma,
+[73:14.720 -> 73:18.720] porque si tienen base de datos y independientes, sería complicados.
+[73:18.720 -> 73:25.720] Excelente, esa zona muy buena pregunta y está de acorda al problema que vamos planteando.
+[73:25.720 -> 73:31.720] Ahora, cómo solo se inerices en el entorno puro de micro servicios.
+[73:31.720 -> 73:36.720] No vean los tequeños malo a lito.
+[73:36.720 -> 73:39.720] ¿Cómo se comunican a tus micro servicios?
+[73:43.720 -> 73:52.720] Yo haría un, ¿a puente tener un app que es?
+[73:52.720 -> 73:55.720] Y no tantas, cómo se comunican a micro servicios,
+[73:55.720 -> 73:57.720] porque eso podría ser mediante eventos.
+[73:57.720 -> 74:04.720] Es más bien cómo hacen a micro servicios para reunir ambas peticiones a su propio base de datos
+[74:04.720 -> 74:08.720] y entregar el resultado como uno solo.
+[74:09.720 -> 74:12.720] Después, esta acá, hace él.
+[74:12.720 -> 74:15.720] ¿Cómo que necesite ser comunicado a otra base de datos?
+[74:15.720 -> 74:17.720] Va a pasar por acá.
+[74:17.720 -> 74:24.720] Ahora, pero la comunicación entre estos dos,
+[74:24.720 -> 74:26.720] no puede ser directa.
+[74:39.720 -> 74:44.720] ¿Qué es?
+[74:44.720 -> 74:49.720] Pero eso no puede ser interesante.
+[74:49.720 -> 74:57.720] ¿Qué es?
+[74:57.720 -> 74:58.720] ¿Qué es?
+[74:58.720 -> 75:01.720] Porque el que tendría el existimiento,
+[75:01.720 -> 75:05.720] como se ha desacto a mi todo en el SL,
+[75:05.720 -> 75:09.720] y que nosotros tengamos cierta información en el mundo lito
+[75:09.720 -> 75:11.720] y otro lo tenemos en el micro servicios.
+[75:11.720 -> 75:15.720] Entonces, cómo vamos a hacer que cuando tenéis
+[75:15.720 -> 75:17.720] tenemos un documento, ser información,
+[75:17.720 -> 75:20.720] el SL, a mi la pasa por el SL y el SL que vas a ver
+[75:20.720 -> 75:23.720] o vamos a llamar directamente a los dos.
+[75:23.720 -> 75:26.720] Exacto.
+[75:26.720 -> 75:30.720] Y eso es una solución de forma para decir con lo que les decía
+[75:30.720 -> 75:33.720] que hay de aplicación información.
+[75:33.720 -> 75:36.720] Lo que tengamos guardado en el mundo lito,
+[75:36.720 -> 75:39.720] va a estar guardado también en el basato de usar
+[75:39.720 -> 75:41.720] de el micro servicio.
+[75:41.720 -> 75:46.720] Entonces, una proche puede ser si consulto por el mundo lito,
+[75:46.720 -> 75:48.720] pues no voy a la basato de desmónolito,
+[75:48.720 -> 75:49.720] pero este consulto por SL,
+[75:49.720 -> 75:52.720] pues tiene todo lo que necesitan su propio basado de datos.
+[75:52.720 -> 75:56.720] Ahora, si es que necesito ser búsquedas,
+[75:56.720 -> 76:01.720] necesito del modulo de OCR
+[76:01.720 -> 76:03.720] para hacer búsquedas o no.
+[76:03.720 -> 76:05.720] Creo que no.
+[76:05.720 -> 76:08.720] Lo interesante de poder hacer esta separación de concern
+[76:08.720 -> 76:11.720] es que este mundo lito sólo se encarga
+[76:11.720 -> 76:13.720] de personal información y guardarla.
+[76:13.720 -> 76:21.720] Y este se encarga de las búsquedas.
+[76:21.720 -> 76:24.720] Ahora, creo que iba a ir intentiendo la pregunta de Alex.
+[76:24.720 -> 76:29.720] No, entonces, voy a tener las búsquedas.
+[76:29.720 -> 76:32.720] Si te voy a tener información de lo CR,
+[76:32.720 -> 76:33.720] los documentos en el mundo,
+[76:33.720 -> 76:35.720] un micro servicio de OCR,
+[76:35.720 -> 76:38.720] las búsquedas van a tener que consultar ahí directamente.
+[76:38.720 -> 76:41.720] Entonces, este convito en un problema.
+[76:41.720 -> 76:43.720] Ahora, que lo pienso bien.
+[76:43.720 -> 76:48.720] Si es elante mundo.
+[76:48.720 -> 76:51.720] Bueno, así, bueno, mi pregunta es,
+[76:51.720 -> 76:53.720] ¿me han sido que estos dos microsevismos
+[76:53.720 -> 76:55.720] se pueden comunicar directamente?
+[76:55.720 -> 76:58.720] Pero podemos ver que no.
+[76:58.720 -> 77:00.720] No, no, si podría.
+[77:00.720 -> 77:02.720] Ah, eh.
+[77:02.720 -> 77:04.720] Podré que comunicarse directamente.
+[77:04.720 -> 77:08.720] Profes aquí, esto, adelante.
+[77:08.720 -> 77:12.720] Y qué tal si tenemos...
+[77:12.720 -> 77:14.720] ¿Cómo se llama eso?
+[77:14.720 -> 77:16.720] O sea, que tenemos una base de datos,
+[77:16.720 -> 77:17.720] que vidúe el otro de lecturas.
+[77:17.720 -> 77:19.720] Se acueres.
+[77:19.720 -> 77:20.720] Se acueres, es alto.
+[77:20.720 -> 77:23.720] Que se tengamos entre comía un secuérice,
+[77:23.720 -> 77:26.720] donde el dos de eso la mente guarde información
+[77:26.720 -> 77:29.720] y luego adicpará un trigger algo así
+[77:29.720 -> 77:32.720] o algo que le envió la información
+[77:32.720 -> 77:34.720] a la otra base de datos y que la otra base de datos
+[77:34.720 -> 77:36.720] solamente se apara consulta.
+[77:36.720 -> 77:40.720] Es una solución,
+[77:40.720 -> 77:41.720] valida.
+[77:41.720 -> 77:44.720] Y como tenemos...
+[77:44.720 -> 77:46.720] ¿Qué, como tenemos esto,
+[77:46.720 -> 77:47.720] de...
+[77:47.720 -> 77:50.720] Este va a tener dos pasad datos, ¿verdad?
+[77:50.720 -> 77:51.720] Consecurese.
+[77:51.720 -> 77:53.720] Una otra selectoria de la selectoria,
+[77:53.720 -> 77:54.720] entonces no estaremos viviendo
+[77:54.720 -> 77:56.720] de la autonomía de los que os servicios.
+[77:56.720 -> 78:07.720] ¿All right?
+[78:07.720 -> 78:09.720] Estas un preguntas que...
+[78:09.720 -> 78:11.720] Bueno, si bien tiene que empezar a hacerse ahora.
+[78:11.720 -> 78:15.720] No, me decimos en la pena comenzar a...
+[78:15.720 -> 78:18.720] procesar las o aplicarlas cuando...
+[78:18.720 -> 78:22.720] estén separando el microsoft y de ser chistando.
+[78:24.720 -> 78:27.720] ¿Qué?
+[78:27.720 -> 78:29.720] ¿Qué?
+[78:29.720 -> 78:32.720] ¿Qué?
+[78:32.720 -> 78:34.720] ¿Qué?
+[78:34.720 -> 78:41.720] ¿Qué?
+[78:41.720 -> 78:42.720] Pero bueno.
+[78:42.720 -> 78:44.720] Es nuestro gol.
+[78:44.720 -> 78:45.720] Ahí vamos.
+[78:45.720 -> 78:49.720] No.
+[78:49.720 -> 78:50.720] Y...
+[78:50.720 -> 78:52.720] Me gusta las preguntas.
+[78:52.720 -> 78:54.720] Son cosas que igual más en pensar con podemos oricionar esto.
+[78:54.720 -> 78:56.720] Bueno, de hecho, es el trabajo de los tutores pensar esto.
+[78:56.720 -> 78:58.720] Pero igual más, me ingeracruzía
+[78:58.720 -> 79:00.720] como suorucionar varias cosas de la mejor manera.
+[79:00.720 -> 79:11.720] Pero bueno, al menos espero haberle despejado
+[79:11.720 -> 79:13.720] las dudas y verles a un norte donde ir.
+[79:18.720 -> 79:20.720] Y si no, bueno, estamos perdidos todos.
+[79:20.720 -> 79:38.720] Más preguntas.
+[79:38.720 -> 79:40.720] Comentarios.
+[79:48.720 -> 79:50.720] ¿Qué?
+[79:50.720 -> 79:58.720] Si no, bueno.
+[79:58.720 -> 80:02.720] Esa sería el capstone en detalle.
+[80:02.720 -> 80:04.720] ¿Pero qué?
+[80:04.720 -> 80:06.720] La antediego.
+[80:06.720 -> 80:07.720] ¿Qué tal?
+[80:07.720 -> 80:10.720] Al descoplecea para hablar la demo final
+[80:10.720 -> 80:12.720] con tal que tengamos el oceo
+[80:12.720 -> 80:15.720] ese parado con un cruz de miso y estaría bien.
+[80:15.720 -> 80:18.720] ¿Más el search?
+[80:18.720 -> 80:19.720] Sí.
+[80:19.720 -> 80:21.720] Es el scoffinal.
+[80:21.720 -> 80:24.720] Como les digo,
+[80:24.720 -> 80:28.720] para simplificar, nos la habíamos tratado de hacer el japipad.
+[80:28.720 -> 80:33.720] Porque nos podemos analizar todo lo que conlleva a hacer esta migración.
+[80:33.720 -> 80:36.720] Lo hacer la que la matérise a un esceta corte.
+[80:36.720 -> 80:39.720] Free, un montón de cosas que pensar,
+[80:39.720 -> 80:41.720] otra edificación, comunicación,
+[80:41.720 -> 80:44.720] no decirse que te esón y que es que hay que tomar el camino.
+[80:46.720 -> 80:48.720] Pero sí, pues después de hoy,
+[80:48.720 -> 80:50.720] es el gol final,
+[80:50.720 -> 80:51.720] es este.
+[80:51.720 -> 80:56.720] Extrar el oceo y el search y que todo sigan viviendo en paz.
+[80:56.720 -> 81:07.720] No, o quizás es más el...
+[81:07.720 -> 81:09.720] pueden tener, bueno,
+[81:09.720 -> 81:11.720] yo travesoñando con mi que el Florence,
+[81:11.720 -> 81:13.720] un entro de microfronense en
+[81:13.720 -> 81:16.720] la aplicación modernizada donde
+[81:16.720 -> 81:18.720] puedan llamar al microfron de
+[81:18.720 -> 81:21.720] o ser y de search.
+[81:21.720 -> 81:34.720] All right, entonces,
+[81:34.720 -> 81:37.720] bueno, espero que les haya ayudado un poco.
+[81:37.720 -> 81:41.720] De saido algo del uso de lo que hay que hacer.
+[81:41.720 -> 81:44.720] Y que es que la gente se puede ver en la vida.
+[81:44.720 -> 81:47.720] Y que es una de las cosas que hay que hacer.
+[81:47.720 -> 81:50.720] Y que es una de las cosas que hay que hacer.
+[81:50.720 -> 81:52.720] Y que es una de las cosas que hay que hacer.
+[81:52.720 -> 81:54.720] Y que es una de las cosas que hay que hacer.
+[81:54.720 -> 81:56.720] Y que es una de las cosas que hay que hacer.
+[81:56.720 -> 81:58.720] Y que es una de las cosas que hay que hacer.
+[81:58.720 -> 82:00.720] Y que es una de las cosas que hay que hacer.
+[82:00.720 -> 82:02.720] Y que es una de las cosas que hay que hacer.
+[82:02.720 -> 82:03.720] Y que es una de las cosas que hay que hacer.
+[82:03.720 -> 82:04.720] Y que es una de las cosas que hay que hacer.
+[82:04.720 -> 82:06.720] Y que es una de las cosas que hay que hacer.
+[82:06.720 -> 82:07.720] Y que es una de las cosas que hay que hacer.
+[82:07.720 -> 82:08.720] Y que es una de las cosas que hay que hacer.
+[82:08.720 -> 82:11.720] Pero lo vamos a hacer.
+[82:11.720 -> 82:20.720] Si tengo que sacrificar mi télil y mi tín,
+[82:20.720 -> 82:26.720] si a todo es que decirles que no voy a poder ir que tengo algún gente que hacer.
+[82:26.720 -> 82:31.720] Es que me preocupa que aprendan y que sabe que viene capstone.
+[82:31.720 -> 82:35.720] Vale.
+[82:35.720 -> 82:38.720] Pero.
+[82:38.720 -> 82:42.720] Vamos a hacer un overview general de lo que tenemos que ir porque no es.
+[82:42.720 -> 82:44.720] A ser el contenido teórico.
+[82:44.720 -> 82:47.720] Si viene su télil puede ser aburrido.
+[83:03.720 -> 83:07.720] Este semana nos toca ver con estos de mi cosa servicios.
+[83:07.720 -> 83:08.720] Fundamentos.
+[83:08.720 -> 83:11.720] Tengo entendido que en algún punto han hecho mi cosa
+[83:11.720 -> 83:13.720] servicios en este mi cosa y víjense,
+[83:13.720 -> 83:15.720] pero vamos a ir a un recap de todo eso.
+[83:15.720 -> 83:16.720] No compoé en ver.
+[83:16.720 -> 83:20.720] Tenemos tres, las siguientes semanas vamos a tener mi cosa y víjense.
+[83:20.720 -> 83:22.720] Vamos a las siguientes dos.
+[83:22.720 -> 83:26.720] Así que hay mucho que quede que echarla.
+[83:26.720 -> 83:30.720] Entonces.
+[83:30.720 -> 83:33.720] En traducción. Bueno, vamos a hacer esto.
+[83:33.720 -> 83:35.720] Supersar mío porque mucho de lo que ya está caigo ahí.
+[83:35.720 -> 83:36.720] Y él lo hemos hablado.
+[83:36.720 -> 83:47.720] Ya saben que se lo han dicho a servicios.
+[83:47.720 -> 83:55.720] No.
+[83:55.720 -> 84:00.720] No.
+[84:25.720 -> 84:28.720] Es el momento de responsabilidad.
+[84:28.720 -> 84:31.720] Lo que tiene es desde bavondentes contextos.
+[84:31.720 -> 84:33.720] Tresíamos hablado de eso.
+[84:33.720 -> 84:35.720] Entonces, ya se busca que tiene que ser autónoma.
+[84:35.720 -> 84:37.720] No hay mucho otra maya.
+[84:37.720 -> 84:41.720] Entonces, vamos a tener bajo un brahamento.
+[84:41.720 -> 84:42.720] Si.
+[84:42.720 -> 84:44.720] Esto te vuelto a feine de piais.
+[84:44.720 -> 84:49.720] No tiene que necesariamente el resto.
+[84:49.720 -> 84:52.720] O sí no puedo hacer así en Chrome que ven ribbon.
+[84:53.720 -> 84:56.720] No.
+[84:56.720 -> 84:57.720] No.
+[84:57.720 -> 84:59.720] No.
+[84:59.720 -> 85:01.720] No.
+[85:01.720 -> 85:04.720] Ya aquí ya no dos puedes estar.
+[85:04.720 -> 85:07.720] Te estirro el que tectónico.
+[85:07.720 -> 85:11.720] Así que no hay mucho que ver acá.
+[85:11.720 -> 85:16.720] Pros escala de marín de pendientes.
+[85:17.720 -> 85:23.720] O sea, yo recilense a fracasos.
+[85:23.720 -> 85:25.720] Internamente sí.
+[85:25.720 -> 85:29.720] Pero yo él les despliegue en el electro de en las servicios.
+[85:29.720 -> 85:32.720] Y sí, te tenemos problemas, no.
+[85:32.720 -> 85:35.720] En mi preestructura.
+[85:35.720 -> 85:38.720] Desde ese tipo de vida se puede pensar que son ágiles.
+[85:38.720 -> 85:42.720] Pero cuando he visto ver las nicos servicios transunibles de complejidad.
+[85:42.720 -> 85:45.720] Yo recuerdo que si podemos estar ágilidad.
+[85:45.720 -> 85:47.720] Me ha dudo que te expediencia en esta, pero puedes ser ágiles.
+[85:47.720 -> 85:52.720] No tratar de explicar porque.
+[85:52.720 -> 85:54.720] Porque usamos eventos y no usamos.
+[85:54.720 -> 85:55.720] ¿Cómo se?
+[85:55.720 -> 85:56.720] Ajust.
+[85:56.720 -> 86:00.720] Puedes ser complicado para que no entiende sus conceptos.
+[86:00.720 -> 86:07.720] Ahora, vamos por los cons, porque los, los poros es olo saben bien.
+[86:07.720 -> 86:09.720] Deployment challenges.
+[86:09.720 -> 86:10.720] Tenemos deplemen chatunges.
+[86:10.720 -> 86:13.720] Porque tenemos todo lo que antes estaban un solo lugar.
+[86:13.720 -> 86:15.720] Están en lugares.
+[86:15.720 -> 86:18.720] La comunicación se puede.
+[86:18.720 -> 86:22.720] Puedes ser más compleja y de hecho es más compleja.
+[86:22.720 -> 86:22.720] No.
+[86:22.720 -> 86:24.720] Por que ahora hay que documentar y pie,
+[86:24.720 -> 86:27.720] y incluso hay que hacer lo comentación de eventos.
+[86:27.720 -> 86:32.720] Entonces, todo esto nos trae una capa de complejidad.
+[86:32.720 -> 86:34.720] Antes no teníamos.
+[86:34.720 -> 86:38.720] Así que no todo es croro de dos en los servicios.
+[86:40.720 -> 86:44.720] A otro día, si independientes sí,
+[86:44.720 -> 86:46.720] va a ser de datos propias.
+[86:46.720 -> 86:49.720] No hay que tratar de no olvidar esto.
+[86:49.720 -> 86:52.720] Cada títica es de los microsvizos que son autónomos, independientes.
+[86:52.720 -> 86:54.720] Y que tienen su base de datos propias.
+[86:54.720 -> 86:57.720] Tos y compartieron base de datos y en las microsvizos.
+[86:57.720 -> 87:01.720] Estoy extremos que hay en una niña en un antipatron.
+[87:06.720 -> 87:11.720] Este es esto.
+[87:11.720 -> 87:16.720] Bueno, es bastante.
+[87:16.720 -> 87:18.720] Es plé único por el plamento y desplígue muy típil.
+[87:18.720 -> 87:21.720] Si ya sabemos que es complicado.
+[87:21.720 -> 87:31.720] Bueno, antes de hacer este ley,
+[87:31.720 -> 87:33.720] imagino que no hubieron la realidad.
+[87:33.720 -> 87:39.720] Pero que algunos de esto si está en volviendo a hacer monolitos,
+[87:39.720 -> 87:42.720] como en los oponunitos mogulares.
+[87:42.720 -> 87:46.720] Entonces, si no son del flexual Amazon,
+[87:46.720 -> 87:50.720] entonces encararon un proyecto con microsvizos
+[87:50.720 -> 87:52.720] de entrada, puede ser un overkill.
+[87:52.720 -> 88:00.720] Entonces, si van a hacer su aplicación de ver para pesitos,
+[88:00.720 -> 88:02.720] entonces, bueno, el métemico servicios todavía.
+[88:03.720 -> 88:06.720] Entonces,
+[88:06.720 -> 88:17.720] hay notó que los el lecho han demasiado lozepontantes.
+[88:17.720 -> 88:20.720] Entonces, otra vez,
+[88:20.720 -> 88:25.720] prósicos y yo pígasemos los prós y hablamos de los cons.
+[88:25.720 -> 88:28.720] Y aquí ya, algo que Grega es,
+[88:28.720 -> 88:33.720] pero no son de monolitos pero en el ley en domano,
+[88:33.720 -> 88:36.720] la falta de desayuno es eso.
+[88:36.720 -> 88:41.720] Aquí digamos que tendrían algo que decir,
+[88:41.720 -> 88:45.720] los monolitos sí son escalables.
+[88:45.720 -> 88:50.720] El escalabilit y yo que imagino que mencionan acá es
+[88:50.720 -> 88:53.720] es vertical, horizontal.
+[88:53.720 -> 88:58.720] Entonces, en un mundo lito estamos atados a las capacidades del server.
+[88:58.720 -> 89:01.720] Tiremos más RAM y le metemos más,
+[89:01.720 -> 89:02.720] una SSD,
+[89:02.720 -> 89:05.720] o le metemos más poderes presentamiento.
+[89:05.720 -> 89:09.720] Tenemos escalabilidad vertical.
+[89:09.720 -> 89:17.720] Entonces, el único escalabilit y yo que tendría el monolito
+[89:17.720 -> 89:19.720] es escalabido horizontal.
+[89:19.720 -> 89:21.720] Cuando yo no podamos meterle más RAM,
+[89:21.720 -> 89:24.720] cuando nos te serve el problema.
+[89:24.720 -> 89:27.720] Entonces, ahí hablamos que la habilidad
+[89:27.720 -> 89:30.720] por eso en tal debería ser acá.
+[89:30.720 -> 89:33.720] Problemas de mantenimiento,
+[89:33.720 -> 89:36.720] solo la abría si el monolito está el tema de hecho,
+[89:36.720 -> 89:38.720] todos paedetti.
+[89:38.720 -> 89:40.720] Nos hay monolitos como decían en guienantes,
+[89:40.720 -> 89:42.720] hay monolitos motulares que están super bien definidos,
+[89:42.720 -> 89:45.720] tienen responsabilidades y en definidas.
+[89:45.720 -> 89:47.720] Entonces, no habría estos problemas,
+[89:47.720 -> 89:48.720] bueno, no,
+[89:48.720 -> 89:51.720] no hay un problema de mantenimiento.
+[89:51.720 -> 89:57.720] Y esto sí, es un punto simple de falla.
+[89:57.720 -> 90:01.720] Se mueve el server, se mueve monolito.
+[90:01.720 -> 90:05.720] No, no tanto cones que van ni pervisios.
+[90:05.720 -> 90:06.720] Si era el antalex.
+[90:06.720 -> 90:09.720] Pero el problema es que no tenés mucho tiempo para la presentación,
+[90:09.720 -> 90:14.720] pero quería preguntarle si esa parte de escalabilidad
+[90:14.720 -> 90:18.720] es que no se puede simplemente,
+[90:18.720 -> 90:20.720] como es la misma base de datos,
+[90:20.720 -> 90:23.720] de ployar la aplicación en diferentes servidores,
+[90:23.720 -> 90:25.720] por ejemplo, alrededor del mundo.
+[90:25.720 -> 90:29.720] Y así cada requio entre la su propia aplicación de ployada,
+[90:29.720 -> 90:31.720] quizás una pregunta muy...
+[90:31.720 -> 90:34.720] quizá fuera de contato,
+[90:34.720 -> 90:37.720] pero te he ido para que todos este es el que se ha dado,
+[90:37.720 -> 90:40.720] el mismo, el mismo, se te podría tener un proxy,
+[90:40.720 -> 90:42.720] y se podría rederigir la llamada,
+[90:42.720 -> 90:47.720] y creen que hay diferentes monolitos dependiendo de dónde se está llamando.
+[90:47.720 -> 90:50.720] Pero no sé si eso le indútería en lo de lígico,
+[90:50.720 -> 90:52.720] por algún error grao,
+[90:52.720 -> 90:55.720] por algo que pueda pasar.
+[90:55.720 -> 90:59.720] Esa técnica se llama "Rypladforming".
+[90:59.720 -> 91:02.720] Entonces, si tenemos nuestro monolito,
+[91:02.720 -> 91:03.720] no se olvidó, digamos,
+[91:03.720 -> 91:05.720] el oficina del jefe está y cogiéndolo.
+[91:05.720 -> 91:08.720] Y queremos escalarlo,
+[91:08.720 -> 91:10.720] le cambiamos, por ejemplo, a la nube.
+[91:10.720 -> 91:13.720] Y lo que nos hemos visto es que nosotros hemos tomado el lígico,
+[91:13.720 -> 91:15.720] la nube desplegamos,
+[91:15.720 -> 91:19.720] la nube se debe haber una máquina virtuales y la idea de la idea de funciona.
+[91:19.720 -> 91:21.720] Entonces, ahí tenemos,
+[91:21.720 -> 91:23.720] como que nada, no da toción,
+[91:23.720 -> 91:26.720] tenemos recursos más a la mano,
+[91:26.720 -> 91:28.720] más fácil escalar.
+[91:28.720 -> 91:32.720] Ahora, esto es que mencionas de meter un monolito
+[91:32.720 -> 91:36.720] en su propio ambiente y ofrecerlo al cliente.
+[91:36.720 -> 91:40.720] Y lo que hemos visto en sus propuestas que hacen.
+[91:40.720 -> 91:42.720] Y se puede.
+[91:42.720 -> 91:44.720] Y puede hacerlo por...
+[91:44.720 -> 91:47.720] No, no sería multitanán,
+[91:47.720 -> 91:50.720] porque sería en base de los distintas, no es multitanán.
+[91:50.720 -> 91:53.720] Pero sería algo como en un entorno de...
+[91:53.720 -> 91:55.720] ¿Cómo le llamó esto?
+[91:55.720 -> 91:57.720] Ya, por ejemplo,
+[91:57.720 -> 91:59.720] ¿qué es que es un nuevo monolito?
+[91:59.720 -> 92:01.720] ¿Qué es un monolito?
+[92:01.720 -> 92:03.720] ¿Qué es un monolito?
+[92:03.720 -> 92:07.720] No es un monolito.
+[92:07.720 -> 92:09.720] Y como es un monolito,
+[92:09.720 -> 92:11.720] por ejemplo, Kubernetes.
+[92:11.720 -> 92:12.720] ¿No?
+[92:12.720 -> 92:15.720] ¿Podrías que era un pot para cada versión de tu monolito?
+[92:15.720 -> 92:18.720] Y ofrecerlo a cada cliente.
+[92:18.720 -> 92:20.720] Tienso un cliente y crees un nuevo pot.
+[92:20.720 -> 92:20.720] ¿Te podría?
+[92:20.720 -> 92:22.720] Pero ahora sabemos que...
+[92:22.720 -> 92:28.720] que la infraestructura es caricima.
+[92:28.720 -> 92:32.720] No es la infraestructura es caricima.
+[92:32.720 -> 92:34.720] Entonces, si...
+[92:34.720 -> 92:37.720] si de verdad, es rentable,
+[92:37.720 -> 92:39.720] no, tener eneclientes...
+[92:39.720 -> 92:42.720] bueno, en inversiones de tu monolito.
+[92:42.720 -> 92:44.720] No, que de hecho,
+[92:44.720 -> 92:46.720] si haya crecido en bastante,
+[92:46.720 -> 92:47.720] y necesitan muchos recursos,
+[92:47.720 -> 92:49.720] vas a necesitar una bien poderosa
+[92:49.720 -> 92:51.720] para poder joster tu monolito.
+[92:51.720 -> 92:58.720] No, pero sí, es activo, se puede.
+[92:58.720 -> 93:00.720] Pero creo que el principal
+[93:00.720 -> 93:04.720] es que con sería infraestructuricostas.
+[93:04.720 -> 93:11.720] Y mantenimiento.
+[93:11.720 -> 93:13.720] Porque si si se desplega
+[93:13.720 -> 93:15.720] de mi que os servicios simplemente estas,
+[93:15.720 -> 93:17.720] o se tienes algo dedicado
+[93:17.720 -> 93:19.720] a cada...
+[93:19.720 -> 93:21.720] mi cosa de visuostecios tienes que analizar
+[93:21.720 -> 93:22.720] una parte del visuost logic,
+[93:22.720 -> 93:23.720] mientras que nos...
+[93:23.720 -> 93:25.720] si tienes enemos moritos desplegados,
+[93:25.720 -> 93:28.720] tendrías complejidades desplegadas.
+[93:28.720 -> 93:31.720] En varios entornos.
+[93:31.720 -> 93:35.720] No, y te dirías un...
+[93:35.720 -> 93:38.720] te tengo un equipo grande para hacer...
+[93:38.720 -> 93:41.720] Bactyxing.
+[93:41.720 -> 93:43.720] Bueno, bueno, soy yo de arte,
+[93:43.720 -> 93:44.720] de pagando, ¿no?
+[93:44.720 -> 93:46.720] ¿Cómo podría ser eso?
+[93:46.720 -> 93:51.720] Pero quizás sí, creo que el...
+[93:51.720 -> 93:52.720] el...
+[93:52.720 -> 93:53.720] el que decía,
+[93:53.720 -> 93:55.720] el principal...
+[93:55.720 -> 93:58.720] y en conveniente sería infraestructura.
+[93:58.720 -> 94:05.720] Pero así es la buena pregunta.
+[94:05.720 -> 94:06.720] La voy a plavillir,
+[94:06.720 -> 94:08.720] plavillir pensando.
+[94:08.720 -> 94:18.720] No se preocupen solo tenemos...
+[94:18.720 -> 94:23.720] 55, 54 slides más que cubrir.
+[94:23.720 -> 94:25.720] Entonces, vamos a programar.
+[94:25.720 -> 94:35.720] Entonces, tenemos fácil las ventajas del monolito.
+[94:35.720 -> 94:37.720] No hay mucho drama ahí.
+[94:37.720 -> 94:44.720] Teis ventajas otra vez,
+[94:44.720 -> 94:46.720] porque ya habíamos dicho.
+[94:46.720 -> 94:51.720] Verdad, de a mí,
+[94:52.720 -> 94:54.720] si estén llamados bien el esor,
+[94:54.720 -> 94:56.720] motor sistema falla,
+[94:56.720 -> 94:58.720] pero sí, con los de botellas,
+[94:58.720 -> 95:00.720] con los de botellas.
+[95:00.720 -> 95:06.720] Más de abundancia por acá.
+[95:06.720 -> 95:16.720] Entonces, ¿qué creo principal ventaja de lo que os viso
+[95:16.720 -> 95:17.720] esta esca de la habilidad,
+[95:17.720 -> 95:19.720] pero es que la habilidad o esontal,
+[95:19.720 -> 95:22.720] es una libertad de la habilidad.
+[95:22.720 -> 95:24.720] Eso es que tendrá lo claro.
+[95:24.720 -> 95:27.720] Ya explígue sin dependientes.
+[95:27.720 -> 95:30.720] Pues una ventaja y una desventaja mismo tiempo
+[95:30.720 -> 95:33.720] por la complejidad del despliegue.
+[95:33.720 -> 95:36.720] Es silenciafallas,
+[95:36.720 -> 95:40.720] si internamente del microsoftiz y porque hay menos que
+[95:40.720 -> 95:42.720] que revisar,
+[95:42.720 -> 95:46.720] pero contemplando todo el entorno completo de microsoftiz.
+[95:46.720 -> 95:49.720] No, una falla,
+[95:49.720 -> 95:52.720] si no tenemos bien controlado,
+[95:52.720 -> 95:55.720] no tenemos una política clara de recuperación de fallas,
+[95:55.720 -> 95:57.720] a nivel de microsoftiz.
+[95:57.720 -> 95:59.720] O sea, nivel de comunicación entre recursos y lugares,
+[95:59.720 -> 96:01.720] esto se convierte en un problema.
+[96:01.720 -> 96:03.720] Y esto sí, la vivir.
+[96:03.720 -> 96:08.720] No, donde no en equipo trabajamos el microsoftiz de X,
+[96:08.720 -> 96:10.720] pero el microsoftiz de Y es fallabas.
+[96:10.720 -> 96:12.720] ¿Qué inficce a Valesor?
+[96:12.720 -> 96:14.720] Entonces, nos tardamos
+[96:15.720 -> 96:18.720] ahora, nos debatiendo el que fixe el azor en el gódeficcial.
+[96:18.720 -> 96:22.720] No, de hecho yo,
+[96:22.720 -> 96:25.720] fixe el azor una vez y me digeró que estás haciendo.
+[96:25.720 -> 96:27.720] No es tu área.
+[96:27.720 -> 96:31.720] Entonces, me tomó fixear el azor 15 minutos
+[96:31.720 -> 96:34.720] y una de las primeras de dos horas
+[96:34.720 -> 96:37.720] para verlo el hecho en equipo en el que no les almío.
+[96:37.720 -> 96:42.720] ¿En qué?
+[96:46.720 -> 96:48.720] ¿Qué más tenemos?
+[96:48.720 -> 96:50.720] Desventajas,
+[96:50.720 -> 96:51.720] infraestructura compleja,
+[96:51.720 -> 96:54.720] si necesitamos mucha infraestructura
+[96:54.720 -> 96:56.720] comunicación complicada,
+[96:56.720 -> 96:58.720] totalmente de acuerdo,
+[96:58.720 -> 97:01.720] gestiendo los distribuidos este igual.
+[97:01.720 -> 97:03.720] Estas tres son totalmente de acuerdo con las eventajas
+[97:03.720 -> 97:04.720] de encos evicios.
+[97:04.720 -> 97:06.720] Y lo van a experimentar.
+[97:15.720 -> 97:18.720] ¿Qué es el que no te ha dado?
+[97:18.720 -> 97:26.720] Entonces, acá puedo tener algún...
+[97:26.720 -> 97:32.720] ¿De estar no está muy adquardo con esto?
+[97:32.720 -> 97:39.720] Porque os ayó con los cosistemas enormes
+[97:39.720 -> 97:41.720] hechos como honbolitos.
+[97:41.720 -> 97:45.720] Si estemos que factura millones mensual,
+[97:45.720 -> 97:46.720] trita millones,
+[97:46.720 -> 97:49.720] porém, que me lluelve a los dolores y son monolitos.
+[97:49.720 -> 97:51.720] Y son grandes.
+[97:51.720 -> 97:56.720] Entonces, estas de verdad, merias.
+[97:56.720 -> 98:00.720] No si bien,
+[98:00.720 -> 98:01.720] pero si te me peca,
+[98:01.720 -> 98:02.720] que hay una función,
+[98:02.720 -> 98:04.720] pero bien escalado
+[98:04.720 -> 98:06.720] o que se ha diseñado un monolito
+[98:06.720 -> 98:09.720] puede funcionar para el sistema de grandes también.
+[98:09.720 -> 98:13.720] Y eso es para tener capacidades de escalamiento horizontal o traves.
+[98:13.720 -> 98:24.720] Bueno, esto es tan lo que es interesante
+[98:24.720 -> 98:28.720] no tener el clásico foco de filamento,
+[98:28.720 -> 98:33.720] de ser monolito y los organizadores
+[98:33.720 -> 98:34.720] se focos,
+[98:34.720 -> 98:36.720] le tienen como 100 let's a item.
+[98:39.720 -> 98:41.720] ¿Qué?
+[98:41.720 -> 98:44.720] Entonces, acá se ha metido en la comparación.
+[98:44.720 -> 98:46.720] No hay mucho que cheloraca.
+[98:46.720 -> 98:50.720] Y esto es para los amantes de la música,
+[98:50.720 -> 98:53.720] en una comparación de un multiplicador,
+[98:53.720 -> 98:55.720] imagínno que es un multiplicador.
+[98:55.720 -> 98:58.720] No hay mucho que un multiplicador,
+[98:58.720 -> 98:59.720] imagínno que es un multiplicador.
+[98:59.720 -> 99:01.720] No hay mucho que un multiplicador.
+[99:01.720 -> 99:04.720] No hay mucho que un multiplicador.
+[99:04.720 -> 99:07.720] No sé muy así que tiene un multiplicador
+[99:07.720 -> 99:10.720] y medican sin los multiplicadores.
+[99:10.720 -> 99:12.720] Más comparaciones,
+[99:12.720 -> 99:15.720] más comparaciones,
+[99:15.720 -> 99:18.720] mucho más comparaciones,
+[99:18.720 -> 99:20.720] un todo en uno,
+[99:20.720 -> 99:21.720] BHS, bueno,
+[99:21.720 -> 99:25.720] ustedes van demasiado jugando en espaconso de los BHS.
+[99:25.720 -> 99:28.720] Tecnología que síntez magnéticas.
+[99:28.720 -> 99:37.720] Pero simplemente son más más analogías
+[99:37.720 -> 99:39.720] así que no hay mucho trama acá.
+[99:39.720 -> 99:44.720] Y esto es importante.
+[99:44.720 -> 99:45.720] Creo que con esto sí,
+[99:45.720 -> 99:48.720] si se llamamos con eso estamos bien.
+[99:48.720 -> 99:51.720] Entonces, en el microservicio, bueno,
+[99:51.720 -> 99:53.720] que no van a diseñar,
+[99:53.720 -> 99:55.720] y a la vez disexionar,
+[99:55.720 -> 99:58.720] es importante entender el bound in context.
+[99:58.720 -> 100:03.720] Entender las fronteras del microservicio que van a extirpar.
+[100:03.720 -> 100:05.720] No, por ejemplo,
+[100:05.720 -> 100:07.720] el microservicio de CER,
+[100:07.720 -> 100:08.720] su única función,
+[100:08.720 -> 100:10.720] es procesar archivos.
+[100:10.720 -> 100:13.720] No hace nada más.
+[100:13.720 -> 100:17.720] Y dentro de esta lógica de procesar archivos,
+[100:17.720 -> 100:19.720] tienes un propio lógica de dominio,
+[100:19.720 -> 100:20.720] o business logic,
+[100:20.720 -> 100:22.720] tienes sus propias reglas.
+[100:22.720 -> 100:26.720] No, tiene, bueno,
+[100:26.720 -> 100:29.720] en cuestión del lenguaje no es,
+[100:29.720 -> 100:31.720] no es tanto del lenguaje de programación,
+[100:31.720 -> 100:33.720] sino del lenguaje interno que se habla
+[100:33.720 -> 100:35.720] dentro del microservicio,
+[100:35.720 -> 100:36.720] no que es un parcer,
+[100:36.720 -> 100:38.720] que es el OSR como tal,
+[100:38.720 -> 100:40.720] que es ingesta,
+[100:40.720 -> 100:43.720] porque la ingesta
+[100:43.720 -> 100:45.720] es un término que vamos a usar dentro de los CER,
+[100:45.720 -> 100:47.720] pero yo no tengo otra search.
+[100:47.720 -> 100:52.720] Que entonces hay que hacer con lenguaje.
+[100:52.720 -> 100:54.720] Pero no olviden esto.
+[100:54.720 -> 100:56.720] Ponded coste.
+[100:56.720 -> 100:57.720] No,
+[100:57.720 -> 101:00.720] tendras las fronteras vinclaras de nuestro microservicio.
+[101:00.720 -> 101:03.720] Tienen que ser una sola cosa.
+[101:03.720 -> 101:04.720] Si.
+[101:04.720 -> 101:11.720] Está debajo de completos.
+[101:12.720 -> 101:16.720] Así es, es por eso que si dependemos de una base de la secterna.
+[101:16.720 -> 101:20.720] No,
+[101:20.720 -> 101:21.720] no se estábamos acoplando más,
+[101:21.720 -> 101:24.720] y estaríamos violado en los principales de diseño de microservicios.
+[101:24.720 -> 101:32.720] Entonces,
+[101:32.720 -> 101:34.720] arcanos dice algo que lleve a echarlado.
+[101:34.720 -> 101:36.720] El OSR es sólo en cara del etreo de documentos.
+[101:36.720 -> 101:39.720] No es nota,
+[101:39.720 -> 101:43.720] sino que es una nota de certificación.
+[101:43.720 -> 101:44.720] No es nada.
+[101:44.720 -> 101:45.720] No, a los sumos,
+[101:45.720 -> 101:48.720] vamos a hacer un mecanismo para.
+[101:48.720 -> 101:51.720] Auténtica el microservicio como valido,
+[101:51.720 -> 101:53.720] o sea que sea que sea que sea que sea un agente valido
+[101:53.720 -> 101:56.720] para comunicarse cuando hemos dado el lito.
+[101:56.720 -> 101:58.720] Pero no vamos a gestionar la nota de certificación como tal.
+[101:58.720 -> 102:06.720] Lo mismo para el servicio de buscada.
+[102:07.720 -> 102:10.720] La que es la que se estábamos con la secterna.
+[102:10.720 -> 102:13.720] Pero por lo que estábamos con la secterna.
+[102:13.720 -> 102:16.720] Pero por lo que estábamos con la secterna,
+[102:16.720 -> 102:18.720] pero por lo que estábamos con la secterna,
+[102:18.720 -> 102:21.720] pero por lo que estábamos con la secterna,
+[102:21.720 -> 102:24.720] pero por lo que estábamos con la secterna,
+[102:24.720 -> 102:26.720] pero por lo que estábamos con la secterna,
+[102:26.720 -> 102:28.720] pero por lo que estábamos con la secterna,
+[102:28.720 -> 102:30.720] pero por lo que estábamos con la secterna,
+[102:30.720 -> 102:32.720] y por lo que estábamos con la secterna,
+[102:32.720 -> 102:34.720] y por lo que estábamos con la secterna,
+[102:34.720 -> 102:36.720] y por lo que estábamos con la secterna,
+[102:36.720 -> 102:38.720] y por lo que estábamos con la secterna,
+[102:38.720 -> 102:40.720] y por lo que estábamos con la secterna,
+[102:40.720 -> 102:42.720] y por lo que estábamos con la secterna,
+[102:42.720 -> 102:44.720] y por lo que estábamos con la secterna,
+[102:44.720 -> 102:45.720] y por lo que estábamos con la secterna,
+[102:45.720 -> 102:46.720] y por lo que estábamos con la secterna,
+[102:46.720 -> 102:47.720] y por lo que estábamos con la secterna,
+[102:47.720 -> 102:48.720] y por lo que estábamos con la secterna,
+[102:48.720 -> 102:49.720] y por lo que estábamos con la secterna,
+[102:49.720 -> 102:51.720] y por lo que estábamos con la secterna,
+[102:51.720 -> 102:52.720] y por lo que estábamos con la secterna,
+[102:52.720 -> 102:53.720] y por lo que estábamos con la secterna,
+[102:53.720 -> 102:54.720] y por lo que estábamos con la secterna,
+[102:54.720 -> 102:55.720] y por lo que estábamos con la secterna,
+[102:55.720 -> 103:07.720] y por lo que estábamos con la secterna,
+[103:07.720 -> 103:10.720] y por lo que estábamos con la secterna,
+[103:10.720 -> 103:12.720] y por lo que estábamos con la secterna,
+[103:12.720 -> 103:14.720] y por lo que estábamos con la secterna,
+[103:14.720 -> 103:16.720] y por lo que estábamos con la secterna,
+[103:16.720 -> 103:18.720] y por lo que estábamos con la secterna,
+[103:18.720 -> 103:20.720] y por lo que estábamos con la secterna,
+[103:20.720 -> 103:22.720] y por lo que estábamos con la secterna,
+[103:22.720 -> 103:26.720] y por lo que estábamos con la secterna,
+[103:26.720 -> 103:28.720] y por lo que estábamos con la secterna,
+[103:28.720 -> 103:31.720] y por lo que estábamos con la secterna,
+[103:31.720 -> 103:33.720] y por lo que estábamos con la secterna,
+[103:33.720 -> 103:35.720] y por lo que estábamos con la secterna,
+[103:35.720 -> 103:37.720] y por lo que estábamos con la secterna,
+[103:37.720 -> 103:39.720] y por lo que estábamos con la secterna,
+[103:39.720 -> 103:40.720] y por lo que estábamos con la secterna,
+[103:40.720 -> 103:41.720] y por lo que estábamos con la secterna,
+[103:41.720 -> 103:43.720] y por lo que estábamos con la secterna,
+[103:43.720 -> 103:45.720] y por lo que estábamos con la secterna,
+[103:45.720 -> 103:47.720] y por lo que estábamos con la secterna,
+[103:47.720 -> 103:48.720] y por lo que estábamos con la secterna,
+[103:48.720 -> 103:49.720] y por lo que estábamos con la secterna,
+[103:49.720 -> 103:51.720] y de esto vamos a hablar en la siguiente class,
+[103:51.720 -> 103:54.720] y las especificas para echarlo sobre observabilidad,
+[103:54.720 -> 103:55.720] lo observancia,
+[103:55.720 -> 104:01.720] vamos a tener...
+[104:01.720 -> 104:06.720] esto es de silencia.
+[104:06.720 -> 104:13.720] Bueno, si están bien diseñados
+[104:13.720 -> 104:15.720] o sea, nuestro modo lito como tal,
+[104:15.720 -> 104:18.720] perdónos mi que os dice como tal, si vas a decirlo en el siguiente.
+[104:19.720 -> 104:21.720] Pero ya, en...
+[104:21.720 -> 104:23.720] aplicando el...
+[104:23.720 -> 104:27.720] la misa lógica de comunicación entre negociar visios,
+[104:27.720 -> 104:30.720] esto depende mucho de cómo lo ya hemos diseñado.
+[104:30.720 -> 104:35.720] Patrónos como "Short Seat with Retry"
+[104:35.720 -> 104:38.720] y que el bomb que vamos a ver eso después,
+[104:38.720 -> 104:40.720] son útiles para este tipo de casos.
+[104:40.720 -> 104:44.720] Otras comunicación antes de visis,
+[104:44.720 -> 104:46.720] y vimos pues el cincro no es incrona,
+[104:46.720 -> 104:49.720] de mucho trama acá, desafíos,
+[104:49.720 -> 104:52.720] complejidad de datos,
+[104:52.720 -> 104:53.720] y esto lo van a ver ustedes,
+[104:53.720 -> 104:55.720] cuando estén separados de los seres,
+[104:55.720 -> 104:58.720] con complejos son los datos que manda paypalés
+[104:58.720 -> 105:00.720] y creo que son nomas complejos,
+[105:00.720 -> 105:02.720] a lo que viene, bueno, ejemplo.
+[105:02.720 -> 105:12.720] Aquí es donde van a...
+[105:12.720 -> 105:14.720] bueno, en este caso el research seguridad,
+[105:15.720 -> 105:18.720] y el challenge para ustedes va a ser más allá de...
+[105:18.720 -> 105:20.720] pensaremos en servicios,
+[105:20.720 -> 105:21.720] pero en la seguridad de mi televisión,
+[105:21.720 -> 105:24.720] se es pensare en cómo extra por la seguridad que ya hay
+[105:24.720 -> 105:26.720] en el monolita hacia los nicosevisios y cómo...
+[105:26.720 -> 105:29.720] establecer una política de seguridad
+[105:29.720 -> 105:31.720] y creo que esto no hablamos, ¿no?
+[105:31.720 -> 105:35.720] ¿Qué tal si auto entiten como el propio servicio de kick block
+[105:35.720 -> 105:36.720] de la de mi coservicio?
+[105:36.720 -> 105:43.720] Como... como hacemos si auto entístico porque kick block
+[105:43.720 -> 105:46.720] en la del microservicio y decirle "hey,
+[105:46.720 -> 105:49.720] este es un usuario valido para meter información
+[105:49.720 -> 105:51.720] de ese microservicio".
+[105:51.720 -> 105:55.720] Eso no lo echarlamos,
+[105:55.720 -> 105:59.720] pero puede ser un... un grado masocio de dificultad.
+[105:59.720 -> 106:01.720] No tener dos...
+[106:01.720 -> 106:07.720] dos fueron a transmeticiones que conviven.
+[106:11.720 -> 106:13.720] Entonces cada vez que penalizamos esto,
+[106:13.720 -> 106:15.720] se puede subir más complejo.
+[106:15.720 -> 106:26.720] Provecite gratión.
+[106:26.720 -> 106:30.720] No creo que lo lo veremos a hacer.
+[106:30.720 -> 106:31.720] Ahora.
+[106:31.720 -> 106:35.720] Así que...
+[106:35.720 -> 106:38.720] hay que pucarse en personalidad.
+[106:39.720 -> 106:42.720] A usted, vayan a ver esto después también,
+[106:42.720 -> 106:44.720] es realmente para hacer observancia.
+[106:44.720 -> 106:47.720] Para observar como que pasa con nuestros microservicios.
+[106:47.720 -> 107:00.720] Esto es interesante igual.
+[107:00.720 -> 107:03.720] El criterio de cobertad son microservicios,
+[107:03.720 -> 107:04.720] consistencia.
+[107:04.720 -> 107:07.720] Esto no se como ser español.
+[107:07.720 -> 107:08.720] Realabilite.
+[107:09.720 -> 107:10.720] Entonces,
+[107:10.720 -> 107:13.720] que es mal inglés.
+[107:13.720 -> 107:15.720] No me merece en español.
+[107:15.720 -> 107:20.720] Pero bueno, siguen viendo...
+[107:20.720 -> 107:23.720] es importante, vas a datos por servicio.
+[107:23.720 -> 107:30.720] También.
+[107:30.720 -> 107:35.720] No está bajo discusiones o tener un propio sedato.
+[107:40.720 -> 107:41.720] Y este son anticipatró.
+[107:41.720 -> 107:43.720] ¿Qué no debemos seguir?
+[107:43.720 -> 107:44.720] Chardona Tadais.
+[107:44.720 -> 107:48.720] Lo he experimentado.
+[107:48.720 -> 107:54.720] Bueno, aquí tenemos un poco de oportunidad.
+[107:54.720 -> 108:02.720] Y bueno, simplemente está mencionando lo que ya había
+[108:02.720 -> 108:03.720] hemos charlatado.
+[108:03.720 -> 108:05.720] El flujo que sigue.
+[108:05.720 -> 108:08.720] Así que en el mucho trama acá.
+[108:10.720 -> 108:12.720] No es nada de el ser,
+[108:12.720 -> 108:15.720] pero todavía no estamos haciendo el ser,
+[108:15.720 -> 108:17.720] así que no lo vamos a tomar en cuenta.
+[108:17.720 -> 108:21.720] Aquí nos da algunas luces de cómo podremos integrar
+[108:21.720 -> 108:23.720] el enlo ser y el ser.
+[108:23.720 -> 108:29.720] Pero esta es lo que es una sugerencia.
+[108:29.720 -> 108:35.720] También hay pie y hierway para comunicar estos dos.
+[108:40.720 -> 108:43.720] Pero esto es ingresar un nivel más de complejidad.
+[108:43.720 -> 108:46.720] Porque para ahora estamos solo directamente con la sel
+[108:46.720 -> 108:48.720] y ahora la sel va a hablar con el IPA y hierway.
+[108:48.720 -> 108:53.720] No, preguntas que no deberían dejarles dormir.
+[108:53.720 -> 108:55.720] En las siguientes semanas.
+[108:55.720 -> 108:59.720] Y listo.
+[108:59.720 -> 109:00.720] Es comentarios y preguntas.
+[109:00.720 -> 109:02.720] Logramos las clases de dos horas en medio ahora.
+[109:09.720 -> 109:14.720] Entonces, como con debido notar la.
+[109:14.720 -> 109:18.720] El gol de esta semana es bueno, el gol de las demás
+[109:18.720 -> 109:20.720] de clases de semana simplemente recentar las bases
+[109:20.720 -> 109:22.720] de los microservicios de que son.
+[109:22.720 -> 109:26.720] Que ventajas y desventajas tienen contra los monolitos.
+[109:26.720 -> 109:29.720] No del todo el factor hape, es importante que lo lean.
+[109:29.720 -> 109:30.720] Les recomiendo que lo lean.
+[109:30.720 -> 109:33.720] Y quizá la siguiente semana vamos a echarlo sobre eso.
+[109:33.720 -> 109:38.720] Entonces, esa fue la clase express.
+[109:38.720 -> 109:41.720] Sobre teoría sobre microservicios y fundamentos.
+[109:41.720 -> 109:47.720] Y bueno, espero que el el vicar o el overview del capstone
+[109:47.720 -> 109:49.720] se haya servido para.
+[109:49.720 -> 109:52.720] Podrora intermejor sus soluciones.
+[109:52.720 -> 109:56.720] Y bueno, eso sería todo por hoy, nos lozó más tiempo.
+[109:56.720 -> 110:00.720] Logramos tener una sesión de tutorial y una sesión de más
+[110:00.720 -> 110:02.720] 3 clases de mismo tiempo, selmente.
+[110:05.720 -> 110:09.720] Y nada, entonces tengan un buen resto de día y cualquier pregunta
+[110:09.720 -> 110:11.720] de la describete al chat.
+[110:11.720 -> 110:13.720] Mala por eso, muchas gracias.
