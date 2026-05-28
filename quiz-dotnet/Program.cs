@@ -64,8 +64,10 @@ namespace QuizDotnet
     class Program
     {
         // Single source of truth for the Ollama models used across the pipeline.
-        const string LlmModel = "llama3.2:3b";        // classification, summarization, quiz gen, judge
-        const string EmbeddingModel = "nomic-embed-text";
+        const string LlmModel = "qwen2.5:7b-instruct";          // classification, summarization, quiz generation
+        const string JudgeModel = "llama3.1:8b-instruct-q4_K_M"; // LLM-as-a-judge (different family to reduce self-bias)
+        const string EmbeddingModel = "bge-m3";                  // multilingual embeddings (1024-dim)
+        const int EmbeddingDim = 1024;
 
         static async Task Main(string[] args)
         {
@@ -142,13 +144,15 @@ namespace QuizDotnet
             var processedChunks = await ProcessChunksAndStoreAsync(chunks, courseId, sourceId, collectionName);
             LogStage("Classification & Embedding Storage", stageStopwatch);
 
-            // 7. RAG & Quiz Generation
-            var generatedQuestions = await GenerateQuizQuestionsAsync(courseId, 3, "comprender", collectionName);
+            // 7. RAG & Quiz Generation (numQuestions <= 0 => adaptive based on academic chunk count)
+            var quizStopwatch = Stopwatch.StartNew();
+            var generatedQuestions = await GenerateQuizQuestionsAsync(courseId, 0, "comprender", collectionName);
+            quizStopwatch.Stop();
             LogStage("RAG & Quiz Generation", stageStopwatch);
 
             Console.WriteLine("\n=== Pipeline Execution Completed Successfully ===");
             Console.WriteLine($"Generated {generatedQuestions.Count} valid quiz questions.");
-            SaveQuiz(inputPath, generatedQuestions, whisperModelName);
+            SaveQuiz(inputPath, generatedQuestions, whisperModelName, quizStopwatch.Elapsed, totalStopwatch.Elapsed);
             foreach (var q in generatedQuestions)
             {
                 Console.WriteLine($"\nPregunta: {q.Question}");
@@ -189,7 +193,7 @@ namespace QuizDotnet
             Console.WriteLine($"Transcript saved to {path}");
         }
 
-        static void SaveQuiz(string inputPath, List<QuizQuestion> questions, string transcriptModel)
+        static void SaveQuiz(string inputPath, List<QuizQuestion> questions, string transcriptModel, TimeSpan quizElapsed, TimeSpan totalElapsed)
         {
             string dir = "quizzes";
             Directory.CreateDirectory(dir);
@@ -206,7 +210,14 @@ namespace QuizDotnet
                     transcript = transcriptModel,
                     processing = LlmModel,
                     embedding = EmbeddingModel,
-                    llm_as_judge = LlmModel
+                    llm_as_judge = JudgeModel
+                },
+                timings = new
+                {
+                    quiz_generation = FormatElapsed(quizElapsed),
+                    quiz_generation_seconds = Math.Round(quizElapsed.TotalSeconds, 2),
+                    pipeline_total = FormatElapsed(totalElapsed),
+                    pipeline_total_seconds = Math.Round(totalElapsed.TotalSeconds, 2)
                 },
                 questions
             };
@@ -408,7 +419,7 @@ namespace QuizDotnet
                 Console.WriteLine($"Creating Qdrant collection '{collectionName}'...");
                 await qdrantClient.CreateCollectionAsync(
                     collectionName: collectionName,
-                    vectorsConfig: new VectorParams { Size = 768, Distance = Distance.Cosine }
+                    vectorsConfig: new VectorParams { Size = EmbeddingDim, Distance = Distance.Cosine }
                 );
             }
 
@@ -503,6 +514,7 @@ Responde únicamente con un objeto JSON válido con este formato:
         static async Task<List<QuizQuestion>> GenerateQuizQuestionsAsync(string courseId, int numQuestions, string bloomLevel, string collectionName)
         {
             IChatClient chatClient = new OllamaChatClient(new Uri("http://127.0.0.1:11434"), LlmModel);
+            IChatClient judgeClient = new OllamaChatClient(new Uri("http://127.0.0.1:11434"), JudgeModel);
             IEmbeddingGenerator<string, Embedding<float>> embeddingGenerator =
                 new OllamaEmbeddingGenerator(new Uri("http://127.0.0.1:11434"), EmbeddingModel);
             using var qdrantClient = new QdrantClient("127.0.0.1", 6334);
@@ -514,11 +526,11 @@ Responde únicamente con un objeto JSON válido con este formato:
             searchFilter.Must.Add(new Condition { Field = new FieldCondition { Key = "course_id", Match = new Match { Text = courseId } } });
             searchFilter.Must.Add(new Condition { Field = new FieldCondition { Key = "category", Match = new Match { Text = "ACADEMICO" } } });
 
-            // We can search or scroll
+            // Bumped scroll limit so 2h-class chunk counts (often 60-150+) are not truncated.
             var scrollResult = await qdrantClient.ScrollAsync(
                 collectionName: collectionName,
                 filter: searchFilter,
-                limit: 50
+                limit: 500
             );
 
             var retrievedChunks = scrollResult.Result;
@@ -528,12 +540,19 @@ Responde únicamente con un objeto JSON válido con este formato:
                 return new List<QuizQuestion>();
             }
 
+            // Adaptive target: ~1 question per 3 academic chunks, clamped to [5, 40].
+            // Caller can override by passing numQuestions > 0.
+            int targetQuestions = numQuestions > 0
+                ? numQuestions
+                : Math.Clamp((int)Math.Ceiling(retrievedChunks.Count / 3.0), 5, 40);
+            Console.WriteLine($"Academic chunks retrieved: {retrievedChunks.Count}. Target questions: {targetQuestions}.");
+
             var generatedQuestions = new List<QuizQuestion>();
             var questionEmbeddings = new List<Embedding<float>>();
 
             foreach (var point in retrievedChunks)
             {
-                if (generatedQuestions.Count >= numQuestions) break;
+                if (generatedQuestions.Count >= targetQuestions) break;
 
                 string chunkContent = point.Payload.TryGetValue("content", out var contentVal) ? contentVal.StringValue : "";
                 if (string.IsNullOrWhiteSpace(chunkContent)) continue;
@@ -616,7 +635,7 @@ Responde únicamente con un objeto JSON válido con este formato:
                 double valScore = 0.0;
                 try
                 {
-                    var valResponse = await chatClient.GetResponseAsync(valPrompt, valOptions);
+                    var valResponse = await judgeClient.GetResponseAsync(valPrompt, valOptions);
                     var valResult = JsonSerializer.Deserialize<ValidationResult>(valResponse.Text);
                     valScore = valResult?.Score ?? 0.0;
                     Console.WriteLine($"LLM-as-a-judge score: {valScore} (Reason: {valResult?.Reason})");

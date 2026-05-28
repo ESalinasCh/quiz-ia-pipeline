@@ -1,0 +1,48 @@
+{
+  "generated_at": "2026-05-28 03:51:56",
+  "source": "Week_4",
+  "models": {
+    "transcript": "whisper-small",
+    "processing": "qwen2.5:7b-instruct",
+    "embedding": "bge-m3",
+    "llm_as_judge": "llama3.1:8b-instruct-q4_K_M"
+  },
+  "questions": [
+    {
+      "question": "¿Cuál de las siguientes afirmaciones es correcta según el contenido dado sobre monolitos y microservicios?",
+      "options": {
+        "a": "Un monolito modular tiene más reglas que un microservicio debido a su estructura interna compleja.",
+        "b": "Los microservicios no contienen reglas, ya que todo se gestiona en el monolito principal.",
+        "c": "Si las reglas se trasladan al lado del microservicio desde el monolito, esto indica que el sistema está adoptando una estructura más distribuida y modular.",
+        "d": "El contenido de la clase sugiere que el sistema es un monolito modular ya que todas las reglas viven dentro de él."
+      },
+      "correct_option": "c",
+      "bloom_level": "comprender",
+      "justification": "La respuesta correcta se basa en la idea presentada en el contenido, donde se menciona que al trasladar reglas del monolito principal a los microservicios, el sistema adopta una estructura más distribuida y modular. Las otras opciones son plausibles pero incorrectas según lo expresado en clase."
+    },
+    {
+      "question": "¿De qué se encarga la ruta del documento mencionada en el contenido de clase?",
+      "options": {
+        "a": "Guardar los metadatos del archivo.",
+        "b": "Encontrar y procesar el archivo.",
+        "c": "Procesar y guardar el archivo en el escritorio.",
+        "d": "Ingresar directamente el documento en un sistema de almacenamiento."
+      },
+      "correct_option": "a",
+      "bloom_level": "comprender",
+      "justification": "La respuesta correcta es 'a': 'Guardar los metadatos del archivo.' Esto se justifica con la frase: 'Sería pasar esa ruta, procesarlo, guardar los metadatos y luego encontrar eso.', lo que indica claramente que la función de la ruta es guardar los metadatos. Las otras opciones son distractores plausibles pero incorrectos según el contenido dado."
+    },
+    {
+      "question": "¿Qué tipo de servicios vimos que pueden comunicarse de manera sincrónica o asincrónica, pero operan de forma independiente y autónoma?",
+      "options": {
+        "a": "Conjuntos de servicios",
+        "b": "Redes sociales",
+        "c": "Sistemas operativos",
+        "d": "Bases de datos"
+      },
+      "correct_option": "a",
+      "bloom_level": "comprender",
+      "justification": "La pregunta se basa en la información proporcionada, que menciona conjuntos de servicios como autónomos y con la capacidad de comunicarse sincrónicamente o asincrónicamente. Las otras opciones son plausibles pero no están relacionadas directamente con el contenido del texto."
+    }
+  ]
+}
