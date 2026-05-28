@@ -24,3 +24,6 @@ poc-audio-processing/cache/
 # Ignore IDE configs
 .vscode/
 .idea/
+
+# media files
+media

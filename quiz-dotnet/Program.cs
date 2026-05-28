@@ -1,13 +1,7 @@
-using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.IO;
-using System.Linq;
-using System.Net.Http;
 using System.Numerics.Tensors;
 using System.Text.Json;
 using System.Text.Json.Serialization;
-using System.Threading.Tasks;
 using Microsoft.Extensions.AI;
 using Qdrant.Client;
 using Qdrant.Client.Grpc;
@@ -73,6 +67,10 @@ namespace QuizDotnet
         {
             Console.WriteLine("=== Quiz Generator Pipeline (.NET 10 Unified Stack) ===");
 
+            var pipelineStart = DateTimeOffset.Now;
+            var totalStopwatch = Stopwatch.StartNew();
+            Console.WriteLine($"Pipeline started at: {pipelineStart:yyyy-MM-dd HH:mm:ss}");
+
             string inputPath = args.Length > 0 ? args[0] : "/home/ubuntu/quiz/test01_20s.wav";
             string courseId = "course-123";
             string sourceId = Guid.NewGuid().ToString();
@@ -88,10 +86,13 @@ namespace QuizDotnet
                 Console.WriteLine("Whisper model downloaded successfully.");
             }
 
+            var stageStopwatch = Stopwatch.StartNew();
+
             // 2. Audio Extraction
             string wavPath = Path.Combine(Path.GetTempPath(), $"extracted_{Path.GetFileNameWithoutExtension(inputPath)}.wav");
             if (File.Exists(wavPath)) File.Delete(wavPath);
             await ExtractAudioAsync(inputPath, wavPath);
+            LogStage("Audio Extraction", stageStopwatch);
 
             // 3. Whisper Transcription
             Console.WriteLine("Starting Whisper transcription...");
@@ -112,20 +113,25 @@ namespace QuizDotnet
                 ));
             }
             Console.WriteLine($"Transcribed {rawSegments.Count} raw segments.");
+            LogStage("Whisper Transcription", stageStopwatch);
 
             // 4. Split into sentences/phrases
             var sentences = SplitIntoSentences(rawSegments);
             Console.WriteLine($"Grouped into {sentences.Count} sentences.");
+            LogStage("Sentence Splitting", stageStopwatch);
 
             // 5. Semantic Chunking
             var chunks = await GenerateSemanticChunksAsync(sentences);
             Console.WriteLine($"Generated {chunks.Count} semantic chunks.");
+            LogStage("Semantic Chunking", stageStopwatch);
 
             // 6. Classification, Summarization & Embedding Storage
             var processedChunks = await ProcessChunksAndStoreAsync(chunks, courseId, sourceId);
+            LogStage("Classification & Embedding Storage", stageStopwatch);
 
             // 7. RAG & Quiz Generation
             var generatedQuestions = await GenerateQuizQuestionsAsync(courseId, 3, "comprender");
+            LogStage("RAG & Quiz Generation", stageStopwatch);
 
             Console.WriteLine("\n=== Pipeline Execution Completed Successfully ===");
             Console.WriteLine($"Generated {generatedQuestions.Count} valid quiz questions.");
@@ -139,6 +145,25 @@ namespace QuizDotnet
                 Console.WriteLine($"Respuesta correcta: {q.CorrectOption}");
                 Console.WriteLine($"Justificación: {q.Justification}");
             }
+
+            totalStopwatch.Stop();
+            var pipelineEnd = DateTimeOffset.Now;
+            Console.WriteLine($"\nPipeline started at:  {pipelineStart:yyyy-MM-dd HH:mm:ss}");
+            Console.WriteLine($"Pipeline finished at: {pipelineEnd:yyyy-MM-dd HH:mm:ss}");
+            Console.WriteLine($"Total elapsed time:   {FormatElapsed(totalStopwatch.Elapsed)}");
+        }
+
+        static void LogStage(string stageName, Stopwatch stopwatch)
+        {
+            Console.WriteLine($"[TIMING] {stageName} took {FormatElapsed(stopwatch.Elapsed)}.");
+            stopwatch.Restart();
+        }
+
+        static string FormatElapsed(TimeSpan elapsed)
+        {
+            if (elapsed.TotalSeconds < 60)
+                return $"{elapsed.TotalSeconds:F2}s";
+            return $"{(int)elapsed.TotalMinutes}m {elapsed.Seconds}s ({elapsed.TotalSeconds:F1}s)";
         }
 
         static async Task ExtractAudioAsync(string inputPath, string outputPath)
@@ -220,9 +245,9 @@ namespace QuizDotnet
             if (sentences.Count == 0) return new List<SemanticChunk>();
 
             Console.WriteLine("Computing sentence embeddings using Ollama (nomic-embed-text)...");
-            IEmbeddingGenerator<string, Embedding<float>> embeddingGenerator = 
+            IEmbeddingGenerator<string, Embedding<float>> embeddingGenerator =
                 new OllamaEmbeddingGenerator(new Uri("http://127.0.0.1:11434"), "nomic-embed-text");
-            
+
             var embeddings = new List<Embedding<float>>();
             foreach (var s in sentences)
             {
@@ -294,14 +319,14 @@ namespace QuizDotnet
 
         static async Task<List<SemanticChunk>> ProcessChunksAndStoreAsync(List<SemanticChunk> chunks, string courseId, string sourceId)
         {
-            IChatClient chatClient = new OllamaChatClient(new Uri("http://127.0.0.1:11434"), "qwen2.5-coder:1.5b");
-            IEmbeddingGenerator<string, Embedding<float>> embeddingGenerator = 
+            IChatClient chatClient = new OllamaChatClient(new Uri("http://127.0.0.1:11434"), "llama3.2:3b");
+            IEmbeddingGenerator<string, Embedding<float>> embeddingGenerator =
                 new OllamaEmbeddingGenerator(new Uri("http://127.0.0.1:11434"), "nomic-embed-text");
-            
+
             // Connect to Qdrant using the official gRPC client
             Console.WriteLine("Connecting to Qdrant...");
             using var qdrantClient = new QdrantClient("127.0.0.1", 6334); // gRPC default port is 6334
-            
+
             // Initialize collection if it doesn't exist
             var collections = await qdrantClient.ListCollectionsAsync();
             string collectionName = "quiz_chunks_dotnet";
@@ -404,8 +429,8 @@ Responde únicamente con un objeto JSON válido con este formato:
 
         static async Task<List<QuizQuestion>> GenerateQuizQuestionsAsync(string courseId, int numQuestions, string bloomLevel)
         {
-            IChatClient chatClient = new OllamaChatClient(new Uri("http://127.0.0.1:11434"), "qwen2.5-coder:1.5b");
-            IEmbeddingGenerator<string, Embedding<float>> embeddingGenerator = 
+            IChatClient chatClient = new OllamaChatClient(new Uri("http://127.0.0.1:11434"), "llama3.2:3b");
+            IEmbeddingGenerator<string, Embedding<float>> embeddingGenerator =
                 new OllamaEmbeddingGenerator(new Uri("http://127.0.0.1:11434"), "nomic-embed-text");
             using var qdrantClient = new QdrantClient("127.0.0.1", 6334);
             string collectionName = "quiz_chunks_dotnet";
