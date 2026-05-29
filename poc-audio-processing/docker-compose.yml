@@ -27,3 +27,24 @@ services:
     volumes:
       - ./cache/qdrant:/qdrant/storage
     restart: unless-stopped
+
+  ollama:
+    image: ollama/ollama:latest
+    ports:
+      # Bind to localhost so both the host .NET app and the python service reach it at 127.0.0.1:11434
+      - "127.0.0.1:11434:11434"
+    volumes:
+      # Persist pulled models so they are not re-downloaded on every container restart
+      - ./cache/ollama:/root/.ollama
+    environment:
+      # 12 GB VRAM (RTX 4080 Laptop) cannot hold two LLMs at once; force one resident model + clean swap.
+      - OLLAMA_MAX_LOADED_MODELS=1
+      - OLLAMA_KEEP_ALIVE=10m
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+              capabilities: [gpu]
+    restart: unless-stopped

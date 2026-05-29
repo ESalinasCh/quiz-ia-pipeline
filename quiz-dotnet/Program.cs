@@ -77,58 +77,94 @@ namespace QuizDotnet
             var totalStopwatch = Stopwatch.StartNew();
             Console.WriteLine($"Pipeline started at: {pipelineStart:yyyy-MM-dd HH:mm:ss}");
 
-            string inputPath = args.Length > 0 ? args[0] : "/home/ubuntu/quiz/test01_20s.wav";
+            // CLI: [inputAudioOrVideo] [--transcript <path>]
+            // --transcript loads a previously saved transcript and skips audio extraction + Whisper entirely.
+            string? transcriptPath = null;
+            string? positionalInput = null;
+            for (int a = 0; a < args.Length; a++)
+            {
+                if ((args[a] == "--transcript" || args[a] == "-t") && a + 1 < args.Length)
+                {
+                    transcriptPath = args[++a];
+                }
+                else if (!args[a].StartsWith('-'))
+                {
+                    positionalInput ??= args[a];
+                }
+            }
+
+            string inputPath = positionalInput ?? "/home/ubuntu/quiz/test01_20s.wav";
             string courseId = "course-123";
             string sourceId = Guid.NewGuid().ToString();
             // Unique collection per run so vectors don't pile up in a shared collection
             string collectionName = $"quiz_chunks_dotnet_{DateTime.Now:yyyyMMdd_HHmmss}";
             Console.WriteLine($"Qdrant collection for this run: {collectionName}");
 
-            // 1. Download Whisper model if not exists
-            var whisperModelType = GgmlType.Small;
-            string whisperModelName = $"whisper-{whisperModelType.ToString().ToLower()}";
-            string modelPath = "ggml-small.bin";
-            if (!File.Exists(modelPath))
-            {
-                Console.WriteLine($"Downloading Whisper GGML {whisperModelType} model to {modelPath}...");
-                using var modelStream = await WhisperGgmlDownloader.Default.GetGgmlModelAsync(whisperModelType);
-                using var fileStream = File.OpenWrite(modelPath);
-                await modelStream.CopyToAsync(fileStream);
-                Console.WriteLine("Whisper model downloaded successfully.");
-            }
-
             var stageStopwatch = Stopwatch.StartNew();
+            string whisperModelName;
+            List<TranscriptSegment> rawSegments;
 
-            // 2. Audio Extraction
-            Directory.CreateDirectory("audio");
-            string wavPath = Path.Combine("audio", $"{Path.GetFileNameWithoutExtension(inputPath)}_{DateTime.Now:yyyyMMdd_HHmmss}.wav");
-            if (File.Exists(wavPath)) File.Delete(wavPath);
-            await ExtractAudioAsync(inputPath, wavPath);
-            LogStage("Audio Extraction", stageStopwatch);
-
-            // 3. Whisper Transcription
-            Console.WriteLine("Starting Whisper transcription...");
-            using var whisperFactory = WhisperFactory.FromPath(modelPath);
-            using var processor = whisperFactory.CreateBuilder()
-                .WithLanguage("es")
-                .Build();
-
-            using var audioStream = File.OpenRead(wavPath);
-            var rawSegments = new List<TranscriptSegment>();
-            await foreach (var result in processor.ProcessAsync(audioStream))
+            if (transcriptPath != null)
             {
-                rawSegments.Add(new TranscriptSegment(
-                    result.Text,
-                    result.Start.TotalSeconds,
-                    result.End.TotalSeconds,
-                    "SPEAKER_0" // Default speaker fallback
-                ));
+                // Reuse an existing transcript (e.g. from quiz-dotnet/transcripts) — skips the slow Whisper stage.
+                if (!File.Exists(transcriptPath))
+                {
+                    Console.WriteLine($"Transcript file not found: {transcriptPath}");
+                    return;
+                }
+                Console.WriteLine($"Loading transcript from {transcriptPath} (skipping audio extraction + Whisper)...");
+                (rawSegments, whisperModelName) = LoadTranscript(transcriptPath);
+                inputPath = transcriptPath; // used only for naming the quiz output file
+                Console.WriteLine($"Loaded {rawSegments.Count} segments (model: {whisperModelName}).");
+                LogStage("Transcript Load", stageStopwatch);
             }
-            Console.WriteLine($"Transcribed {rawSegments.Count} raw segments.");
-            LogStage("Whisper Transcription", stageStopwatch);
+            else
+            {
+                // 1. Download Whisper model if not exists
+                var whisperModelType = GgmlType.Small;
+                whisperModelName = $"whisper-{whisperModelType.ToString().ToLower()}";
+                string modelPath = "ggml-small.bin";
+                if (!File.Exists(modelPath))
+                {
+                    Console.WriteLine($"Downloading Whisper GGML {whisperModelType} model to {modelPath}...");
+                    using var modelStream = await WhisperGgmlDownloader.Default.GetGgmlModelAsync(whisperModelType);
+                    using var fileStream = File.OpenWrite(modelPath);
+                    await modelStream.CopyToAsync(fileStream);
+                    Console.WriteLine("Whisper model downloaded successfully.");
+                }
+                stageStopwatch.Restart();
 
-            // Save raw transcript for quality monitoring
-            SaveTranscript(inputPath, rawSegments, whisperModelName);
+                // 2. Audio Extraction
+                Directory.CreateDirectory("audio");
+                string wavPath = Path.Combine("audio", $"{Path.GetFileNameWithoutExtension(inputPath)}_{DateTime.Now:yyyyMMdd_HHmmss}.wav");
+                if (File.Exists(wavPath)) File.Delete(wavPath);
+                await ExtractAudioAsync(inputPath, wavPath);
+                LogStage("Audio Extraction", stageStopwatch);
+
+                // 3. Whisper Transcription
+                Console.WriteLine("Starting Whisper transcription...");
+                using var whisperFactory = WhisperFactory.FromPath(modelPath);
+                using var processor = whisperFactory.CreateBuilder()
+                    .WithLanguage("es")
+                    .Build();
+
+                using var audioStream = File.OpenRead(wavPath);
+                rawSegments = new List<TranscriptSegment>();
+                await foreach (var result in processor.ProcessAsync(audioStream))
+                {
+                    rawSegments.Add(new TranscriptSegment(
+                        result.Text,
+                        result.Start.TotalSeconds,
+                        result.End.TotalSeconds,
+                        "SPEAKER_0" // Default speaker fallback
+                    ));
+                }
+                Console.WriteLine($"Transcribed {rawSegments.Count} raw segments.");
+                LogStage("Whisper Transcription", stageStopwatch);
+
+                // Save raw transcript for quality monitoring + reuse via --transcript on later runs
+                SaveTranscript(inputPath, rawSegments, whisperModelName);
+            }
 
             // 4. Split into sentences/phrases
             var sentences = SplitIntoSentences(rawSegments);
@@ -191,6 +227,51 @@ namespace QuizDotnet
             }
 
             Console.WriteLine($"Transcript saved to {path}");
+        }
+
+        // Parses a transcript previously written by SaveTranscript. Returns the segments and the model name
+        // recorded in the "# Model:" header. Lines look like: [MM:SS.mmm -> MM:SS.mmm] text
+        static (List<TranscriptSegment> Segments, string Model) LoadTranscript(string path)
+        {
+            var segments = new List<TranscriptSegment>();
+            string model = "loaded-transcript";
+
+            foreach (var raw in File.ReadAllLines(path))
+            {
+                string line = raw.Trim();
+                if (line.Length == 0) continue;
+
+                if (line.StartsWith('#'))
+                {
+                    if (line.StartsWith("# Model:"))
+                        model = line["# Model:".Length..].Trim();
+                    continue;
+                }
+
+                if (!line.StartsWith('[')) continue;
+                int close = line.IndexOf(']');
+                if (close < 0) continue;
+
+                string timePart = line.Substring(1, close - 1);   // "MM:SS.mmm -> MM:SS.mmm"
+                string text = line[(close + 1)..].Trim();
+
+                var bounds = timePart.Split("->", StringSplitOptions.TrimEntries);
+                if (bounds.Length != 2) continue;
+
+                segments.Add(new TranscriptSegment(text, ParseTimestamp(bounds[0]), ParseTimestamp(bounds[1]), "SPEAKER_0"));
+            }
+
+            return (segments, model);
+        }
+
+        // Inverse of FormatTimestamp: "MM:SS.mmm" where MM is total minutes.
+        static double ParseTimestamp(string ts)
+        {
+            var parts = ts.Split(':');
+            if (parts.Length != 2) return 0.0;
+            double minutes = double.Parse(parts[0], System.Globalization.CultureInfo.InvariantCulture);
+            double seconds = double.Parse(parts[1], System.Globalization.CultureInfo.InvariantCulture);
+            return minutes * 60.0 + seconds;
         }
 
         static void SaveQuiz(string inputPath, List<QuizQuestion> questions, string transcriptModel, TimeSpan quizElapsed, TimeSpan totalElapsed)
@@ -329,16 +410,15 @@ namespace QuizDotnet
         {
             if (sentences.Count == 0) return new List<SemanticChunk>();
 
-            Console.WriteLine("Computing sentence embeddings using Ollama (nomic-embed-text)...");
+            Console.WriteLine($"Computing sentence embeddings using Ollama ({EmbeddingModel})...");
             IEmbeddingGenerator<string, Embedding<float>> embeddingGenerator =
                 new OllamaEmbeddingGenerator(new Uri("http://127.0.0.1:11434"), EmbeddingModel);
 
-            var embeddings = new List<Embedding<float>>();
-            foreach (var s in sentences)
-            {
-                var response = await embeddingGenerator.GenerateAsync(new[] { s.Text });
-                embeddings.Add(response[0]);
-            }
+            // Embed sentences in batches (fast) with per-item fallback. bge-m3 returns a NaN vector for some
+            // degenerate inputs, which Ollama cannot JSON-encode and which would kill an all-in-one batch call.
+            var (sentencesEmbedded, embeddings) = await EmbedSentencesAsync(embeddingGenerator, sentences);
+            if (sentencesEmbedded.Count == 0) return new List<SemanticChunk>();
+            sentences = sentencesEmbedded; // keep sentences and embeddings index-aligned after any drops
 
             var similarities = new List<float>();
             for (int i = 0; i < embeddings.Count - 1; i++)
@@ -391,6 +471,53 @@ namespace QuizDotnet
             }
 
             return chunks;
+        }
+
+        // Embeds sentences in batches with a per-item fallback. Returns the surviving sentences and their
+        // embeddings, kept strictly index-aligned (degenerate inputs that fail to embed are dropped from both).
+        static async Task<(List<Sentence> Sentences, List<Embedding<float>> Embeddings)> EmbedSentencesAsync(
+            IEmbeddingGenerator<string, Embedding<float>> generator, List<Sentence> sentences)
+        {
+            const int batchSize = 32;
+            var keptSentences = new List<Sentence>();
+            var embeddings = new List<Embedding<float>>();
+
+            // Drop empty/whitespace sentences up front: bge-m3 yields NaN vectors for them, which Ollama
+            // cannot serialize ("json: unsupported value: NaN").
+            var clean = sentences.Where(s => !string.IsNullOrWhiteSpace(s.Text)).ToList();
+
+            for (int i = 0; i < clean.Count; i += batchSize)
+            {
+                var batch = clean.GetRange(i, Math.Min(batchSize, clean.Count - i));
+                try
+                {
+                    var res = await generator.GenerateAsync(batch.Select(s => s.Text).ToList());
+                    for (int j = 0; j < batch.Count; j++)
+                    {
+                        keptSentences.Add(batch[j]);
+                        embeddings.Add(res[j]);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"Batch embedding failed ({ex.Message}); retrying items individually...");
+                    foreach (var s in batch)
+                    {
+                        try
+                        {
+                            var single = await generator.GenerateAsync(new[] { s.Text });
+                            keptSentences.Add(s);
+                            embeddings.Add(single[0]);
+                        }
+                        catch (Exception exItem)
+                        {
+                            Console.WriteLine($"Skipping sentence that failed to embed: {exItem.Message}");
+                        }
+                    }
+                }
+            }
+
+            return (keptSentences, embeddings);
         }
 
         static SemanticChunk BuildChunk(List<Sentence> chunkSents, int index)
@@ -465,22 +592,9 @@ Responde únicamente con un objeto JSON válido con este formato:
                     Console.WriteLine($"Classification error for chunk {chunk.ChunkIndex}: {ex.Message}");
                 }
 
-                // 2. Generate summary
-                string summaryPrompt = $"Proporciona un título o resumen del tema de máximo 5 palabras para el siguiente fragmento. Responde únicamente con el resumen sin comillas ni texto adicional:\n\n{chunk.Content}";
-                string summary = "Resumen de clase";
-                try
-                {
-                    var summaryResponse = await chatClient.GetResponseAsync(summaryPrompt);
-                    summary = summaryResponse.Text.Trim().Replace("\"", "");
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine($"Summary error for chunk {chunk.ChunkIndex}: {ex.Message}");
-                }
-
+                // Summary generation removed: it cost a second LLM call per chunk for no downstream value.
                 chunk.Category = category;
                 chunk.ConfidenceScore = confidence;
-                chunk.TopicSummary = summary;
                 chunk.QdrantVectorId = Guid.NewGuid();
 
                 // 3. Compute embedding vector
@@ -547,17 +661,43 @@ Responde únicamente con un objeto JSON válido con este formato:
                 : Math.Clamp((int)Math.Ceiling(retrievedChunks.Count / 3.0), 5, 40);
             Console.WriteLine($"Academic chunks retrieved: {retrievedChunks.Count}. Target questions: {targetQuestions}.");
 
-            var generatedQuestions = new List<QuizQuestion>();
-            var questionEmbeddings = new List<Embedding<float>>();
+            // ---- Phase 0: keep only the most significant chunks (classifier confidence × concept density). ----
+            // Generating from every chunk is the dominant time sink and dilutes quality; the densest chunks
+            // hold the actual concepts, so we generate from those only.
+            var candidates = retrievedChunks
+                .Select(p => new
+                {
+                    Content = p.Payload.TryGetValue("content", out var contentVal) ? contentVal.StringValue : "",
+                    Confidence = p.Payload.TryGetValue("confidence_score", out var confVal) ? confVal.DoubleValue : 0.8
+                })
+                .Where(x => !string.IsNullOrWhiteSpace(x.Content))
+                .Select(x => new
+                {
+                    x.Content,
+                    x.Confidence,
+                    WordCount = x.Content.Split(' ', StringSplitOptions.RemoveEmptyEntries).Length
+                })
+                .ToList();
 
-            foreach (var point in retrievedChunks)
+            // Skip thin chunks (they yield trivial questions); relax only if the filter removes everything.
+            var dense = candidates.Where(x => x.WordCount >= 30).ToList();
+            if (dense.Count == 0) dense = candidates;
+
+            var selectedChunks = dense
+                .OrderByDescending(x => x.Confidence * x.WordCount)
+                .Take(targetQuestions)
+                .Select(x => x.Content)
+                .ToList();
+            Console.WriteLine($"Selected {selectedChunks.Count} significant chunks for question generation.");
+
+            // ---- Phase 1: generate every question first, so the generator model stays resident (no per-question swap). ----
+            var quizOptions = new ChatOptions
             {
-                if (generatedQuestions.Count >= targetQuestions) break;
-
-                string chunkContent = point.Payload.TryGetValue("content", out var contentVal) ? contentVal.StringValue : "";
-                if (string.IsNullOrWhiteSpace(chunkContent)) continue;
-
-                // 1. Generate Question via RAG
+                ResponseFormat = ChatResponseFormat.ForJsonSchema(typeof(QuizQuestion))
+            };
+            var candidateQuestions = new List<(QuizQuestion Question, string Source)>();
+            foreach (var chunkContent in selectedChunks)
+            {
                 string quizPrompt = $@"Eres un experto en diseño instruccional universitario.
 Basándote ÚNICAMENTE en el siguiente contenido de clase, genera UNA pregunta de opción múltiple con 4 opciones (a, b, c, d).
 
@@ -584,30 +724,33 @@ Responde únicamente con un objeto JSON válido que siga exactamente esta estruc
   ""justification"": ""justificación basada en el texto...""
 }}";
 
-                var quizOptions = new ChatOptions
-                {
-                    ResponseFormat = ChatResponseFormat.ForJsonSchema(typeof(QuizQuestion))
-                };
-
-                QuizQuestion? question = null;
                 try
                 {
                     var quizResponse = await chatClient.GetResponseAsync(quizPrompt, quizOptions);
-                    question = JsonSerializer.Deserialize<QuizQuestion>(quizResponse.Text);
+                    var question = JsonSerializer.Deserialize<QuizQuestion>(quizResponse.Text);
+                    if (question != null && !string.IsNullOrWhiteSpace(question.Question))
+                    {
+                        candidateQuestions.Add((question, chunkContent));
+                    }
                 }
                 catch (Exception ex)
                 {
                     Console.WriteLine($"Error generating question: {ex.Message}");
-                    continue;
                 }
+            }
 
-                if (question == null || string.IsNullOrWhiteSpace(question.Question)) continue;
-
-                // 2. Validate Question (LLM-as-a-judge)
+            // ---- Phase 2: judge every candidate in one pass (judge model loads once, not once per question). ----
+            var valOptions = new ChatOptions
+            {
+                ResponseFormat = ChatResponseFormat.ForJsonSchema(typeof(ValidationResult))
+            };
+            var vettedQuestions = new List<QuizQuestion>();
+            foreach (var (question, source) in candidateQuestions)
+            {
                 string valPrompt = $@"Eres un evaluador de preguntas de examen universitario. Tu objetivo es juzgar la calidad y fidelidad factual de la pregunta generada a partir de un fragmento de clase.
 
 FRAGMENTO DE CLASE:
-""{chunkContent}""
+""{source}""
 
 PREGUNTA EVALUADA:
 Pregunta: {question.Question}
@@ -626,11 +769,6 @@ REGLAS DE EVALUACIÓN:
 Calcula el promedio general de estas 3 reglas como un valor entre 0.0 y 1.0.
 Responde únicamente con un objeto JSON válido con este formato:
 {{""score"": 0.85, ""reason"": ""explicación breve de la evaluación""}}";
-
-                var valOptions = new ChatOptions
-                {
-                    ResponseFormat = ChatResponseFormat.ForJsonSchema(typeof(ValidationResult))
-                };
 
                 double valScore = 0.0;
                 try
@@ -651,30 +789,39 @@ Responde únicamente con un objeto JSON válido con este formato:
                     continue;
                 }
 
-                // 3. Deduplication Check
-                var qEmbRes = await embeddingGenerator.GenerateAsync(new[] { question.Question });
-                var qEmb = qEmbRes[0];
+                vettedQuestions.Add(question);
+            }
 
-                bool isDuplicate = false;
-                foreach (var existingEmb in questionEmbeddings)
+            // ---- Phase 3: drop near-duplicate questions (one batched embedding call instead of one per question). ----
+            var generatedQuestions = new List<QuizQuestion>();
+            if (vettedQuestions.Count > 0)
+            {
+                var questionEmbeddings = (await embeddingGenerator.GenerateAsync(
+                    vettedQuestions.Select(q => q.Question).ToList())).ToList();
+
+                var keptEmbeddings = new List<Embedding<float>>();
+                for (int i = 0; i < vettedQuestions.Count; i++)
                 {
-                    float sim = TensorPrimitives.CosineSimilarity(qEmb.Vector.Span, existingEmb.Vector.Span);
-                    if (sim > 0.92f)
+                    bool isDuplicate = false;
+                    for (int j = 0; j < keptEmbeddings.Count; j++)
                     {
-                        isDuplicate = true;
-                        break;
+                        if (TensorPrimitives.CosineSimilarity(questionEmbeddings[i].Vector.Span, keptEmbeddings[j].Vector.Span) > 0.92f)
+                        {
+                            isDuplicate = true;
+                            break;
+                        }
                     }
-                }
 
-                if (isDuplicate)
-                {
-                    Console.WriteLine("Discarding question as a semantic duplicate of an existing question.");
-                    continue;
-                }
+                    if (isDuplicate)
+                    {
+                        Console.WriteLine("Discarding question as a semantic duplicate of an existing question.");
+                        continue;
+                    }
 
-                generatedQuestions.Add(question);
-                questionEmbeddings.Add(qEmb);
-                Console.WriteLine($"Accepted question: {question.Question}");
+                    generatedQuestions.Add(vettedQuestions[i]);
+                    keptEmbeddings.Add(questionEmbeddings[i]);
+                    Console.WriteLine($"Accepted question: {vettedQuestions[i].Question}");
+                }
             }
 
             return generatedQuestions;

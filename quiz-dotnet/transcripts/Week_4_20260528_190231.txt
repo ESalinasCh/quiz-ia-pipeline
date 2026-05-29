@@ -1,0 +1,1184 @@
+# Transcript: Week_4
+# Generated: 2026-05-28 19:02:31
+# Model: whisper-small
+# Segments: 1179
+
+[00:00.000 -> 00:15.280] muy bien. Para recapitular la idea del capstone de esta materia es no diría sencilla, pero
+[00:15.280 -> 00:23.120] es puntual, hacer una migración de un monolito a microservicios, pero tiene sus detallitos.
+[00:23.120 -> 00:31.840] A grandes rasgos lo que vamos a tener al final como producto final es un microservicio con
+[00:31.840 -> 00:40.600] todo lo que conlleva. Bueno, dos en realidad, sería el OCR y el search, pero al menos para
+[00:40.600 -> 00:48.360] el mitrem hay que tenerlo ser, como microservicio. Entonces si recuerdan sus cursos de microservicios
+[00:48.360 -> 00:55.080] que los tomaron antes, cada microservicio tiene que ser autónomo, o sea, tiene que gestionar
+[00:55.080 -> 01:01.240] sus propias datos, propias business logic y tener su propia UI.
+[01:01.240 -> 01:05.040] ¿Correcto?
+[01:05.040 -> 01:16.000] No tenemos de transmutación, feedback, pero podemos, así es, oen, oen, por favor, si
+[01:16.000 -> 01:33.440] que nos ayuden. Es que no tenemos de transmutación, no tenemos de transmutación, no tenemos de
+[01:33.440 -> 01:48.240] transmutación.
+[01:48.240 -> 02:07.360] Entonces, les decía que el microservicio tiene que seguir todos esos... los guy clients para
+[02:07.360 -> 02:17.800] que su microservicio como tal. Ahora, esto nos va a tener un montón de problemas.
+[02:17.800 -> 02:24.080] Vamos a ir parte por parte, a iniciar los problemas. Pero primero, trataremos de entender, ¿no?
+[02:24.080 -> 02:33.360] Y si algo que quieren us desaportar solamente lo lanza. Que es paperless. Entonces, paperless
+[02:33.360 -> 02:44.800] lo va a dibujar con un cuadrado gigante. No, es un monolito. Básicamente, la idea es
+[02:44.800 -> 02:50.600] que procesa documentos de distintas fuentes, los indexa y nos permite hacer búsqueda sobre
+[02:50.600 -> 02:58.440] él. Es sencillo, ¿no?
+[02:58.440 -> 03:06.160] Ahora, como parte del trabajo de la semana 1, entre semana 1 y 2 era discepcionar el
+[03:06.160 -> 03:17.919] monolito. O no discepcionar como tal, sino entenderlo. Ahora, para que un parte de este
+[03:17.919 -> 03:26.720] proceso, ¿no? Vamos a hacerlo aquí. Ojo que todo esto es desde mi punto de vista. Si alguien
+[03:26.720 -> 03:31.360] ha podido ver algo más o ha podido seguirlo más a más profundidad, sientas el libre de
+[03:31.360 -> 03:49.880] aportar. Dentro de paperless tenemos una parte exclima ingesta. Tenemos otra parte. ¿Qué
+[03:49.880 -> 04:06.480] es el procesamiento como tal? ¿Lo voy a poner como procesamiento? O consumo. Ojo como consumo.
+[04:06.480 -> 04:32.880] Para que vaya con ingesta. Ok, dentro de consumo, lo que tenemos es que hay tres posibles consumidores.
+[04:32.880 -> 04:53.800] No os recuerdo bien los nombres, pero los voy a poner acá. Puede ser el módulo de OCR.
+[04:53.800 -> 05:10.480] Puede ser por el intérprete de emails. O no os recuerdo que son uploads. Bueno, el tercero
+[05:10.480 -> 05:15.279] no os recuerdo bien, pero de que hay tres hay tres. Por lo menos hay tres. Pero lo que
+[05:15.279 -> 05:28.800] nos importa es este OCR. Las OCRs significan reconocimiento óptico de caracteres. Y está
+[05:28.800 -> 05:35.760] más o menos acoplado en el monolito. ¿Qué quiere decir? Que dentro del mismo hilo de
+[05:35.760 -> 05:45.600] ejecución va a bloquear, si tenemos un proceso pesado va a bloquear otros procesos. Y eso
+[05:45.600 -> 05:57.160] hace que de cierta manera paperless sea pesado. Si han aviso el código, o han aviso el código
+[05:57.160 -> 06:12.320] de paperless, han debido notar que han habido intentos de mejorar esto. Es por eso que cuando
+[06:12.320 -> 06:20.560] se habla de OCR como tal, creo que lo voy a dejar como OCR. Y le voy a quitar los otros
+[06:20.560 -> 06:37.120] porque nos vamos a analizar. Este OCR, voy a poner una flecha acá, es asincrono. Entonces
+[06:37.120 -> 06:43.560] hay un sistema de colas, creo que está con Celery. Nunca lo he usado, pero bueno, es
+[06:43.560 -> 06:51.200] un sistema de colas que va a delegar o sea va a hacer proceso de ingesta, se va a procesar
+[06:51.200 -> 06:58.279] el archivo, se va a sacar los metadatos. Pero ya para procesar archivo como tal o sea
+[06:58.279 -> 07:16.840] el contenido se hace de manera asincrona con Celery. Acá va a notar que todo está dentro
+[07:16.840 -> 07:38.240] de un modo, si está fuera es porque dice el colado muy chiquito. Lo voy a agrandar. Ahora
+[07:38.240 -> 07:54.080] voy a poner el OCR. Entonces Celery va a empezar a despachar los eventos cuando sea necesario.
+[07:54.080 -> 08:13.560] Y bueno, vamos a tener una base de sempostgres. Creo que es sempostgres. Y así en sencillo
+[08:13.560 -> 08:32.920] esto es paperless. Hay muchas más cosas, pero en sí esto es paperless. Ahora nuestro
+[08:32.920 -> 08:49.720] trabajo, bueno su trabajo es agadar un bisturí y sacar esto de aquí. Pero no simplemente
+[08:49.720 -> 09:01.400] sacar esto de aquí. El gol final es que nuestro microservicio, nuevo microservicio OCR, vaya
+[09:01.400 -> 09:08.120] a absorber las funciones de este de manera paulatina hasta que este sea totalmente prescindible.
+[09:08.120 -> 09:25.040] Creo que hay que impasos más con Redis. Ok, entonces, ¿qué vamos a tener al final?
+[09:25.040 -> 09:52.559] Al final vamos a tener esto. Un monolito con... Bueno, lo voy a dibujar esto acá para que
+[09:52.559 -> 09:58.960] esté difícil, pero luego les digo por qué no está tan bien que esté ahí. Y nuestro
+[09:58.960 -> 10:11.559] microservicio lo voy a poner con este Rongo. Entonces nuestro approach está aquí. La
+[10:11.559 -> 10:21.400] idea es ir paso a paso. Como primer step yo les sugeriría que la ingesta se siga manteniendo
+[10:21.400 -> 10:41.520] aquí. Acá tenemos nuestro parcer, cuando voy a ver, voy a poner el parcer para OCR
+[10:41.520 -> 11:02.040] local y todo lo demás. No me va a ser y tener todo lo demás. Pero a su vez, dentro de Péperles,
+[11:02.040 -> 11:16.880] nosotros vamos a crear un parcer de moto. Entonces, para aquellos que han tenido alguna, algún
+[11:16.880 -> 11:24.000] rato esa duda de si vamos a modificar Péperles, lo vamos a hacer de manera mínima, poco invasiva.
+[11:24.000 -> 11:31.800] Entonces, dentro del código de Péperles, lo que pasa es que ya vimos que había como
+[11:31.800 -> 11:39.600] tres parcer, no tres formas de procesar el documento. Vamos a agregar una más. Pero este parcer
+[11:39.600 -> 11:45.200] de moto va a ser un poco especial. No voy a poner dentro de su propio rectángulito.
+[11:45.200 -> 11:56.920] ¿Por qué? Este es el que se va a comunicar hacia afuera del monolito. Entonces, este amigo
+[11:56.920 -> 12:08.480] va a ser el que va a comunicarse en primera instancia con el microservice. Vamos a poner
+[12:08.480 -> 12:30.960] el rectítulo. Y voy a quitar eso de aquí por un rato. Y esta comunicación es ida y
+[12:30.960 -> 12:40.640] vuelta. Entonces, ¿qué vamos a hacer aquí? Vamos a enviar una petición de procesamiento
+[12:40.640 -> 12:47.280] de un documento y el documento como tal al microservicio. ¿Por qué todavía estamos manteniendo
+[12:47.280 -> 13:12.600] la ingesta aquí? Entonces, en un approach que vi de algún caso, vi que tenían esto.
+[13:12.600 -> 13:18.920] Porque cada posible microservicio, no era microservicio, sino era simplemente workers,
+[13:18.920 -> 13:32.559] que iban a extender el poder de procesamiento de nuestros documentos. Pero ¿por qué esto
+[13:32.559 -> 13:37.360] no es mantenible? Bueno, no es lo que queremos para el módulo. No, si bien en una estrategia
+[13:37.360 -> 13:45.080] en el mundo real puede ser suficiente, podría ser suficiente. No, nuestro punto de modernización
+[13:45.080 -> 13:48.840] y migración no es este, porque aquí no estamos migrando ni modernizando, simplemente estamos
+[13:48.840 -> 13:54.720] extendiendo. No estamos sacando el problema y le estamos dando más poder de procesamiento.
+[13:54.720 -> 14:04.920] Entonces, esto en forma de workers no debería ser. Si alguien está siguiendo este approach,
+[14:04.920 -> 14:15.920] no hay que hacer un cambio. Lo que en sí vamos a hacer, voy a quitar esto, voy a quitar
+[14:15.920 -> 14:28.680] esto, es quitarle la responsabilidad de la comunicación de estos dos. Imagínense que
+[14:28.680 -> 14:35.960] este va a tener que procesar información del documento desde el monolito al microservicio,
+[14:35.960 -> 14:40.120] el microservicio va a tener que ser lo mismo a este lado. Entonces, como ya lo habíamos
+[14:40.120 -> 14:47.800] hablado alguna vez, esa no es responsabilidad que debe estar acá. Si bien puede funcionar,
+[14:47.800 -> 15:06.440] la iniciativa funcionará. Pero nosotros tenemos como buena práctica que usar a este amigo.
+[15:06.440 -> 15:28.600] Ya lo conocen como ACER, Anti Corrupción de Hier. Entonces esta capante construcción
+[15:28.600 -> 15:44.360] va a servir de intermediario entre mi microservicio y mi monolito. Vamos a hacer esto y esto.
+[15:44.360 -> 16:07.920] Y lo mismo acá. Y de vuelta. Envía cosas y recibe cosas. Bien, ahora. Una pregunta
+[16:07.920 -> 16:16.120] que creo que no quedó muy clara o pienso que no quedó muy clara la respuesta es ¿Qué
+[16:16.120 -> 16:25.440] es el ACER? ¿Cuál es su función? ¿Qué va a hacer? Entonces, desde la teoría sabemos
+[16:25.440 -> 16:38.360] que el ACER le va a servir como un traductor porque va a comunicar lo que sea que suceda
+[16:38.360 -> 16:50.200] en el monolito hacia el microservicio y viceversa. Pero las funciones de traductor no son las
+[16:50.200 -> 16:58.360] únicas que va a tener. Por ejemplo, ya vamos a ir a chequear más rato otros otros un importante
+[16:58.360 -> 17:08.720] que es la autentificación. Pero por ahora nos quedaremos acá. Algo que tiene que considerar
+[17:08.720 -> 17:17.000] el Anti Corrupción de Hier es que no tiene que tener Business Logic. A menos no específica
+[17:17.000 -> 17:25.080] porque eventualmente este Anti Corrupción Layer va a desaparecer y si desaparece la porción
+[17:25.080 -> 17:33.760] de Business Logic ahí va a desaparecer también. Entonces tiene que ser como que agnóstico.
+[17:33.760 -> 17:46.400] No, hace de todo y no sabe nada. Ahora, ¿Por qué les menciono? Les mencionaba hace
+[17:46.400 -> 17:57.080] un rato que esto de que está acá fuera puede ser confuso. Entonces, ¿Se acuerdan que en
+[17:57.080 -> 18:06.000] anterior clase una pregunta o hace dos clases de qué forma va a tomar la CEL? Y bueno,
+[18:06.000 -> 18:13.160] creo que les respondí que puede ser un asade, puede ser un singleton, puede ser un API
+[18:13.160 -> 18:19.680] ad way, puede haber, no? Pero creo que esa respuesta se quedó corta porque hay un detalle
+[18:19.680 -> 18:26.000] más que esa vez no se los mencioné. Bueno, voy a mencionarles. Es que la CEL puede venir
+[18:26.000 -> 18:54.960] en dos flavors. Puede ser OutBrog, Oops, Geedered, OutBrog.
+[18:54.960 -> 19:03.680] Entonces, lo que estamos viendo ahora es una CEL Out of Process. Que quiere decir que esta
+[19:03.680 -> 19:12.480] CEL no es ni parte ni del monolito ni del microservicio. Entonces, es un Approach, es
+[19:12.480 -> 19:23.080] válido, pero ahora vamos a discutir qué posibles implicaciones tiene que este Out of Process.
+[19:23.080 -> 19:30.359] Para uno, ya no estamos hablando de dos entidades que mantener el monolito y microservicio,
+[19:30.359 -> 19:39.600] estamos hablando de tres que mantener. Estamos hablando del monolito, el microservicio y la
+[19:39.600 -> 19:47.600] capa anticorupción. Entonces, como es Out of Process, no está ni casado con el monolito
+[19:47.600 -> 19:57.720] ni con el microservicio. Es una entidad independiente. No, incluso hay Approaches en donde la capa
+[19:57.720 -> 20:06.080] CEL la convierte en un microservicio también. No, me parece demasiado, bueno, ir mucho,
+[20:06.080 -> 20:15.080] muy allá. No, convertir la CEL en un microservicio, pero hay gente que ha hecho eso. Ahora, estamos
+[20:15.080 -> 20:24.560] introduciendo la latencia. ¿Por qué? Porque al ser una entidad externa, va a estar deployado
+[20:24.560 -> 20:36.359] en su propio contenedor, por así decirlo. Y eso en red significa más latencia. ¿Qué
+[20:36.359 -> 20:48.320] más puede pasar con este Out of Proc? Ventajas es que es independiente. Ok, entonces, si hay
+[20:48.320 -> 20:53.720] un equipo dedicado y que tiene, digamos, conocimientos del stack completo, va a poder
+[20:53.720 -> 21:03.760] fácilmente mantener la CEL más. Puede haber costas de infraestructura. Entonces, esta autonomía
+[21:03.760 -> 21:12.440] tiene sus costos igual. Ahora, para nuestro proyecto, no sé si algunos
+[21:12.440 -> 21:18.000] de ustedes, bueno, algún equipo ya ha tomado este Approach, no de tener la capa anticonrupción
+[21:18.000 -> 21:24.119] separada del monolito o del microservicio. Si los están tomando, genialos, o sea, les
+[21:24.119 -> 21:32.280] van a sufrir esto que les digo de la complejidad y le van a aprender algo de ahí. Pero el
+[21:32.280 -> 21:48.160] Approach que yo les sugeriría es este otro. A ver, puedo hacer esto. Puedo hacer esto,
+[21:48.160 -> 22:14.160] ¿no? Es... Voy a crecer este. Voy a chicar este. Y...
+[22:14.160 -> 22:33.880] Lo voy a mover aquí adentro. Este Approach se llama Improach. Improaches. Entonces, ¿qué
+[22:33.880 -> 22:44.320] ventajas tenemos con este? Entonces, bueno, ventajas es que está dentro de nuestro monolito.
+[22:44.320 -> 22:50.080] Quiere decir que nuestra capa anticonrupción va a usar el stack del monolito. No puede
+[22:50.080 -> 23:04.920] que sea un facade hecho en Python. Pero al estar dentro de más cerca del core de nuestra
+[23:04.920 -> 23:16.119] aplicación, no, hablo el mismo idioma. Hay menos latencia porque está corriendo dentro
+[23:16.119 -> 23:20.720] del mismo proceso de monolito. No está fuera. No hay que deployarlo. Está corriendo ahí
+[23:20.720 -> 23:30.840] mismo en esa misma... ¿Cómo le llamo? Session. O... Sí, sesión. O... Bueno, está corriendo
+[23:30.840 -> 23:39.720] junto con el monolito para no complicarme mucho. Pero las funciones siguen siendo las
+[23:39.720 -> 23:49.800] mismas. Serví de traductor hacia el monolito... Desde el monolito al microservicio. Ok. Entonces,
+[23:49.800 -> 24:11.359] ¿cómo sería el approach sugerido para nuestro caso? ¿Qué más tengo acá? Ya, ok. Pero hasta
+[24:11.359 -> 24:23.040] acá se entendió más o menos el punto de lo que queremos lograr. Hoy ya los perdí totalmente.
+[24:23.040 -> 24:31.840] Está muy claro. Muy bien. Porque tenemos que entregar... Pues tenemos mi term en una semana
+[24:31.840 -> 24:44.920] y media, creo. Y ya tiene que funcionar esto. Vale. Ahora. Pero como les decía, este es
+[24:44.920 -> 24:58.480] una... una fase. No. Porque todavía nuestro monolito... Perdón, nuestro microservicio no
+[24:58.480 -> 25:09.200] está completo. No lo dibujé por cuestiones prácticas. Bueno, por flujera. Pero acá nuestro
+[25:09.200 -> 25:20.560] microservicio tiene que tener su propia base de datos. Ya ustedes como tienen deciden qué
+[25:20.560 -> 25:40.840] van a usar. Un arquivo de texto, Postgres, MySQL, Mongo, MariaDB. Ok. Y con microservicio,
+[25:40.840 -> 25:53.640] ¿no es falta un detalle? Sí. Adelante, Juan. Ahí... Pues es que yo estoy hablando con
+[25:53.640 -> 25:59.720] mi practitioner precisamente de eso. Porque como solo se maneja una base, es bueno que
+[25:59.720 -> 26:07.800] la que mostró allí. Para dedicarla únicamente a lo ser, pues... Pues es como que muchas
+[26:07.800 -> 26:12.640] relaciones así. Entonces él dijo que... Bueno, el mismo que por ahora. La mantuviera
+[26:12.640 -> 26:18.400] usando con la misma que ya... que ya estaba, ¿no? Como para evitar problemas, pero que
+[26:18.400 -> 26:24.560] si fuera haciendo el resto de la separación. O sea que no la dedicar aún. Porque creo que
+[26:24.560 -> 26:32.680] también tiene validaciones contra... contra eso, ¿no? Replicas y demás el propio monolito.
+[26:32.680 -> 26:44.080] Esa es una buena pregunta. Entonces como approach inicial, no está bien eso de poder quitarles
+[26:44.080 -> 26:53.160] responsabilidad de procesamiento al... al monolito como tal. Pero no es el gol. El gol final
+[26:53.160 -> 26:59.000] es tener una base de datos propia. Porque si no, no tendríamos microservicio. Tendríamos...
+[26:59.000 -> 27:04.720] ah, se me olvidó el nombre. Microlito. No, creo que yo te nombres por eso. No, porque
+[27:04.720 -> 27:08.440] si vamos a hacer que nuestro microservicio aún dependa de la base de datos del monolito.
+[27:08.440 -> 27:16.440] Pero es como crearnos un worker más. No... no vamos a tener esa... esa idea de tener
+[27:16.440 -> 27:24.280] todo microservicio migrado como tal. No sé qué es complejo. Entonces la idea, o sea para
+[27:24.280 -> 27:30.560] digamos simplificarles un poco todo esto, no es que todo esté perfecto. Estamos trabajando
+[27:30.560 -> 27:36.520] en el happy path, ¿no? La idea del... del proyecto es que podamos entender o podamos
+[27:36.520 -> 27:44.960] vivir en carne propia este asunto de la migración. Así, si la base de datos al final tiene reglas
+[27:44.960 -> 27:51.920] o demasiadas reglas en el lado del monolito, ¿no? El... el... de nuestro lado del microservicio
+[27:51.920 -> 28:01.080] pues va a tener un poco de menos de reglas. Y no, Alex, no es monolito modular, porque
+[28:01.080 -> 28:05.760] si fuera monolito modular, todo viviría dentro de monolito. Ahora estamos sacando algo fuera
+[28:05.760 -> 28:09.840] de monolito. Entonces ya no contaría como... No, perfecto.
+[28:09.840 -> 28:15.040] Adelante. Sí, Alex. Perdón. Sí. No, yo me refería era a... o sea, a lo que había
+[28:15.040 -> 28:21.320] mencionado, o que ambos todos comparten en monolito, comparten la misma base de datos.
+[28:21.320 -> 28:28.359] Exacto. Y bueno, un detalle del monolito modular es que dependiendo de la base de datos, si
+[28:28.359 -> 28:36.000] es Postgres pueden crear varios esquemas por base... varios esquemas por módulo. Ya separados
+[28:36.000 -> 28:40.360] dentro de Postgres y ya pueden tener una separación lógica más interesante al momento de migrar
+[28:40.360 -> 28:43.880] en microservicios después. Pero es en Postgres, ¿no? No, no está seguro si es que en otras
+[28:43.880 -> 28:51.800] se puede hacer eso de esquemas. Pero bueno, volviendo a lo que decía Juan, entonces,
+[28:51.800 -> 28:57.720] está... o sea, como un PEOSIP inicial, sí está bien que el microservicio todavía se
+[28:57.720 -> 29:07.560] comunica en la base de datos del monolito. Para hacer funcionar cosas, para entender cómo
+[29:07.560 -> 29:15.040] funciona, pero ya como gol final, el monolito tendría que tener su propia... perdón, el
+[29:15.040 -> 29:24.600] microservicio tendría que tener su propia base de datos. No, y eso va de la mano con
+[29:24.600 -> 29:29.120] lo siguiente que les voy a decir. No sé si hay alguna pregunta o duda o concerno al
+[29:29.120 -> 29:41.400] respecto. Si yo tengo uno. Ahí digamos que ya tenemos ese escenario, ¿no? En el que
+[29:41.400 -> 29:48.360] tenemos la base... bueno, ya tenemos el resto migrado, pero la base de datos depende. En
+[29:48.360 -> 29:57.360] ese caso, digamos, se podría avanzar en otro microservicio y digamos asignar a una persona
+[29:57.360 -> 30:02.680] o a dos personas que se encarguen de ese lado, porque pues en teoría ya funciona,
+[30:02.680 -> 30:07.040] no, pero estaría como en otra versión para ir avanzando.
+[30:07.040 -> 30:14.040] Bueno, el siguiente gol después del MIG 10, me desmigraré el servicio de search,
+[30:14.040 -> 30:20.880] en el microservicio. Entonces, los pasos que van a seguir para el OCR, van a ser casi los
+[30:20.880 -> 30:31.160] mismos que van a seguir para el search. Entonces, si en este punto logran ya tener un guide,
+[30:31.160 -> 30:35.840] unos guidelines limpios o claros de lo que van a hacer para MIG 1, para el siguiente
+[30:35.840 -> 30:43.680] y a veces replicar eso. Entonces, yo les sugería que entiendan bien cómo van a hacer la migración
+[30:43.680 -> 30:51.480] de su equipo, crearse como una receta que pueden seguir y el siguiente técnicamente
+[30:51.480 -> 30:52.800] tendría que salir más fácil.
+[30:52.800 -> 31:08.720] Sí, sé que es complicado, pero es el gol. Entonces, ahora creo que Daniela puso algo
+[31:08.720 -> 31:16.000] en el chat. Ok, luego vamos con Alex.
+[31:16.000 -> 31:24.040] Profesor, pero al final, o sea, ese deja de ser un monolito y se converte en otro microservicio,
+[31:24.040 -> 31:25.040] ¿no?
+[31:25.040 -> 31:34.600] Exacto. O sea, no olvidemos que estamos usando el patrón Strangler FIC. El Strangler FIC
+[31:34.600 -> 31:39.480] nos dice que vamos a ir migrando funcionalidades de a poco de un sistema de agresión a un
+[31:39.480 -> 31:46.800] sistema moderno, no es parte de la modernización. Entonces, nuestro monolito de a poco si vamos
+[31:46.800 -> 31:52.240] a ir migrando, un plant de migración puede tardar meses o años, dependiendo de la complejidad
+[31:52.240 -> 31:58.800] del monolito. Entonces, aquí, en diez semanas, no esperó que sea un trabajo superpulido,
+[31:58.800 -> 32:06.480] pero la menos la idea tiene que quedarse. Entonces, el monolito va a coexistir con el
+[32:06.480 -> 32:12.880] microservicio. Y viceversa, ¿no? Mientras nuestro entorno de microservicios o nuestro
+[32:12.880 -> 32:21.680] nuevo, nuestro nuevo arquitectura va tomando forma, va a convivir con el monolito. Entonces,
+[32:21.680 -> 32:28.760] el gol final es, creo que eso es la revención, es que ambos vivan juntos. Si mando un documento
+[32:28.760 -> 32:36.040] por la UI del monolito, podría verlo en la nueva UI del microservicio. O si mando un documento por
+[32:36.040 -> 32:45.840] la UI del microservicio, puedo verlo en la lista del monolito. Entonces, son dos sistemas coexistiendo.
+[32:45.840 -> 32:56.280] Entonces, el gol final es ese, o sea, sé que es quizá mucho, ¿no? Pero veamos a dónde podamos
+[32:56.280 -> 33:07.280] llegar. Ahora, para responder a Danilo, si no estoy entendiendo más la pregunta es si la base de datos
+[33:07.280 -> 33:16.400] va a guardar documentos. Esto es una medicina de arquitectónica que cada equipo puede tomar.
+[33:18.000 -> 33:35.400] Pero imagínense que les manda un documento enorme. Yo que sé. No sé, la biblioteca de
+[33:35.400 -> 33:44.560] lejadría.signo.pd. O sea, un documento enorme. Lo van a guardar en su base de datos. No creo.
+[33:46.320 -> 33:52.200] No, si bien para documentos pequeños de MEGA quizá puede funcionar. Pero lo usual es tener
+[33:52.200 -> 33:58.800] un storage separado. Esta parte no le analizo bien en el monolito cómo la hace. Si la guarda de
+[33:58.800 -> 34:08.800] manera local alguna carpeta del server o si tiene algún tipo CDN o algún host de documentos.
+[34:08.800 -> 34:16.840] Pero imagino que lo hace de manera local. Pero en el monolito nosotros tenemos control. Entonces,
+[34:16.840 -> 34:21.440] nos toca investigar cuál sería lo mejor los approach para poder guardar esa información.
+[34:21.440 -> 34:29.040] No, pero bueno, le tengo que considerar eso. Si es un archivo grande, lo van a guardar en su base de
+[34:29.040 -> 34:35.400] datos o su base de datos va a soportar eso. O van a poner las restricciones que no puedo subir archivos
+[34:35.400 -> 34:41.120] de más de un giga. Lo interesante es que del lado del microservicio ustedes deciden,
+[34:41.120 -> 34:43.200] o en el equipo de decida, qué va a hacer.
+[34:43.200 -> 34:50.880] Tal vez no sé si quedó claro o te confundí más, Daniela.
+[34:50.880 -> 35:00.640] Sí, era mal enfocado a, o sea, en hacer reconozcamiento del microservicio,
+[35:00.640 -> 35:11.520] me van a enfocado a almacenar en Bélix o como tal, los server, ese obligatoras de la neta,
+[35:11.520 -> 35:18.760] documentos, era más por ahí mi pregunta. Ah, dale. También entonces. All right.
+[35:18.760 -> 35:24.560] Pero si me agrada que hay esticua discusiones porque así va a salir mejor el capstone.
+[35:26.800 -> 35:31.600] Y de hecho voy a tener un meeting con los tutores más tarde para mostrarles esto mismo que estoy
+[35:31.600 -> 35:35.160] haciendo que en Scryptroll les voy a mostrar ellos para alinearlos todos.
+[35:35.160 -> 35:42.719] Bien. Ahora, adelante, Alex.
+[35:42.719 -> 35:49.480] Profes, nosotros estamos pensando otra cosa, porque bueno, usted cuando hace esa relación de
+[35:49.480 -> 35:57.000] monolito o ser, o sea, mediante que se va a comunicar, mediante Enpoints o que o exactamente qué proponía
+[35:57.000 -> 35:58.000] yo a usted, profesor.
+[35:58.000 -> 36:00.840] Excelente. Perdón, usted te pregunta.
+[36:00.840 -> 36:09.840] Y aquí les digo, apto yo. O sea, yo les puedo dar las herramientas o teoricas de cómo pueden
+[36:09.840 -> 36:17.280] hacerlo. Pero ya ustedes tienen que, digamos, hacer un research y ver si a cuál les aplica.
+[36:17.280 -> 36:23.880] Entonces tenemos dos formas de comunicarnos acá en el en el aceler, porque hoy dijimos que el aceler
+[36:23.880 -> 36:32.280] es el traductor. Entonces acá adentro el aceler puede ser un archivo simple, puede ser algo más
+[36:32.280 -> 36:40.800] complejo. No puede ser un un conjunto de funcionalidades o servicios acá adentro, pero que sigue
+[36:40.800 -> 36:50.120] manteniendo esa lógica de comunicar y traducir. Entonces un approach. Sería la comunicación
+[36:50.120 -> 36:53.440] sincrona. No tenemos comunicación sincrona y asincrona.
+[36:53.440 -> 37:02.120] Entonces lo que mencionaba es por en points es sincrona. Entonces quiere decir que acá va a haber
+[37:02.120 -> 37:09.960] una IP ahí abierta, pero expuesta, a la cual mi OCR puede llamar. No va a ser Slash,
+[37:09.960 -> 37:15.280] API v1 o Smoot o CR. Entonces aquí va a mandar el payload que necesita.
+[37:15.280 -> 37:21.160] No lo va a traducir si es que fuese necesario y solo va a mandar al microservicio.
+[37:21.160 -> 37:26.400] Ok.
+[37:26.400 -> 37:35.520] Y lo mismo de vuelta. No puede ser un process response. Asumiendo que del monolid del microservicio viene
+[37:35.520 -> 37:40.800] a tener algún dato más complejo y necesita ser simplificado para el monolito. Entonces acá
+[37:40.800 -> 37:46.960] también pasa eso. No pueden ser dos endpoints. Y creo que en alguna de las tareas o algunos de los
+[37:46.960 -> 37:53.200] laboratorios les sugieren que se enend points. No. No está mal, es un approach.
+[37:59.000 -> 38:05.760] Sí, bueno, lo interrumpimos un momento, pero bueno, en esa parte yo consideraría que los endpoints no son lo mejor.
+[38:05.760 -> 38:15.160] Perdón. Bueno, principalmente porque estamos utilizando Celery y estamos utilizando workers.
+[38:15.160 -> 38:21.200] Entonces se envían más que todo mediante eventos. Entonces tener que hacer solamente endpoints para
+[38:21.200 -> 38:28.600] el OCR sería un trabajo súper difícil y además no aportaría mucho. Incluso quitaría lo que
+[38:28.600 -> 38:33.320] tiene lo que tiene de asincron ahora mismo la aplicación que es el plus que tiene. Entonces creo
+[38:33.320 -> 38:38.640] que no sería lo más conveniente. Lo más conveniente sería seguir utilizando el redis tal como lo
+[38:38.640 -> 38:45.640] utiliza que lo utiliza para encolar peticiones con Celery y así evitar un poco esa ese cuello de
+[38:45.640 -> 38:52.480] botella que se dar María y mediante esos endpoints. Exacto. Ese es el punto que iba a tratar. No.
+[38:52.480 -> 39:00.560] Así bien la comunicación sincrona funciona. No es la indicada. ¿Por qué? Porque imaginen que
+[39:00.560 -> 39:06.840] mandamos una petición de un archivo enorme y que pueda darle 10 o 20 minutos al servicio en
+[39:06.840 -> 39:17.400] transformar. Nuestra aplicación quedaría bloqueada. No esperando una respuesta. No esperando el 201.
+[39:20.760 -> 39:28.160] Y si quisiéramos mandar más archivos en cola. Entonces nuestra aplicación va a ser que se va a
+[39:28.160 -> 39:33.640] consumir todos los recursos que tiene el servidor y va a colapsar en algún punto.
+[39:33.640 -> 39:40.400] Entonces a convertir en un cuello de botella. Es como decía Alex. La idea acá es preservar la
+[39:40.400 -> 39:50.080] infraestructura que ella tenía bueno que ella tiene. Papers. Y este hacerle base de la comunicación
+[39:50.080 -> 39:54.200] sincrona. Entonces vamos a mandar eventos y este acaba de estar escuchando eventos.
+[39:54.200 -> 40:06.000] No. Entonces esto nos va a dar flexibilidad. Nos va a dar mayor sensación de.
+[40:06.000 -> 40:16.120] Desrapidez. No. Porque no se va a trancar un hilo de ejecución, sino vamos a tener cola varios
+[40:16.120 -> 40:24.719] documentos. Entonces eso conlleva todo lo lo que conocen de evento y no consistencia eventual.
+[40:24.719 -> 40:36.400] Tolerancia fallos. No. Pero en un happy pad con que funcione que puede darle una cola.
+[40:36.400 -> 40:41.600] Estamos bien porque hay un montón de cosas que hay que tomar en cuenta como el de la del
+[40:41.600 -> 40:50.920] cue en caso de fallas, como hacemos rollback. No de una transacción distribuida. Hay detalles,
+[40:50.920 -> 40:57.239] no, pero. Pero en la entrencia de happy pad no todo funciona. Todo de teóricamente va a funcionar
+[40:57.239 -> 40:57.480] bien.
+[41:00.400 -> 41:11.080] Ok. Ahora. Para no salirme del acl. Acá. Y es por eso que también les decían que el
+[41:11.080 -> 41:16.120] impro que es una mejor opción porque ya tenemos cierta infraestructura aquí adentro que podemos
+[41:16.120 -> 41:22.440] utilizar. Mientras que si fuera pro, tendríamos que describir. De ahí afuera en la capa de
+[41:22.440 -> 41:30.400] mejor opción externa. Algo de esa funcionalidad o de aplicar quizá. Y en el escarca adentro podemos
+[41:30.400 -> 41:32.080] valernos de lo que ya hay.
+[41:32.080 -> 41:40.200] Entonces hay un.
+[41:40.200 -> 41:51.440] Detalle más que. Se lo he oido mencionando, pero creo que está más adelante los en las
+[41:51.440 -> 41:58.800] en la en el avance de materias. Es el tipo de release. No. Entonces acá en el acel y
+[41:58.800 -> 42:04.160] vamos a tener control sobre eso. Y quizá hay algún tipo de load balancer o API que hay
+[42:04.160 -> 42:11.680] aquí mismo. Que nos va a permitir uno de dirección al tráfico hacia el único servicio.
+[42:11.680 -> 42:21.400] Entonces el primer approach. Es solamente mandar información, pero no. Pero no procesarlo o procesarla
+[42:21.400 -> 42:26.440] y no guardarle en base de datos. No simplemente es para probar que el microcericio funciona. Según
+[42:26.440 -> 42:33.160] de stage es mandarle 5 10 50 por ciento del tráfico acá. No hay que el otro tráfico se mantenga acá.
+[42:33.160 -> 42:41.760] No el siguiente stage es de direccionar todo el tráfico hacia el micro servicio.
+[42:41.760 -> 42:46.840] Ya dejando de usar el el parcer local.
+[42:48.400 -> 42:52.200] Entonces toda esa lógica también va a estar acá dentro dentro de la capa anticorrupción.
+[42:52.200 -> 42:58.880] El monolito sigue pensando que está en entre comillas. Sigue pensando que está.
+[42:58.880 -> 43:08.040] Trabajando de manera local con los archivos. Sin embargo, este remoto está enviando los otro lado.
+[43:08.040 -> 43:16.760] Ok, entonces esta capa anticorrupción de a poco va a ir tomando más forma. No.
+[43:16.760 -> 43:22.920] Ya no va a ser traductor. Ahora nos va a servir algo como algo como un load balancer más o menos.
+[43:22.920 -> 43:29.239] No es un load balancer como tal. Pero la idea es esa que va a ir distribuiendo carga entre uno y otro.
+[43:29.239 -> 43:35.840] Ok, ahora.
+[43:35.840 -> 43:45.200] Pero todavía nos falta un detalle más para considerar esto ya migrado.
+[43:47.760 -> 43:52.280] Língesta.
+[43:52.280 -> 43:56.239] Dentro del monolito língesta.
+[43:56.239 -> 44:01.760] La hace de tres fuentes.
+[44:01.760 -> 44:06.200] Cosos electrónicos. Uploads.
+[44:06.200 -> 44:11.000] Ya bueno, uno más que no se cuelga.
+[44:11.000 -> 44:16.280] Pero la idea es que son tres fuentes. Lo bueno son fuentes de ingesta de archivos.
+[44:17.760 -> 44:24.680] Por ahora en este esquema todavía estamos dependiendo de la ingesta del monolito.
+[44:24.680 -> 44:35.280] Pero si lo analizan más.
+[44:41.680 -> 44:48.440] Bueno, no estoy tan tan al tanto de cuáles son las limitaciones de ingesta de Papers quizá tiene o quizá no.
+[44:48.440 -> 44:51.440] Pero para darle un.
+[44:51.440 -> 44:57.400] Una como les digo esto.
+[44:57.400 -> 45:03.000] Si para tener nuestro micro servicio completo.
+[45:03.000 -> 45:08.040] Y siguiendo las las las dos guidelines de crecer en microservicios.
+[45:11.680 -> 45:12.680] No.
+[45:12.680 -> 45:21.000] Nuestro monolito tiene que tener su mecanismo de ingesta.
+[45:21.000 -> 45:26.400] Pero nuestro micro servicio tiene que tener su mecanismo de ingesta.
+[45:26.400 -> 45:30.640] Y aquí es donde se complica todo.
+[45:30.640 -> 45:33.480] Entonces todo explota.
+[45:33.480 -> 45:38.400] Entonces voy a quitar.
+[45:38.400 -> 45:39.880] Me copiaré esto.
+[45:42.680 -> 45:47.840] Me quitaré esto de acá y acá abajo voy a continuar con la siguiente fase.
+[45:47.840 -> 45:54.680] Ya.
+[45:54.680 -> 45:58.400] Pero me dan dos minutos que voy a deportar que no voy a estar en el mes.
+[45:58.400 -> 46:00.880] Así no nos no cortamos el.
+[46:00.880 -> 46:03.480] El análisis que estamos haciendo.
+[46:08.880 -> 46:11.880] Y.
+[46:38.880 -> 46:39.880] Ya.
+[46:39.880 -> 46:48.880] Ya.
+[46:48.880 -> 46:52.880] Ya me ya me dije que no iba a estar.
+[46:52.880 -> 46:56.880] Ahora.
+[46:56.880 -> 47:00.880] El local es decir el siguiente gol.
+[47:00.880 -> 47:05.880] El gol final es que nuestro micro servicio sea autónoma.
+[47:09.880 -> 47:12.880] Quiere decir que va a tener su propio mecanismo de ingesta.
+[47:12.880 -> 47:18.880] Voy a mover esto un poco más abajo.
+[47:18.880 -> 47:26.880] Voy a subir esto acá.
+[47:33.880 -> 47:38.880] Algo que no puse en nosotros esquemas es esto.
+[47:38.880 -> 47:42.880] Creo que Monorito tiene una UI.
+[47:42.880 -> 47:44.880] Una SPA.
+[47:44.880 -> 47:45.880] Quiero que sea en Agua.
+[47:45.880 -> 48:00.880] Ahora.
+[48:01.880 -> 48:05.880] No entonces esta bueno esta es una SPA en angular.
+[48:05.880 -> 48:07.880] Esta es SPA en angular.
+[48:07.880 -> 48:12.880] Básicamente nos da las capacidades de upload.
+[48:12.880 -> 48:14.880] Los de capacidades de.
+[48:14.880 -> 48:17.880] De ver documentos de detalles de documentos.
+[48:17.880 -> 48:22.880] Y más o sea no no les no lo he levantado.
+[48:22.880 -> 48:25.880] Porque.
+[48:25.880 -> 48:28.880] No me deja entender lo que hay en esta computadora.
+[48:32.880 -> 48:33.880] Ahora.
+[48:33.880 -> 48:39.880] Podría tener mi propia.
+[48:39.880 -> 48:42.880] UI para mi conservicio.
+[48:42.880 -> 48:45.880] Podría ser una SPA en.
+[48:45.880 -> 48:48.880] Ni siquiera una SPA podría estar en.
+[48:48.880 -> 48:52.880] Tangular.
+[48:52.880 -> 48:55.880] View.
+[48:55.880 -> 48:57.880] Svelte.
+[49:02.880 -> 49:03.880] Vuelve.
+[49:03.880 -> 49:08.880] Vuelve.
+[49:08.880 -> 49:14.880] Entonces si vamos a tener microservicio.
+[49:14.880 -> 49:18.880] Y estamos pensando en migrar.
+[49:18.880 -> 49:20.880] O sea modernizar toda la aplicación.
+[49:20.880 -> 49:24.880] Aunque la UI de Monorito no se ve tan mal.
+[49:24.880 -> 49:27.880] Y está ligeramente desacoplada.
+[49:28.880 -> 49:31.880] A menos en lo que se ve en los documentos.
+[49:31.880 -> 49:38.880] Volvemos a tener una nueva UI enfocada simplemente.
+[49:38.880 -> 49:40.880] Al.
+[49:40.880 -> 49:44.880] Al consumo de archivos.
+[49:44.880 -> 49:46.880] A la subida de archivos.
+[49:55.880 -> 49:58.880] Ahora ya tenemos más o menos el programa completo.
+[49:58.880 -> 50:04.880] Le hemos quitado un poco de la responsabilidad de ingesta.
+[50:04.880 -> 50:07.880] Le hemos quitado la responsabilidad de procesamiento de OCR.
+[50:07.880 -> 50:11.880] Y.
+[50:11.880 -> 50:19.880] No le dejaríamos a Monorito con la capacidad de procesar otros.
+[50:19.880 -> 50:21.880] Tipos de documentos.
+[50:22.880 -> 50:25.880] Pero el OCR, o sea específico para el microservicio.
+[50:25.880 -> 50:36.880] Este es el gol final de la materia.
+[50:36.880 -> 50:39.880] Del capstone.
+[50:39.880 -> 50:42.880] No es como que.
+[50:42.880 -> 50:45.880] Aspiramos a tener esto.
+[50:51.880 -> 50:53.880] En algún caso quizá.
+[50:53.880 -> 50:55.880] Bueno, hacer UI o hacer como estamos.
+[50:55.880 -> 50:57.880] En.
+[50:57.880 -> 50:59.880] En un entorno de.
+[50:59.880 -> 51:01.880] De.
+[51:01.880 -> 51:03.880] Se puede no ser ahí.
+[51:03.880 -> 51:05.880] Entonces una.
+[51:05.880 -> 51:08.880] Una vista sencilla para esto de.
+[51:08.880 -> 51:10.880] De consumo de archivos en cualquier.
+[51:10.880 -> 51:12.880] Fue en.
+[51:12.880 -> 51:14.880] Super rápido.
+[51:14.880 -> 51:17.880] No habría mucho drama.
+[51:20.880 -> 51:21.880] No estamos calificando.
+[51:21.880 -> 51:25.880] Cuando estamos evaluando cuán bien se van a hacer reactangular.
+[51:25.880 -> 51:30.880] Es que puedan.
+[51:30.880 -> 51:33.880] Este esquema es una propuesta mía.
+[51:33.880 -> 51:36.880] Es como yo entiendo el proyecto.
+[51:36.880 -> 51:42.880] Pero ustedes como grupos tienen también la posibilidad de proponer cosas nuevas.
+[51:42.880 -> 51:44.880] Proponer algo distinto.
+[51:44.880 -> 51:47.880] Adelante Alex.
+[51:48.880 -> 51:51.880] Profesor y el lenguaje puede ser el mismo.
+[51:51.880 -> 51:54.880] O sea puede ser Python Python o por ejemplo el otro microservicio de search.
+[51:54.880 -> 51:56.880] Puede ser en.
+[51:56.880 -> 51:59.880] Mi pregunta es o sea.
+[51:59.880 -> 52:01.880] Eso eso queda.
+[52:01.880 -> 52:05.880] A nuestro criterio o usted tiene alguna recomendación personal en cuanto al lenguaje.
+[52:05.880 -> 52:08.880] Si puede ser Python también en ambos.
+[52:08.880 -> 52:10.880] Ok.
+[52:10.880 -> 52:12.880] Aquí hay algo interesante.
+[52:12.880 -> 52:14.880] Lo siento.
+[52:14.880 -> 52:17.880] Un.
+[52:18.880 -> 52:23.880] Un termo interesante dentro de este tipo de migración es el poliglotismo.
+[52:23.880 -> 52:28.880] Entonces el poliglota bueno en lenguaje normal es hablar varios idiomas.
+[52:28.880 -> 52:37.880] Orientado arquitectura de software es que nuestro esquema pueda funcionar con varios lenguajes a la vez.
+[52:37.880 -> 52:42.880] No hay que se entiende y que entre sus sistemas entiendan entre ellos.
+[52:44.880 -> 52:52.880] Ahora una gesticción que viene entre un módulo y ya estaba estaba setada por el practitioner y me pareció interesante.
+[52:52.880 -> 52:56.880] Es que pueden hacer de todo aquí excepto Python.
+[52:56.880 -> 53:05.880] Porque eso para probar esto del poliglotismo para que también forzarles a que.
+[53:05.880 -> 53:13.880] Esta capa de corrupción pueda servir de traductor no no no verse tentados a usar un módulo de Python acá y acá.
+[53:14.880 -> 53:16.880] No hay que hacer que boniquen así.
+[53:16.880 -> 53:25.880] No entonces creo que vamos a tomar ese uso proche y vamos a hacer que tengan la libertad de hacer lo que quieran acá.
+[53:25.880 -> 53:29.880] Puede ser un rasgo de script excepto Python.
+[53:29.880 -> 53:34.880] O alguien ya le está metiendo Python.
+[53:34.880 -> 53:40.880] Si.
+[53:40.880 -> 53:42.880] F.
+[53:43.880 -> 53:46.880] Pero si digamos tiene una función de anticorrupción si no se puede.
+[53:46.880 -> 53:48.880] Bueno creo que incluso debería no.
+[53:48.880 -> 53:53.880] O sea debería debería ser transparente eso.
+[53:53.880 -> 53:59.880] Pero ser que vamos para hacer el ejercicio de de poliglotismo sería bien tener un.
+[53:59.880 -> 54:03.880] Otro lenguaje y pero si han avanzado mucho con Python ahí.
+[54:03.880 -> 54:12.880] Ok yo creo que lo dejaríamos con Python pero para los que no han avanzado aún y quieren probar esta característica de poliglotismo les sugiría ir por cualquier lenguaje menos Python.
+[54:14.880 -> 54:19.880] Pero solamente es mandarle un prompt no para la idea.
+[54:19.880 -> 54:22.880] Si lo que hay todo lo que está en Python transformando el type script.
+[54:22.880 -> 54:28.880] Se puede.
+[54:28.880 -> 54:30.880] Yo sé que se puede ustedes saben que se puede.
+[54:35.880 -> 54:43.880] Pero no está en sponsor vamos a relajar esa esa restricción entonces.
+[54:43.880 -> 54:46.880] A que como sugerencia no sea un Python pero si tiene mucho proceso ahí pues.
+[54:46.880 -> 54:48.880] Go for it.
+[54:48.880 -> 54:53.880] Ok ahora.
+[54:53.880 -> 55:02.880] Hay un detalle más y este es el detalle más escabroso desde mi punto de vista.
+[55:06.880 -> 55:12.880] Seguridad comunicación segura entre en esta en este esquema.
+[55:12.880 -> 55:19.880] Hasta el momento solo hemos visto el happy pad no enviamos información los vemos información.
+[55:19.880 -> 55:21.880] Pero acá adentro.
+[55:21.880 -> 55:28.880] No voy a mover esto.
+[55:28.880 -> 55:31.880] Acá.
+[55:31.880 -> 55:34.880] Acá.
+[55:36.880 -> 55:43.880] Tenemos un módulo o un apartado de autorización lo pongo acá arriba no necesariamente está arriba de ingesta.
+[55:43.880 -> 55:47.880] No se entiende acá pero simplemente simplemente está acá para.
+[55:47.880 -> 55:49.880] Ejemplificar.
+[55:49.880 -> 55:54.880] Tenemos un modo de identificación dentro del monolito.
+[55:54.880 -> 55:57.880] Y esto nos nos complica la vida.
+[55:57.880 -> 55:59.880] No súper complica la vida.
+[56:01.880 -> 56:05.880] Porque.
+[56:05.880 -> 56:08.880] Hasta donde se acuerdo.
+[56:08.880 -> 56:13.880] Esto se comunica por tokens.
+[56:13.880 -> 56:21.880] Entonces tengo un web un jato de bt un json web token.
+[56:21.880 -> 56:25.880] Autentificó mis mis mis mis mis calls.
+[56:25.880 -> 56:30.880] Bien no ver perfecto o sea para un momento funciona pero ahora que introducimos esta variada.
+[56:31.880 -> 56:32.880] No se puede hablar de.
+[56:32.880 -> 56:35.880] Del microservicio.
+[56:35.880 -> 56:42.880] Adelante.
+[56:42.880 -> 56:44.880] Hay que aquí tenemos.
+[56:44.880 -> 56:46.880] Es.
+[56:46.880 -> 56:48.880] Tío.
+[56:48.880 -> 56:51.880] Con respecto a la autenticación son tres métodos de autenticación.
+[56:51.880 -> 56:53.880] Tío.
+[56:53.880 -> 56:55.880] El principal que están.
+[56:55.880 -> 56:58.880] En el legacy es mediante decisiones.
+[57:00.880 -> 57:04.880] Y bueno el token que también almacena no es json web token es un token.
+[57:04.880 -> 57:07.880] Para crear.
+[57:07.880 -> 57:10.880] Pero como te lo tino si el parmato de json web token.
+[57:10.880 -> 57:13.880] Excelente gracias.
+[57:13.880 -> 57:17.880] Esta esta parte no la he estudiado mucho pero sí.
+[57:17.880 -> 57:19.880] Entonces información.
+[57:19.880 -> 57:24.880] Es es importante o sea es es relevante.
+[57:24.880 -> 57:27.880] Ok.
+[57:31.880 -> 57:34.880] Ya lo puse dentro del microservicio para que se entienda mejor.
+[57:34.880 -> 57:42.880] Ok.
+[57:42.880 -> 57:44.880] Entonces espero.
+[57:44.880 -> 57:46.880] El método que tengan.
+[57:46.880 -> 57:48.880] El problema sigue siendo el mismo.
+[57:48.880 -> 57:52.880] Como vamos a autentificar.
+[57:52.880 -> 57:58.880] Vamos a extrapolar la autentificación desde el monolito hasta el microservicio.
+[58:01.880 -> 58:04.880] Entonces un problema arquitectónico igual que hay que resolver.
+[58:04.880 -> 58:11.880] Entonces un approach que creo que les había mencionado es extender el token.
+[58:11.880 -> 58:16.880] Entonces vamos a ir como patiando el token.
+[58:16.880 -> 58:18.880] Si escribes un token no.
+[58:18.880 -> 58:25.880] No extend patiándolo desde el monolito al microservicio.
+[58:29.880 -> 58:30.880] Puede funcionar.
+[58:30.880 -> 58:39.880] Entonces las llamadas que haga del microservicio y de vuelta pueden usar ese token para identificarse.
+[58:39.880 -> 58:41.880] Perfecto.
+[58:41.880 -> 58:44.880] Pero hay un problema ahí.
+[58:44.880 -> 58:50.880] Hemos introducido una variable asíncrona.
+[58:56.880 -> 58:59.880] Acá entonces.
+[58:59.880 -> 59:04.880] Bueno, esta es un de cada equipo pero creo que vamos a todos convergir en el mismo solución.
+[59:04.880 -> 59:07.880] Que vamos a tener comunicación asíncrona acá.
+[59:07.880 -> 59:14.880] Y hay casos en donde el token puede que tenga tiempos de vida.
+[59:14.880 -> 59:23.880] Entonces qué pasaría si es que yo mando notificación con un token válido y este microservicio tome la vida en procesarlo.
+[59:24.880 -> 59:26.880] Cuando se devuelva ese token ya está invalidado.
+[59:26.880 -> 59:37.880] Ok, entonces es un problema con ese approach.
+[59:37.880 -> 59:44.880] Ahora, otro approach.
+[59:47.880 -> 59:54.880] Ok, es no validar exactamente al usuario.
+[59:54.880 -> 59:59.880] ¿Por qué? Porque si yo me logeo acá en el monolito.
+[59:59.880 -> 60:06.880] Entonces soy un usuario válido.
+[60:06.880 -> 60:09.880] Pero no puedo.
+[60:09.880 -> 60:12.880] Podría no ser un usuario válido para comunicarme con el microservicio.
+[60:16.880 -> 60:22.880] Entonces aquí me refiero que hay otro nivel de notificación que es de máquina a máquina.
+[60:22.880 -> 60:24.880] Machine to machine.
+[60:24.880 -> 60:34.880] Suponiendo que esta máquina es que está ceruclado en una máquina virtual o real y esta en otra máquina virtual o real.
+[60:34.880 -> 60:36.880] Virtual más que todo, más microservicio.
+[60:36.880 -> 60:40.880] No, hay protocolos de comunicación máquina a máquina.
+[60:40.880 -> 60:41.880] Machine to machine.
+[60:41.880 -> 60:43.880] M2M, creo que se llama.
+[60:47.880 -> 60:48.880] Oops.
+[60:48.880 -> 60:57.880] Entonces aquí podríamos utilizar algo así.
+[60:57.880 -> 61:01.880] M2M, machine to machine.
+[61:01.880 -> 61:11.880] Básicamente acá vienen conceptos más complejos.
+[61:12.880 -> 61:19.880] Porque hay o que se llama TLS, los que han trabajado en redes o que han visto algo de redes saben lo que son TLS.
+[61:19.880 -> 61:31.880] Pero a este nivel de comunicación entre subsistemas, hay o que se llama mutual TLS, MTLS.
+[61:31.880 -> 61:40.880] Que básicamente es una forma de decir, hey, me autentifico como una máquina válida para comunicarme contigo.
+[61:40.880 -> 61:44.880] Y si te autentifico como una máquina válida para autenticarte conmigo.
+[61:44.880 -> 61:59.880] Entonces como ven, esto se complica de manera como autentificación.
+[61:59.880 -> 62:04.880] Porque hay que manejar para TLS hay que tener...
+[62:07.880 -> 62:10.880] Se me olvidó el nombre de eso, no son llaves.
+[62:10.880 -> 62:17.880] La vez que me voy a hacer un poco, no son llaves son...
+[62:17.880 -> 62:24.880] Bueno, no tengo parecido el llave, se me olvidó el término ajustador.
+[62:24.880 -> 62:29.880] Pero tiene que ser formas de tipo SSH, ¿no?
+[62:29.880 -> 62:33.880] De tener un private key, un private key y un public key que se puede autentificar con eso.
+[62:37.880 -> 62:47.880] Ok, ahora otro problema que se les va a venir también en este esquema.
+[62:47.880 -> 62:52.880] Es redundancia o retries.
+[62:52.880 -> 63:03.880] Entonces todos, bueno, ahí estamos, en un nivel en donde entendemos que cuando introducimos este tipo de comunicación en red introducimos latencia.
+[63:03.880 -> 63:08.880] Pero también introducimos problemas de retries y fails.
+[63:08.880 -> 63:10.880] ¿Qué quiere decir?
+[63:10.880 -> 63:16.880] Si mi microservicio o mi monolito van a tener problemas en enviar información o si el mutual tier es no se ha dado.
+[63:16.880 -> 63:19.880] ¿Cuántas veces voy a reintentar?
+[63:19.880 -> 63:29.880] ¿O qué tal si yo mando una petición por acá al monolito, del monolito acá y esto es una respuesta y esto se queda procesando toda la vida?
+[63:29.880 -> 63:33.880] ¿O hay una hora acá?
+[63:33.880 -> 63:39.880] ¿No? Quizá de aquí va a volver a hacer un intento, un retry acá y me va a congestionar mi cola acá.
+[63:39.880 -> 63:43.880] Entonces hay que tener políticas de retry también acá.
+[63:43.880 -> 63:47.880] ¿No?
+[63:47.880 -> 63:49.880] O también ¿cuántas veces voy a procesar una misma requer?
+[63:49.880 -> 63:58.880] Sabemos que del lado del usuario si no ven una respuesta en UI rápida o que les dé información de qué están haciendo van a intentar.
+[63:58.880 -> 64:02.880] Una, dos, nbc hasta tener unas respuestas.
+[64:02.880 -> 64:04.880] Ahí somos los usuarios.
+[64:04.880 -> 64:11.880] ¿Y qué garantías puedo dar yo de que no voy a poder intentar que mi cola no ven cola?
+[64:11.880 -> 64:16.880] Perdón, de que mi aceler o seledino va a intentar encolar todas las peticiones.
+[64:16.880 -> 64:18.880] ¿No?
+[64:18.880 -> 64:20.880] Procesar más de un archivo a la vez.
+[64:20.880 -> 64:22.880] Sí, Juan Manuel.
+[64:22.880 -> 64:29.880] Bueno, para eso he visto que usa y de potencia, el legacy usa.
+[64:29.880 -> 64:39.880] Y bueno, mi duda es que para manejar bien esto maneja el proceso de task en Redis para ver si ya lo ha procesado o no.
+[64:39.880 -> 64:49.880] Y pronto digamos en un nuevo microservicio de ingesta que acceda a esta base, misma base de datos de Redis sería lo ideal.
+[64:49.880 -> 64:57.880] Bueno, porque qué pasa si un proceso de ingesta se va al legacy y el otro al microservicio, ¿no?
+[64:57.880 -> 65:02.880] Tendría que compartir la misma fuente de verdad para la idempotencia, ¿no?
+[65:02.880 -> 65:07.880] Exacto. Ese es el siguiente punto y gracias a lo de la idempotencia.
+[65:07.880 -> 65:12.880] La idempotencia para acelerar básicamente es esa habilidad de no procesar los ricos más de una vez.
+[65:12.880 -> 65:15.880] Un rico se procesa una vez, simplemente.
+[65:15.880 -> 65:17.880] Esa es la idempotencia.
+[65:17.880 -> 65:20.880] Ahora, como pensé, Manuel, es interesante.
+[65:20.880 -> 65:28.880] Y es lo que va, digamos, a cherry sobre la torta dentro de nuestro esquema final.
+[65:28.880 -> 65:41.880] En términos de UI, si voy a ingerir aquí un archivo, no lo voy a procesar y demás. Este o sea, lo va a procesar.
+[65:41.880 -> 65:44.880] Tiene que informar al monolito de que hay un nuevo archivo.
+[65:44.880 -> 65:55.880] Y quizá enviar a la información los metadatos de nuevo archivo y guardarlos en su base de datos.
+[65:55.880 -> 66:06.880] Entonces, va a estar disponible en su base de datos, pero también en la base de datos del monolito.
+[66:06.880 -> 66:15.880] Y viceversa, cuando el monolito ingere un nuevo documento, lo procesa y sea por local.
+[66:15.880 -> 66:31.880] Entonces, el monolito envía información de los nuevos metadatos obtenidos al microservicio y lo va a guardar.
+[66:31.880 -> 66:46.880] Entonces, es como tener dos hermanos y a meses unidos por la cabeza trabajando juntos.
+[66:46.880 -> 66:57.880] No, pero nuestro punto de división tiene que ser la "L" y que tiene que estar bien definido porque si no, hacemos la división y se nos mueren los dos.
+[66:57.880 -> 67:03.880] Pero como lo mencionaba, ese es nuestro "Gol" final, el "Gol" al que queremos llegar.
+[67:03.880 -> 67:13.880] O sea, sé que las clases y el tiempo es corto, incluso con ella se puede, pero lo complejo ahora no es la codificación.
+[67:13.880 -> 67:19.880] Es armar este tipo de garabatos y de esquemas y entender.
+[67:19.880 -> 67:25.880] La solución está aquí en este garabato.
+[67:25.880 -> 67:31.880] Luego, cualquier gente te podría codificar esto.
+[67:31.880 -> 67:41.880] Pero hasta aquí sería la explicación de lo que se espera para el final del capstone.
+[67:41.880 -> 67:53.880] Bueno, aquí falta el microservicio de búsqueda.
+[67:53.880 -> 68:07.880] Puedes crecer esto.
+[68:07.880 -> 68:21.880] Voy a copiarlo.
+[68:21.880 -> 68:25.880] Lo voy a achicar.
+[68:25.880 -> 68:49.880] Este es "Search".
+[68:49.880 -> 69:05.880] Creo que el momento debería estar más grande.
+[69:05.880 -> 69:07.880] Ya se yogará bateando acá.
+[69:07.880 -> 69:10.880] Entonces, dudas, preguntas.
+[69:10.880 -> 69:17.880] Se cayeron de espaldas, siguen vivos.
+[69:17.880 -> 69:21.880] Vamos con Mirko y luego con Alex.
+[69:21.880 -> 69:29.880] Es necesario crear nuevas SPS para cada uno de los microservicios.
+[69:29.880 -> 69:45.880] Es válido crear, por ejemplo, al que tenemos ahorita en el monolito simplemente agregarle un componente que nos iba para hacer funcionar ese microservicio como tal.
+[69:45.880 -> 69:47.880] Bueno, pregunta.
+[69:47.880 -> 69:55.880] Pero nos estaríamos casando a la SPS del monolito.
+[69:55.880 -> 69:57.880] Ok.
+[69:57.880 -> 70:03.880] Como les digo, no sería muy complicado hacer un nuevo UI.
+[70:03.880 -> 70:07.880] Incluso el gol, bueno, es la lista fuera de lo que se planteó.
+[70:07.880 -> 70:13.880] Se puede tener en torno de microfronens.
+[70:13.880 -> 70:23.880] Entonces que nuestro SPI en Angular sea como que un shell, un cascaron vacío.
+[70:23.880 -> 70:33.880] Y comenzar con el microfronen de search.
+[70:33.880 -> 70:37.880] Angular ya está preparado para hacer eso.
+[70:37.880 -> 70:41.880] No sé qué versión de Angular tendrá Paperless, pero Angular ya puede hacer eso.
+[70:41.880 -> 70:45.880] Entonces se puede transformar esto en un shell.
+[70:45.880 -> 70:49.880] Y cada uno de los microservicios, ni siquiera en Angular, puede ser en Ruby A4 que se ha soportado.
+[70:49.880 -> 70:55.880] Entonces por Native Federation, creo que es la técnica.
+[70:55.880 -> 71:01.880] Entonces por Native Federation se puede llamar a cada microfronente.
+[71:01.880 -> 71:05.880] Pero bueno, eso solamente ya yo he divagado, ¿no?
+[71:05.880 -> 71:07.880] Pero se puede.
+[71:07.880 -> 71:09.880] Alex, ahora sí tú.
+[71:09.880 -> 71:11.880] Profesor, tengo varias preguntas.
+[71:11.880 -> 71:13.880] Lo primero es que me confunde un poco.
+[71:13.880 -> 71:17.880] No sé si le puede hacer un poquito de zoom al microservicio que estábamos antes.
+[71:17.880 -> 71:21.880] En esa parte de la ingesta.
+[71:21.880 -> 71:25.880] Es que la coloco ahí y me confunde un poco.
+[71:25.880 -> 71:29.880] Porque, o sea, el microservicio.
+[71:29.880 -> 71:35.880] Supongo que está representando todo eso como el flujo, ¿no?
+[71:35.880 -> 71:39.880] Y la ingesta sería el monolito actual, ¿cierto?
+[71:39.880 -> 71:45.880] El monolito actual tiene su propio mecanismo de ingesta.
+[71:45.880 -> 71:47.880] Ok, ahora sí.
+[71:47.880 -> 71:49.880] Exacto, eso falta de ser.
+[71:49.880 -> 71:51.880] El OSR, ok.
+[71:51.880 -> 71:55.880] Entonces, yo lo pienso de esta forma, ¿no?
+[71:55.880 -> 72:01.880] O sea, como que un microservicio que solamente se encargue de la parte de la ingesta,
+[72:01.880 -> 72:06.880] que se comunique mediante eventos, porque automáticamente cuando uno suba un archivo,
+[72:06.880 -> 72:10.880] cualquiera que sea, él se procesa de manera inmediata con el OSR.
+[72:10.880 -> 72:14.880] No hay que ni siquiera solicitarlo en la UI, simplemente se hace.
+[72:14.880 -> 72:17.880] Entonces sería como ingestar ese documento,
+[72:17.880 -> 72:21.880] se guarda ya sea, lo principal es que se guarda como un archivo,
+[72:21.880 -> 72:26.880] simple ahí en el escritorio y luego se tiene la ruta.
+[72:26.880 -> 72:30.880] Sería pasar esa ruta, procesarlo, guardar los metadatos
+[72:30.880 -> 72:32.880] y luego encontrar eso.
+[72:32.880 -> 72:33.880] Ahora bien.
+[72:33.880 -> 72:39.880] El search, usted dice que deberían tener base de datos diferentes,
+[72:39.880 -> 72:45.880] pero la meta data del OSR y la meta data del, o sea, donde se está,
+[72:45.880 -> 72:50.880] la URL específica en el ordenador en este caso sería el docker,
+[72:50.880 -> 72:56.880] donde se está guardando, la ubicación en el escritorio,
+[72:56.880 -> 73:01.880] está guardando esa información, deberían de alguna forma poderse conectar,
+[73:01.880 -> 73:06.880] no, porque si no, como, o sea, si ambos bases de datos guardan información,
+[73:06.880 -> 73:11.880] o debería haber un puente que llame esa información de una base de datos
+[73:11.880 -> 73:14.880] y otra base de datos y luego la suena de alguna forma,
+[73:14.880 -> 73:18.880] porque si tienen bases de datos independientes sería complicado hacer.
+[73:18.880 -> 73:25.880] Excelente, esa es una muy buena pregunta y está de acorde al problema que estamos planteando.
+[73:25.880 -> 73:31.880] Ahora, ¿cómo solucionarías eso en un entorno puro de microservicios?
+[73:31.880 -> 73:36.880] No olvidándote que hay un monolito.
+[73:36.880 -> 73:38.880] ¿Cómo se comunican estos microservicios?
+[73:38.880 -> 73:48.880] Yo haría un, un, un, un, entendría un API get wish
+[73:50.880 -> 73:57.880] y no tantas cómo se comunican los microservicios, porque eso podría ser mediante eventos.
+[73:57.880 -> 74:01.880] Es más bien, ¿cómo hacen los microservicios para, para,
+[74:01.880 -> 74:04.880] para reunir ambas peticiones a sus propias bases de datos
+[74:04.880 -> 74:07.880] y entregar el resultado como uno solo?
+[74:07.880 -> 74:11.880] La respuesta está acá.
+[74:11.880 -> 74:12.880] ¿Hacele?
+[74:12.880 -> 74:16.880] ¿Todo lo que necesita ser comunicado a otra base de datos va a pasar por acá?
+[74:21.880 -> 74:26.880] Ahora, pero la comunicación entre estos dos no puede ser directa.
+[74:26.880 -> 74:46.880] Ok, pero eso es una pregunta interesante.
+[74:50.880 -> 74:55.880] Pero, profesor.
+[74:55.880 -> 74:57.880] ¿A adelante?
+[74:57.880 -> 75:02.880] Creo que a lo que yo entendí, Alex, es tipo, ¿cómo sabes exactamente dónde está?
+[75:02.880 -> 75:08.880] O sea, en el ACL, puede ser que nosotros tengamos cierta información en el monolito
+[75:08.880 -> 75:11.880] y otro la tengamos en el microservicio.
+[75:11.880 -> 75:16.880] Entonces, ¿cómo vamos a hacer que cuando necesitemos un documento o cierta información,
+[75:16.880 -> 75:20.880] le hicimos, ah, mira, pasa por el ACL y el ACL, ¿cómo va a saber?
+[75:20.880 -> 75:23.880] O vamos a llamar directamente a los dos.
+[75:23.880 -> 75:26.880] Exacto.
+[75:26.880 -> 75:30.880] Y eso se soluciona de forma parcial con lo que les decía,
+[75:30.880 -> 75:33.880] que como que hay de aplicación de información.
+[75:33.880 -> 75:35.880] Lo que tengamos guardado en el monolito,
+[75:35.880 -> 75:40.880] va a estar guardado también en el, la base de datos de OCR, del microservicio.
+[75:42.880 -> 75:47.880] Entonces, un approach puede ser, si consulto por el monolito, pues no voy a la base de este monolito,
+[75:47.880 -> 75:51.880] pero si consulto por OCR, pues tiene todo lo que necesita en su propio base de datos.
+[75:51.880 -> 75:55.880] Ahora, si es que necesito hacer búsquedas.
+[75:55.880 -> 76:02.880] Necesito del módulo de OCR para hacer búsquedas.
+[76:02.880 -> 76:03.880] O no.
+[76:03.880 -> 76:05.880] Creo que no.
+[76:05.880 -> 76:09.880] Lo interesante de poder hacer esta separación de concerns es que
+[76:09.880 -> 76:14.880] este monolito solo se encarga de procesar información y guardarla.
+[76:14.880 -> 76:21.880] Y este se encarga de las búsquedas.
+[76:21.880 -> 76:24.880] Ahora, creo que voy, yo voy entendiendo la pregunta de Alex.
+[76:24.880 -> 76:32.880] No, si voy a tener las búsquedas, si voy a tener información de los OCR,
+[76:32.880 -> 76:35.880] los documentos de microservicios de OCR,
+[76:35.880 -> 76:38.880] las búsquedas van a tener que consultar ahí directamente.
+[76:39.880 -> 76:41.880] Entonces, si, esas se convierten en un problema.
+[76:41.880 -> 76:43.880] Ahora que lo pienso bien.
+[76:43.880 -> 76:48.880] Si, adelante, monol.
+[76:48.880 -> 76:51.880] Bueno, si, bueno, mi pregunta es,
+[76:51.880 -> 76:55.880] me menciono que estos dos microservicios no se pueden comunicar directamente, no?
+[76:55.880 -> 76:58.880] Pero, digamos, ¿por qué no?
+[76:58.880 -> 77:00.880] No, si, podrían.
+[77:00.880 -> 77:02.880] Ah, yeah.
+[77:02.880 -> 77:04.880] Podrían comunicarse directamente.
+[77:04.880 -> 77:07.880] Perfecto.
+[77:07.880 -> 77:09.880] Y esto, adelante.
+[77:09.880 -> 77:14.880] Y qué tal si tenemos un, ¿cómo se llama eso?
+[77:14.880 -> 77:17.880] O sea, que tenemos una base de datos de escritura y la otra de lectura.
+[77:17.880 -> 77:18.880] Eso se llama...
+[77:18.880 -> 77:19.880] Secuerece.
+[77:19.880 -> 77:20.880] Secuerece, es cierto.
+[77:20.880 -> 77:23.880] Que tengamos entre comidas un secuerece,
+[77:23.880 -> 77:26.880] donde el OCR es solamente guarda información
+[77:26.880 -> 77:29.880] y luego dispara un trigger, algo así.
+[77:29.880 -> 77:33.880] O algo que le envió la información a la otra base de datos
+[77:33.880 -> 77:36.880] y que la otra base de datos solamente sea para consulta.
+[77:38.880 -> 77:41.880] Es una solución válida.
+[77:41.880 -> 77:44.880] Y como tenemos...
+[77:44.880 -> 77:47.880] Y como tenemos esto de...
+[77:47.880 -> 77:51.880] O sea, vas a tener dos bases de datos, ¿verdad? Con Secuerece.
+[77:51.880 -> 77:53.880] Una que va a ser lectura y una que va a ser lectura.
+[77:53.880 -> 77:56.880] Entonces, ¿no estaríamos violando la autonomía de los microservicios?
+[78:06.880 -> 78:07.880] All right.
+[78:07.880 -> 78:11.880] Estas son preguntas que, bueno, si bien tienen que empezar a hacerse ahora.
+[78:11.880 -> 78:18.880] Decimos en la panorama comenzar a procesarlas o aplicarlas cuando...
+[78:18.880 -> 78:22.880] Estén separando el microservicio de Search también.
+[78:37.880 -> 78:38.880] All right.
+[78:38.880 -> 78:41.880] Pero bueno, ese es nuestro gol.
+[78:41.880 -> 78:42.880] Ahí vamos.
+[78:42.880 -> 78:47.880] No.
+[78:47.880 -> 78:49.880] Y me han gustado las preguntas.
+[78:49.880 -> 78:51.880] Son cosas que igualmente se pueden pensar como podemos solucionar esto.
+[78:51.880 -> 78:54.880] No, bueno, de hecho, es el trabajo de los tutores pensar esto.
+[78:54.880 -> 78:57.880] Pero igualmente, me da curiosidad como solucionar varias cosas de la mejor manera.
+[79:07.880 -> 79:12.880] Pero bueno, al menos espero haberle despejado las dudas y haberle dado un norte a dónde ir.
+[79:12.880 -> 79:18.880] Distino.
+[79:18.880 -> 79:19.880] Bueno, estamos perdidos todos.
+[79:37.880 -> 79:38.880] Más preguntas.
+[79:38.880 -> 79:40.880] Comentarios.
+[79:40.880 -> 79:56.880] Sino bueno.
+[79:56.880 -> 80:00.880] Ese sería el capstone en detalle.
+[80:00.880 -> 80:04.880] Profes.
+[80:04.880 -> 80:06.880] Adelante, Diego.
+[80:06.880 -> 80:07.880] Que tal.
+[80:07.880 -> 80:13.880] El scope sea para la demo final, con tal que tengamos los seres separados con microservicio.
+[80:13.880 -> 80:15.880] Y estaría bien.
+[80:15.880 -> 80:17.880] Mas el search.
+[80:17.880 -> 80:18.880] Mas el search.
+[80:18.880 -> 80:20.880] Sí, ese es el scope final.
+[80:20.880 -> 80:28.880] Como les digo, para simplificarnos la vida tratemos de hacer el happy pad.
+[80:29.880 -> 80:35.880] Porque si nos podemos analizar todo lo que conlleva a hacer esta migración, la materia se nos queda corta.
+[80:35.880 -> 80:40.880] Hay un montón de cosas que pensar, autentificación, comunicación.
+[80:40.880 -> 80:43.880] No decirse aquí, te digo, no digas que hay que tomar el camino.
+[80:43.880 -> 80:50.880] Pero sí, lo que se ponemos directamente es el gol final es este.
+[80:50.880 -> 80:56.880] Extraer el OCR y el search y que todos sigan viviendo en paz.
+[80:59.880 -> 81:00.880] No.
+[81:00.880 -> 81:06.880] O quizá es más el... pueden tener... bueno, y otra vez soñando con microfonense, no?
+[81:06.880 -> 81:14.880] Un entorno de microfonense en la aplicación modernizada donde pueden llamar al microfonense OCR y de search.
+[81:14.880 -> 81:25.880] Vale.
+[81:28.880 -> 81:30.880] All right.
+[81:30.880 -> 81:33.880] Entonces, bueno, espero que les haya ayudado un poco.
+[81:33.880 -> 81:36.880] Les ha ayudado algo de luz sobre lo que hay que hacer.
+[81:36.880 -> 81:44.880] Pero todas formas, si tienen alguna duda y no está muy clara en tu teoría, igual me la manda.
+[81:44.880 -> 81:50.880] Para subsanar y poder orientarles mejor a ver a dónde ir.
+[81:53.880 -> 82:00.880] Y ahora, como la vida es injusta, tenemos que tomar nuestra clase de masterclass de dos horas en media hora, así que vamos a ir por los slides.
+[82:00.880 -> 82:08.880] Si ustedes no quieren hacerlo, yo no quiero hacerlo, pero lo vamos a hacer.
+[82:17.880 -> 82:24.880] Si tuve que sacrificar mi daily meeting, o sea, tuve que decirles que no voy a poder ir, que tengo a gente que sé.
+[82:24.880 -> 82:29.880] Es que me preocupo que aprendan y que salga bien el capstone.
+[82:29.880 -> 82:35.880] Vale.
+[82:35.880 -> 82:36.880] Pero...
+[82:36.880 -> 82:44.880] Vamos a hacer un overview general de lo que tenemos que ver, porque no es el contenido teórico.
+[82:44.880 -> 82:46.880] Si bien es útil, puede ser aburrido.
+[82:47.880 -> 82:48.880] Ok.
+[82:48.880 -> 83:05.880] Entonces, esta semana nos tocaba ver conceptos de microservicios.
+[83:05.880 -> 83:07.880] Fundamentos.
+[83:07.880 -> 83:13.880] Tengo entendido que en algún punto han hecho microservicios, han hecho microservicios, pero vamos a hacer un recap de todo eso.
+[83:15.880 -> 83:18.880] Como pueden ver, tenemos tres... las siguientes semanas vamos a hablar de microservicios.
+[83:18.880 -> 83:21.880] Con las siguientes dos.
+[83:21.880 -> 83:24.880] Así que hay mucho que echarlara.
+[83:24.880 -> 83:29.880] Entonces...
+[83:29.880 -> 83:31.880] Introducción.
+[83:31.880 -> 83:36.880] Bueno, vamos a hacer esto súper rápido, porque mucho de lo que hay está acá, igual lo hemos hablado hace rato.
+[83:46.880 -> 83:48.880] ¿Ya sabemos que son microservicios?
+[83:48.880 -> 83:55.880] No.
+[83:55.880 -> 83:56.880] No.
+[83:56.880 -> 84:01.880] Una pregunta que tienen que hacer, sea que los microservicios son un patrón arquitectónico o son simplemente...
+[84:01.880 -> 84:07.880] un estilo arquitectónico.
+[84:07.880 -> 84:12.880] Preguntas que no tienen que dejarles dormir.
+[84:13.880 -> 84:18.880] Pero en esencia eso, son eso. Lo que vimos son conjuntos de servicios que trabajan independientemente.
+[84:18.880 -> 84:19.880] Autónomos.
+[84:19.880 -> 84:23.880] Pueden tener comunicación sincrona o asincrona.
+[84:23.880 -> 84:26.880] No.
+[84:26.880 -> 84:28.880] Centrados en modalidad y aislementes de responsabilidades.
+[84:28.880 -> 84:31.880] Lo que diga en el DDD de "bound and context".
+[84:31.880 -> 84:34.880] Entonces, ya hemos hablado de eso.
+[84:34.880 -> 84:36.880] Entonces, ya sabemos que tiene que ser autónomos.
+[84:36.880 -> 84:37.880] No hay mucho drama ahí.
+[84:37.880 -> 84:41.880] Entonces, vamos a tener bajo cumplimiento.
+[84:41.880 -> 84:44.880] Así que, esto de "world defining APIs".
+[84:44.880 -> 84:50.880] No tiene que ser necesariamente el resto o sincrono.
+[84:50.880 -> 84:52.880] Puede ser asincrono de "even driven".
+[84:52.880 -> 84:56.880] Flexibilidad y agilidad, sí.
+[84:56.880 -> 85:01.880] No.
+[85:01.880 -> 85:04.880] Y aquí ya nos da una respuesta, ¿no?
+[85:04.880 -> 85:06.880] Estiro arquitectónico.
+[85:09.880 -> 85:11.880] Así que, no hay mucho que ver acá.
+[85:11.880 -> 85:14.880] Pros.
+[85:14.880 -> 85:16.880] Escalada de manera independiente, sí.
+[85:16.880 -> 85:20.880] Mayor silencio a fracasos.
+[85:20.880 -> 85:23.880] Internamente, sí.
+[85:23.880 -> 85:26.880] Pero yo despliegue en el electro de micro servicios.
+[85:26.880 -> 85:29.880] Y sí que tenemos problemas en infraestructura.
+[85:29.880 -> 85:37.880] Desde cierto punto de vista se puede pensar que son ágiles.
+[85:37.880 -> 85:40.880] Pero, como han debido ver, los micro servicios traen su nivel de complejidad.
+[85:40.880 -> 85:43.880] Y al principio nos pueden restar ágilidad.
+[85:43.880 -> 85:47.880] Entonces, se necesita un equipo maduro y que tenga experiencia en esto para poder ser ágile.
+[85:47.880 -> 85:56.880] Si no, no tratar de explicar por qué usamos eventos y no usamos rest.
+[85:56.880 -> 86:00.880] Puede ser complicado para alguien que no entiende sus conceptos.
+[86:00.880 -> 86:04.880] Ahora, vamos por los cons.
+[86:04.880 -> 86:06.880] Porque los procesos lo saben bien.
+[86:07.880 -> 86:09.880] Deployment challenges.
+[86:09.880 -> 86:10.880] Tenemos deployment challenges.
+[86:10.880 -> 86:14.880] Porque tenemos todo lo que antes estaba en un solo lugar o están en lugares.
+[86:14.880 -> 86:20.880] La comunicación se puede, se puede hacer más compleja.
+[86:20.880 -> 86:22.880] Y de hecho, es más compleja, ¿no?
+[86:22.880 -> 86:26.880] Porque ahora hay que documentar APIs e incluso hay que hacer documentación de eventos.
+[86:26.880 -> 86:32.880] Entonces, todo esto nos trae una capa de complejidad.
+[86:32.880 -> 86:34.880] Y antes no teníamos.
+[86:34.880 -> 86:38.880] Así que no todo es color de los micro servicios.
+[86:38.880 -> 86:46.880] Autonomía, si independiente, si base de datos propia.
+[86:46.880 -> 86:49.880] Entonces, no hay que tratar, hay que tal vez no olvidar esto.
+[86:49.880 -> 86:52.880] Características de los micro servicios son que son autónomos, independientes.
+[86:52.880 -> 86:54.880] Y que tienen su base de datos propia.
+[86:54.880 -> 86:57.880] Entonces, compartimos base de datos y ya no es micro servicio.
+[86:57.880 -> 87:01.880] Entonces, estaríamos cayendo en un antipatrón.
+[87:05.880 -> 87:10.880] Esto no, no se importa.
+[87:10.880 -> 87:16.880] Bueno, es resultante.
+[87:16.880 -> 87:19.880] Despliegue único con el cumplimiento y despliegue múltiples.
+[87:19.880 -> 87:20.880] Y ya sabemos que es complicado.
+[87:20.880 -> 87:32.880] Bueno, al momento de hacer este light imagino que no vieron la realidad.
+[87:32.880 -> 87:34.880] Pero porque algunos de estos si están.
+[87:34.880 -> 87:40.880] Están volviendo a hacer monolitos o menos o monolitos modulares.
+[87:40.880 -> 87:48.880] Entonces, si no son Netflix o Amazon, entonces encararon un proyecto
+[87:48.880 -> 87:51.880] con micro servicios de entrada puede ser un overkill.
+[87:51.880 -> 87:59.880] Entonces, si van a hacer su aplicación de huber, huber para perritos.
+[87:59.880 -> 88:01.880] Entonces, no le meten micro servicios todavía.
+[88:02.880 -> 88:03.880] No, no.
+[88:03.880 -> 88:16.880] Hay un otro de los selectos demasiado repuntantes.
+[88:16.880 -> 88:17.880] Anyway.
+[88:17.880 -> 88:21.880] Entonces, otra vez, pros y cons.
+[88:21.880 -> 88:23.880] Y ya seamos los pros.
+[88:23.880 -> 88:25.880] Ya hablamos de los cons.
+[88:25.880 -> 88:27.880] Y aquí algo que Grega es...
+[88:27.880 -> 88:31.880] Ah, para no, son de monolitos, pero al estar leyendo mal.
+[88:31.880 -> 88:33.880] La falta de desayuno es eso.
+[88:33.880 -> 88:41.880] Aquí, digamos, tendría algo que decir.
+[88:41.880 -> 88:44.880] Los monolitos sí son escalables.
+[88:44.880 -> 88:52.880] El escalabilit issue que imagino que mencionan acá es si es vertical o horizontal.
+[88:52.880 -> 88:57.880] Entonces, en un monolito estamos atados a las capacidades del server.
+[88:58.880 -> 89:04.880] Si le metemos más RAM y le metemos más... una SSD o le metemos más poder de procesamiento,
+[89:04.880 -> 89:08.880] tenemos escalabilidad vertical.
+[89:08.880 -> 89:18.880] Entonces, el único escalabilit issue que tendría el monolito es escalabilidad horizontal.
+[89:18.880 -> 89:23.880] Cuando ya no podamos meterle más RAM, cuando nuestro server sea el problema.
+[89:25.880 -> 89:28.880] Entonces, ahí hablamos de escalabilidad horizontal, debería ser acá.
+[89:28.880 -> 89:36.880] Problemas de mantenimiento solo habría si un monolito está remalechado o spaghetti.
+[89:36.880 -> 89:40.880] Entonces, hay monolitos, como decían alguien antes.
+[89:40.880 -> 89:44.880] Hay monolitos modulares que están super bien definidos, tienen responsabilidades bien definidas,
+[89:44.880 -> 89:47.880] en donde no habría estos problemas.
+[89:47.880 -> 89:50.880] Bueno, no habrían tantos problemas de mantenibilidad.
+[89:53.880 -> 89:56.880] Y esto sí, es un punto simple de falla.
+[89:56.880 -> 90:00.880] Se muestra el server, se muere un monolito.
+[90:00.880 -> 90:05.880] No tanto como un esquema microservicios, si delante el ex.
+[90:05.880 -> 90:09.880] Prueba, perdón que lo interrumpase, que no tenés mucho tiempo para la presentación,
+[90:09.880 -> 90:13.880] pero quería preguntarle si esa parte de escalabilidad,
+[90:13.880 -> 90:19.880] porque o sea, no se puede simplemente, como es la misma base de datos,
+[90:20.880 -> 90:24.880] deplogiar la aplicación en diferentes servidores, por ejemplo alrededor del mundo.
+[90:24.880 -> 90:28.880] Y así cada región tendría su propia aplicación deployada.
+[90:28.880 -> 90:33.880] Quizás es una pregunta muy... quizás fuera de contexto, pero...
+[90:33.880 -> 90:37.880] y para que todos se acceda al mismo...
+[90:37.880 -> 90:45.880] se te podría tener un proxy y se podría redirigir la llamada a diferentes monolitos,
+[90:45.880 -> 90:47.880] dependiendo de dónde se está llamando.
+[90:47.880 -> 90:52.880] Pero no sé si eso, la industria, no lo elige por algún error grave
+[90:52.880 -> 90:54.880] o por algo que pueda pasar.
+[90:54.880 -> 90:58.880] Esa técnica se llama re-platforming.
+[90:58.880 -> 91:03.880] O sea, si tenemos nuestro monolito en un servidor, digamos, en la oficina del jefe,
+[91:03.880 -> 91:05.880] está ahí corriendo, ¿no?
+[91:05.880 -> 91:09.880] Y queremos escalarlo, le cambiamos, por ejemplo, a la nube.
+[91:09.880 -> 91:12.880] No, subimos nuestro monolito a la nube, desplegamos a algún server
+[91:12.880 -> 91:14.880] en una máquina virtual ahí arriba y funciona.
+[91:16.880 -> 91:21.880] Ok, entonces ahí tenemos... como que no datos, sino tenemos recursos más...
+[91:21.880 -> 91:24.880] a la mano, más fácil de escalar.
+[91:24.880 -> 91:29.880] Ahora, esto que mencionas de meter un monolito en...
+[91:29.880 -> 91:33.880] en su propio ambiente y ofrecer al cliente.
+[91:33.880 -> 91:37.880] He visto, no he visto un poquito de ales, por ejemplo, en esto,
+[91:37.880 -> 91:41.880] pero he visto en soluciones, en propuestas que hacen.
+[91:41.880 -> 91:44.880] Y se puede.
+[91:45.880 -> 91:47.880] Y puedes hacerlo por...
+[91:47.880 -> 91:53.880] No, no sería multitenante porque sería en base de datos distintos,
+[91:53.880 -> 91:57.880] no es multitenante, pero sería algo como en un entorno de...
+[91:57.880 -> 92:04.880] ¿Cómo le llamó esto?
+[92:04.880 -> 92:07.880] Ya, por ejemplo, Kubernetes, ¿no?
+[92:07.880 -> 92:12.880] Podrías crear un pod para cada versión de tu monolito
+[92:12.880 -> 92:15.880] y ofrecerlo a cada cliente. Tienes un cliente y crees un nuevo pod.
+[92:15.880 -> 92:19.880] Se podría.
+[92:19.880 -> 92:21.880] Pero ahora sabemos que...
+[92:21.880 -> 92:24.880] que la infraestructura es carísima.
+[92:24.880 -> 92:30.880] No, la infraestructura es carísima.
+[92:30.880 -> 92:37.880] Entonces, si de verdad es rentable, ¿no?
+[92:37.880 -> 92:42.880] Tener n clientes, bueno, n versiones de tu monolito.
+[92:42.880 -> 92:47.880] No que de hecho, si ha crecido bastante y necesite muchos recursos,
+[92:47.880 -> 92:51.880] vas a necesitar una bien poderosa para poder joster tu monolito.
+[92:51.880 -> 92:58.880] Pero si es, es factible, se puede.
+[92:58.880 -> 93:03.880] Pero creo que el principal con sería infraestructura y costas.
+[93:08.880 -> 93:10.880] Y mantenimiento.
+[93:10.880 -> 93:15.880] Porque si estás desplegando micro servicios, simplemente estás...
+[93:15.880 -> 93:19.880] o si tienes algo dedicado a cada micro servicios.
+[93:19.880 -> 93:22.880] Si tienes que analizar una parte del viso es logic,
+[93:22.880 -> 93:24.880] mientras que si tienes n monolitos desplegados,
+[93:24.880 -> 93:29.880] tendrías complejidad desplegada en varios entornos.
+[93:34.880 -> 93:38.880] Y tendrías una... que tenga un equipo grande para hacer...
+[93:38.880 -> 93:41.880] backfixing.
+[93:41.880 -> 93:44.880] Bueno, soy yo de Arte de pagando, ¿no?
+[93:44.880 -> 93:46.880] ¿Cómo podría ser eso?
+[93:46.880 -> 93:51.880] Pero quizás si.
+[93:51.880 -> 93:53.880] Creo que otra, vuelvo a lo que decía,
+[93:53.880 -> 93:58.880] que el principal inconveniente sería infraestructura.
+[94:03.880 -> 94:04.880] ¿Allá?
+[94:04.880 -> 94:08.880] Pero si es alguna pregunta, la voy a... la voy pensando.
+[94:08.880 -> 94:18.880] No se preocupen, solo tenemos...
+[94:18.880 -> 94:24.880] 55 o 54 slides más que cubrir. Lo logramos.
+[94:32.880 -> 94:35.880] Entonces tenemos fácil las ventajas del monolito.
+[94:35.880 -> 94:37.880] No hay mucho drama ahí.
+[94:37.880 -> 94:46.880] Tres ventajas otra vez, lo que ya habíamos dicho.
+[94:46.880 -> 94:52.880] Verdad a medias.
+[94:52.880 -> 94:56.880] Si estrenamos bien el esor, no todo el sistema falla,
+[94:56.880 -> 95:00.880] pero así hay cuyos de botellas, cuyos de botella.
+[95:03.880 -> 95:05.880] Más redundancia por acá.
+[95:05.880 -> 95:15.880] Entonces creo que la principal ventaja del microservicio
+[95:15.880 -> 95:18.880] es esta escalabilidad, pero escalabilidad horizontal,
+[95:18.880 -> 95:20.880] no vertical.
+[95:20.880 -> 95:22.880] Eso, eso hay que tenerlo claro.
+[95:22.880 -> 95:26.880] Despliegueis independientes.
+[95:26.880 -> 95:30.880] Puedes hacer una ventaja y una desventaja al mismo tiempo
+[95:30.880 -> 95:32.880] por la complejidad del despliegue.
+[95:32.880 -> 95:38.880] Resiliencia falla, si internamente del microservicio,
+[95:38.880 -> 95:41.880] porque hay menos que revisar,
+[95:41.880 -> 95:46.880] pero contemplando todo el entorno completo de microservicios,
+[95:46.880 -> 95:51.880] no una falla, o sea, si no tenemos bien controlado,
+[95:51.880 -> 95:55.880] no tenemos una política clara de recuperación de fallas
+[95:55.880 -> 95:57.880] a nivel de microservicios, o sea,
+[95:57.880 -> 96:00.880] a nivel de comunicación de microservicios iguales,
+[96:00.880 -> 96:02.880] esto se convierte en un problema.
+[96:02.880 -> 96:04.880] Y esto sí lo he vivido.
+[96:04.880 -> 96:08.880] Donde en un equipo trabajamos en el microservicio X,
+[96:08.880 -> 96:10.880] pero el microservicio Y fallaba.
+[96:10.880 -> 96:12.880] ¿Quién fixaba el esor?
+[96:12.880 -> 96:16.880] Entonces nos tardábamos horas debatiendo
+[96:16.880 -> 96:18.880] de quién fixeaba el esor en lugar de fixearlo.
+[96:18.880 -> 96:24.880] De hecho, yo fixé el esor una vez y me dijeron
+[96:24.880 -> 96:27.880] qué estás haciendo, no es tu área.
+[96:27.880 -> 96:31.880] Entonces me tomó fixear el esor 15 minutos
+[96:31.880 -> 96:35.880] y una deprimenda de dos horas por haberlo hecho
+[96:35.880 -> 96:37.880] y un equipo de que no es el mío.
+[96:37.880 -> 96:43.880] Anyway.
+[96:43.880 -> 96:47.880] ¿Qué más tenemos?
+[96:47.880 -> 96:51.880] Las ventajas, infraestructura compleja,
+[96:51.880 -> 96:54.880] si necesitamos mucha infraestructura,
+[96:54.880 -> 96:57.880] comunicación complicada, totalmente de acuerdo,
+[96:57.880 -> 97:01.880] gestión de los distribuidos, es igual.
+[97:01.880 -> 97:03.880] O sea, estas tres son totalmente de acuerdo
+[97:03.880 -> 97:05.880] con las desventajas de microservicios
+[97:05.880 -> 97:07.880] y lo van a experimentar.
+[97:22.880 -> 97:25.880] Entonces acá puedo tener algún...
+[97:25.880 -> 97:31.880] de estar, no está muy de acuerdo con esto.
+[97:31.880 -> 97:37.880] Porque, o sea, yo conozco sistemas enormes
+[97:37.880 -> 97:39.880] hechos con monolitos.
+[97:39.880 -> 97:43.880] Sistemas que facturan millones mensuales,
+[97:43.880 -> 97:45.880] 30 millones, 40 millones de dólares,
+[97:45.880 -> 97:48.880] y son monolitos, y son grandes.
+[97:52.880 -> 97:55.880] Entonces, esta es una verada a medias.
+[97:55.880 -> 98:01.880] No sé bien para un sistema pequeño funciona,
+[98:01.880 -> 98:03.880] pero bien escalado,
+[98:03.880 -> 98:05.880] o bien diseñado, monolito puede funcionar
+[98:05.880 -> 98:07.880] para sistemas grandes también.
+[98:07.880 -> 98:10.880] Y que servicios para tener capacidad
+[98:10.880 -> 98:13.880] desde escalamiento horizontal otra vez.
+[98:22.880 -> 98:24.880] Bueno, esta tecnología es interesante,
+[98:24.880 -> 98:28.880] tener el clásico foco de filamento,
+[98:28.880 -> 98:32.880] ese monolito, y los microservicios
+[98:32.880 -> 98:34.880] son esos focos LED,
+[98:34.880 -> 98:37.880] que tienen como 100 LEDs ahí dentro.
+[98:37.880 -> 98:48.880] Entonces acá solamente no sé si es la comparación,
+[98:48.880 -> 98:50.880] no hay mucho que echarle acá.
+[98:52.880 -> 98:54.880] Y esto es para los amantes de la música,
+[98:54.880 -> 98:57.880] es una comparación de un multiplexor,
+[98:57.880 -> 98:59.880] imagino que es un multiplexor,
+[98:59.880 -> 99:02.880] versus solamente una guitarra por un pedal.
+[99:02.880 -> 99:06.880] No sé musical, así que tiene ese multiplexor,
+[99:06.880 -> 99:08.880] ahí me dicen síndoles multiplexor.
+[99:08.880 -> 99:13.880] Más comparaciones, más comparaciones.
+[99:13.880 -> 99:17.880] Muchos más comparaciones.
+[99:18.880 -> 99:21.880] Un todo en uno, VHS, bueno,
+[99:21.880 -> 99:24.880] ustedes son demasiado jóvenes para conocer los VHS,
+[99:24.880 -> 99:27.880] tecnología de cintas magnéticas.
+[99:27.880 -> 99:36.880] Pero simplemente son más analogías,
+[99:36.880 -> 99:38.880] así que no hay mucho drama acá.
+[99:38.880 -> 99:44.880] Y esto es importante,
+[99:44.880 -> 99:46.880] yo creo que si se hallamos con esto estamos bien.
+[99:48.880 -> 99:50.880] Entonces en el microservicio, bueno,
+[99:50.880 -> 99:52.880] que no van a diseñar, bueno,
+[99:52.880 -> 99:54.880] que van a diseñar y a la vez diseccionar,
+[99:54.880 -> 99:56.880] es importante entender el bound and context,
+[99:56.880 -> 99:59.880] entender las fronteras del microservicio
+[99:59.880 -> 100:01.880] que van a extirpar.
+[100:01.880 -> 100:06.880] Por ejemplo, el microservicio de Ceres,
+[100:06.880 -> 100:09.880] su única función es procesar archivos.
+[100:09.880 -> 100:12.880] No hace nada más.
+[100:12.880 -> 100:17.880] Y dentro de esta lógica de procesar archivos,
+[100:17.880 -> 100:19.880] tiene su propia lógica de dominio o business logic,
+[100:19.880 -> 100:21.880] tiene sus propias reglas.
+[100:21.880 -> 100:26.880] Tiene, bueno,
+[100:26.880 -> 100:28.880] en cuestión de lenguaje,
+[100:28.880 -> 100:30.880] no habla tanto de lenguaje de programación,
+[100:30.880 -> 100:32.880] sino del lenguaje interno que se habla
+[100:32.880 -> 100:34.880] dentro del microservicio,
+[100:34.880 -> 100:36.880] que es un parcer,
+[100:36.880 -> 100:38.880] que es el OSR, o ser como tal,
+[100:38.880 -> 100:40.880] que es ingesta,
+[100:40.880 -> 100:42.880] porque la ingesta
+[100:42.880 -> 100:45.880] es un término que vamos a usar dentro de los OSR,
+[100:45.880 -> 100:47.880] pero yo no lo tratesearch.
+[100:47.880 -> 100:52.880] Entonces, eso se refiere con lenguaje.
+[100:52.880 -> 100:54.880] Pero no olviden esto.
+[100:54.880 -> 100:57.880] Bound and context,
+[100:57.880 -> 101:00.880] tiene las fronteras bien claras de nuestro microservicio.
+[101:00.880 -> 101:03.880] Tienen que ser una sola cosa,
+[101:03.880 -> 101:05.880] si
+[101:05.880 -> 101:11.880] estar bajamente acoplados,
+[101:12.880 -> 101:15.880] así es, es por eso que si dependemos de una base data externa,
+[101:15.880 -> 101:21.880] nos estamos acoplando más,
+[101:21.880 -> 101:24.880] y estaríamos violando los principios de diseño de microservicios.
+[101:24.880 -> 101:33.880] Entonces, acá nos dice algo que llevemos charlado.
+[101:33.880 -> 101:36.880] Los OSR son los encarados de lectura de documentos.
+[101:36.880 -> 101:40.880] No es autentificación,
+[101:40.880 -> 101:42.880] no hace nada.
+[101:42.880 -> 101:44.880] A lo sumo, vamos a hacer algún mecanismo para
+[101:44.880 -> 101:48.880] autentificar el microservicio como válido,
+[101:48.880 -> 101:50.880] o sea que sea un agente válido
+[101:50.880 -> 101:52.880] para comunicarse con el monolito,
+[101:52.880 -> 101:56.880] pero no vamos a gestionar la autentificación como tal.
+[101:56.880 -> 102:04.880] Lo mismo para el servicio de búsqueda,
+[102:04.880 -> 102:09.880] indexa y proporciona capacidad de búsqueda.
+[102:09.880 -> 102:11.880] Está bien.
+[102:11.880 -> 102:13.880] Y esto como regalitos se los dejo para que lean
+[102:13.880 -> 102:15.880] el 12 factor app.
+[102:15.880 -> 102:19.880] Son 12 reglas de diseño.
+[102:19.880 -> 102:25.880] Entonces la idea de ir por uno por uno por estos,
+[102:25.880 -> 102:27.880] pero bueno, los dejo para que lo leen.
+[102:27.880 -> 102:31.880] Es interesante.
+[102:31.880 -> 102:33.880] Y bueno, quizá algunos de esos lo van a aplicar,
+[102:33.880 -> 102:35.880] bueno, algunos.
+[102:35.880 -> 102:37.880] Varios de estos lo van a aplicar en microservicios
+[102:37.880 -> 102:39.880] que van a diseñar.
+[102:39.880 -> 102:45.880] Entonces los dejo para que lo leen
+[102:45.880 -> 102:47.880] y quizá la siguiente clase vamos a echarle
+[102:47.880 -> 102:49.880] un poco más de los 12 factor app.
+[102:49.880 -> 102:53.880] Imagino que ya lo han de operantes también.
+[102:53.880 -> 103:05.880] Y bueno, llegamos a la parte
+[103:05.880 -> 103:07.880] teóricamente práctica.
+[103:07.880 -> 103:09.880] Bueno, que dicen que es práctica.
+[103:09.880 -> 103:13.880] Y otra vez no nos dice sobre escalabilidad
+[103:13.880 -> 103:15.880] y demás.
+[103:15.880 -> 103:17.880] Ya sabíamos al lado sobre esto.
+[103:17.880 -> 103:19.880] Así que no hay mucho drama acá.
+[103:19.880 -> 103:29.880] Implementación continua.
+[103:29.880 -> 103:31.880] No creo que sea el término.
+[103:31.880 -> 103:33.880] Justo me miré por esto.
+[103:33.880 -> 103:35.880] Continuous deployment cycle.
+[103:35.880 -> 103:37.880] Nos podemos tener un entorno
+[103:37.880 -> 103:39.880] de Continuous deployment en lugar
+[103:39.880 -> 103:41.880] de implementación.
+[103:41.880 -> 103:43.880] Despliegue a continuo e independiente.
+[103:43.880 -> 103:51.880] Y de esto vamos a hablar en las siguientes clases.
+[103:51.880 -> 103:53.880] No hay clases específicas para echarla
+[103:53.880 -> 103:55.880] sobre observabilidad o observancia.
+[103:55.880 -> 104:01.880] Vamos a tener
+[104:03.880 -> 104:05.880] un poco de información.
+[104:05.880 -> 104:07.880] Esto es resilencia.
+[104:07.880 -> 104:13.880] Bueno, si están bien diseñados
+[104:13.880 -> 104:15.880] nuestro modalito como tal
+[104:15.880 -> 104:17.880] perdón, es mi servicio como tal,
+[104:17.880 -> 104:19.880] si va a ser resiliente.
+[104:19.880 -> 104:21.880] Pero ya
+[104:21.880 -> 104:23.880] aplicándole
+[104:23.880 -> 104:27.880] la misma lógica de comunicación
+[104:27.880 -> 104:29.880] en tu único servicio, esto depende mucho
+[104:29.880 -> 104:31.880] de cómo lo ya hemos diseñado.
+[104:33.880 -> 104:35.880] Patrónes como Short Seed Quit, Retry
+[104:35.880 -> 104:37.880] que vamos a ver
+[104:37.880 -> 104:39.880] eso después.
+[104:39.880 -> 104:41.880] Son útiles para este tipo de casos.
+[104:41.880 -> 104:45.880] Otra es comunicación entre servicios.
+[104:45.880 -> 104:47.880] Puedes ser sincron o asincron.
+[104:47.880 -> 104:49.880] No hay mucho drama acá.
+[104:49.880 -> 104:51.880] Desafríos.
+[104:51.880 -> 104:53.880] Complejidad de datos.
+[104:53.880 -> 104:55.880] Y esto lo van a ver ustedes cuando estén separados los seres.
+[104:55.880 -> 104:57.880] Con complejos son los datos que
+[104:57.880 -> 104:59.880] que manda Paperless.
+[104:59.880 -> 105:01.880] Y creo que son lo más complejos
+[105:01.880 -> 105:03.880] de un buen ejemplo.
+[105:03.880 -> 105:13.880] Aquí es donde van a...
+[105:13.880 -> 105:15.880] necesitan hacer un research, seguridad.
+[105:15.880 -> 105:17.880] Y el challenge para ustedes
+[105:17.880 -> 105:19.880] va a ser más allá de
+[105:19.880 -> 105:21.880] pensar en servicios,
+[105:21.880 -> 105:23.880] en la seguridad de microservices, es pensar en cómo
+[105:23.880 -> 105:25.880] extrapor la seguridad que ya hay
+[105:25.880 -> 105:27.880] en el modalito hacia los microservices
+[105:27.880 -> 105:29.880] y cómo establecer una política de seguridad.
+[105:29.880 -> 105:31.880] Y creo que de esto no hablamos.
+[105:31.880 -> 105:33.880] ¿Qué tal si autentítan con mi propio
+[105:33.880 -> 105:35.880] servicio de Key Clock del lado del microservicio?
+[105:35.880 -> 105:41.880] ¿Cómo hacemos
+[105:41.880 -> 105:43.880] si autentico por Key Clock del lado del microservicio
+[105:43.880 -> 105:45.880] y decirle, "Hey, este es un
+[105:45.880 -> 105:47.880] usuario válido
+[105:47.880 -> 105:49.880] para meter información
+[105:49.880 -> 105:51.880] a ese microservicio?"
+[105:51.880 -> 105:55.880] Eso no lo charlamos, pero puede ser
+[105:55.880 -> 105:57.880] un grado
+[105:57.880 -> 105:59.880] más arriba de dificultad.
+[105:59.880 -> 106:01.880] No tener dos...
+[106:01.880 -> 106:05.880] dos formas de notificación
+[106:05.880 -> 106:07.880] y que conviven.
+[106:07.880 -> 106:13.880] Entonces cada vez que analizamos
+[106:13.880 -> 106:15.880] esto se puede sobre más complejo.
+[106:15.880 -> 106:25.880] Prueba de integración.
+[106:27.880 -> 106:29.880] No creo que lo logremos hacer
+[106:29.880 -> 106:31.880] ahora.
+[106:31.880 -> 106:35.880] Así que
+[106:35.880 -> 106:37.880] hay que enfocarnos en funcionalidad.
+[106:37.880 -> 106:41.880] Observancia, vamos a ver esto después también.
+[106:41.880 -> 106:43.880] Pesos para hacer observancia.
+[106:43.880 -> 106:45.880] Para observar
+[106:45.880 -> 106:47.880] cómo que pasa con nuestros microservicios.
+[106:57.880 -> 106:59.880] Esto es interesante igual.
+[106:59.880 -> 107:03.880] Criterios de Gobernación y Cosservicios,
+[107:03.880 -> 107:05.880] Consistencia.
+[107:05.880 -> 107:07.880] Esto no sé cómo hacer español.
+[107:07.880 -> 107:09.880] RealAbility.
+[107:09.880 -> 107:13.880] Oops, qué mal inglés.
+[107:13.880 -> 107:15.880] No me lo sé en español.
+[107:15.880 -> 107:19.880] Pero bueno, sigamos viendo.
+[107:19.880 -> 107:21.880] Es importante, vas a datos por servicio.
+[107:27.880 -> 107:29.880] Está bien.
+[107:29.880 -> 107:31.880] No está bajo discusión
+[107:31.880 -> 107:33.880] de eso. Tenemos que tener
+[107:33.880 -> 107:35.880] los propios datos.
+[107:35.880 -> 107:41.880] Este es un antipatrón
+[107:41.880 -> 107:43.880] que no debemos seguir.
+[107:43.880 -> 107:45.880] Chardatabase.
+[107:45.880 -> 107:49.880] Lo que siempre usted lo está mencionando.
+[107:49.880 -> 107:53.880] Bueno, aquí tenemos
+[107:53.880 -> 107:55.880] un poco de Portuñol.
+[107:57.880 -> 107:59.880] Y bueno,
+[107:59.880 -> 108:01.880] simplemente está mencionando lo que
+[108:01.880 -> 108:03.880] ya habíamos charlado.
+[108:03.880 -> 108:05.880] El flujo que sigue.
+[108:05.880 -> 108:07.880] Así que no hay mucho trama acá.
+[108:07.880 -> 108:11.880] No sala del search,
+[108:11.880 -> 108:13.880] pero todavía no estamos
+[108:13.880 -> 108:15.880] no estamos haciendo al search.
+[108:15.880 -> 108:17.880] Así que no lo vamos a tomar en cuenta.
+[108:17.880 -> 108:19.880] Y aquí nos da algunas luces
+[108:19.880 -> 108:21.880] de cómo podríamos integrar
+[108:21.880 -> 108:23.880] el lo-ser y el search.
+[108:27.880 -> 108:29.880] Pero esto solo es una sugerencia.
+[108:29.880 -> 108:33.880] Tengo una API Gateway
+[108:33.880 -> 108:35.880] para comunicar estos dos.
+[108:35.880 -> 108:41.880] Pero esto es ingresar
+[108:41.880 -> 108:43.880] a un nivel más de complejidad.
+[108:43.880 -> 108:45.880] Porque por ahora estamos hablando directamente
+[108:45.880 -> 108:47.880] con la ACL. Y ahora la ACL
+[108:47.880 -> 108:49.880] va a hablar con el API Gateway.
+[108:49.880 -> 108:51.880] Preguntas que no deberían dejarles dormir.
+[108:51.880 -> 108:55.880] En las siguientes semanas.
+[108:57.880 -> 108:59.880] Y listo.
+[108:59.880 -> 109:01.880] El comentario se pregunta, ¿Logramos la clase
+[109:01.880 -> 109:03.880] de dos horas en media hora?
+[109:03.880 -> 109:13.880] Entonces, ¿Cómo han debido notar
+[109:13.880 -> 109:15.880] el gol de esta semana
+[109:15.880 -> 109:17.880] es...
+[109:17.880 -> 109:19.880] Bueno, el gol de las más trecles de esta semana
+[109:19.880 -> 109:21.880] simplemente era sentar las bases de transmigroservicios.
+[109:21.880 -> 109:23.880] ¿De qué son?
+[109:23.880 -> 109:25.880] ¿Qué ventajas y desventajas tienen
+[109:25.880 -> 109:27.880] los monolitos?
+[109:27.880 -> 109:29.880] No sé, el "tool factor app" es importante
+[109:29.880 -> 109:31.880] que lo lean. Les recomiendo que lo lean.
+[109:31.880 -> 109:33.880] Y quizá la siguiente semana vamos a charlar
+[109:33.880 -> 109:35.880] sobre eso.
+[109:35.880 -> 109:37.880] Entonces, esa fue
+[109:37.880 -> 109:39.880] la clase express sobre teorías
+[109:39.880 -> 109:41.880] sobre microservicios y fundamentos.
+[109:41.880 -> 109:45.880] Y bueno, espero que el
+[109:45.880 -> 109:47.880] "recap" o el overview
+[109:47.880 -> 109:49.880] del capstone se haya servido para
+[109:49.880 -> 109:51.880] poder orientar mejor sus soluciones.
+[109:53.880 -> 109:55.880] Y bueno, eso sería todo por hoy.
+[109:55.880 -> 109:57.880] No los dobo más tiempo.
+[109:57.880 -> 109:59.880] Logramos tener una sesión de
+[109:59.880 -> 110:01.880] tutoría y una sesión de master class
+[110:01.880 -> 110:03.880] del mismo tiempo. Excelente.
+[110:03.880 -> 110:07.880] Y nada, entonces tengan un buen resto
+[110:07.880 -> 110:09.880] de día y cualquier pregunta
+[110:09.880 -> 110:11.880] me escriben en el chat.
+[110:11.880 -> 110:13.880] Vale, pero hace mucha clase.

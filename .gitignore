@@ -4,6 +4,7 @@ extracted_*.wav
 
 # Ignore model files
 ggml*
+cuda*
 
 # Ignore .NET build artifacts
 [Bb]in/

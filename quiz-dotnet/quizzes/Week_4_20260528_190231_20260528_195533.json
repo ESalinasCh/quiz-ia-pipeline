@@ -1,0 +1,469 @@
+{
+  "generated_at": "2026-05-28 19:55:33",
+  "source": "Week_4_20260528_190231",
+  "models": {
+    "transcript": "whisper-small",
+    "processing": "qwen2.5:7b-instruct",
+    "embedding": "bge-m3",
+    "llm_as_judge": "llama3.1:8b-instruct-q4_K_M"
+  },
+  "timings": {
+    "quiz_generation": "7m 5s (425.8s)",
+    "quiz_generation_seconds": 425.84,
+    "pipeline_total": "25m 38s (1538.9s)",
+    "pipeline_total_seconds": 1538.95
+  },
+  "questions": [
+    {
+      "question": "¿Qué sugerencia hace la profesora para facilitar la migración de los microservicios en el siguiente paso del proceso MIG 10?",
+      "options": {
+        "a": "Crear una receta o guía clara y detallada que se pueda seguir para la migración",
+        "b": "Asignar a un solo desarrollador para gestionar la migración de todos los microservicios",
+        "c": "Esperar hasta que el servicio de search esté completamente operativo antes de continuar con la migración del OCR",
+        "d": "Migrar todas las bases de datos a una sola base de datos centralizada"
+      },
+      "correct_option": "a",
+      "bloom_level": "comprender",
+      "justification": "La profesora sugiere crear 'una receta que pueden seguir' para entender cómo van a hacer la migración del equipo y facilitar la tarea en el siguiente paso. Las otras opciones son distractors plausibles pero no respaldadas por el texto de clase."
+    },
+    {
+      "question": "¿Cuál de las siguientes ventajas se menciona para el Approach 'Improach' en relación con la capa anticonrupción?",
+      "options": {
+        "a": "Se mantiene dentro del monolito, usando el stack del monolito.",
+        "b": "Es independiente y no depende de un equipo dedicado.",
+        "c": "Permite una gestión más fácil de la CEL.",
+        "d": "Reduciría significativamente los costos de infraestructura."
+      },
+      "correct_option": "a",
+      "bloom_level": "comprender",
+      "justification": "La pregunta se basa en el contenido de clase, donde se menciona explícitamente que 'Improach' está dentro del monolito y usa el stack del monolito para la capa anticonrupción. Las otras opciones son plausiblemente incorrectas pero directamente derivadas del contenido dado."
+    },
+    {
+      "question": "¿Cuál de las siguientes afirmaciones es correcta según el contenido de la clase?",
+      "options": {
+        "a": "El microservicio solo se utiliza para probar que el sistema funcione correctamente, sin procesar ni guardar información en la base de datos.",
+        "b": "La infraestructura existente dentro del acel permite un control más fácil sobre la aplicación de funciones internas.",
+        "c": "Se debe describir toda la funcionalidad externa a la capa de mejor opción para utilizarla en el sistema.",
+        "d": "El Happy Pad tiene problemas en todos sus componentes teóricamente funcionales."
+      },
+      "correct_option": "a",
+      "bloom_level": "comprender",
+      "justification": "La respuesta correcta se basa en la declaración 'no simplemente es para probar que el microservicio funciona. Según' y 'No. No procesarlo o procesarla y no guardarle en base de datos', lo cual refuerza la opción a. Las opciones b, c y d son plausibles pero incorrectas según el contenido proporcionado."
+    },
+    {
+      "question": "¿Cuál de las siguientes afirmaciones sobre la implementación del procesamiento de documentos no es correcta según lo explicado en clase?",
+      "options": {
+        "a": "No se considera adecuado simplemente extender los workers para procesar información, ya que esto no resuelve el problema fundamental.",
+        "b": "El uso de microservicios para procesar documentos desde un monolito es una buena práctica y se recomienda ampliamente en la actualidad.",
+        "c": "La iniciativa propuesta funcionará pero no cumple con las buenas prácticas de modernización y migración de sistemas.",
+        "d": "Se debe quitar a los workers la responsabilidad de la comunicación entre procesos para mejorar la eficiencia del sistema."
+      },
+      "correct_option": "b",
+      "bloom_level": "comprender",
+      "justification": "El contenido de clase establece que extender los workers no es mantenible y que se debe quitarles la responsabilidad de la comunicación. Además, el texto menciona explícitamente que nuestra iniciativa no cumple con las buenas prácticas de modernización y migración, por lo que las afirmaciones a, c y d son correctas. La opción b es incorrecta ya que se contrapone al contenido explicado en clase."
+    },
+    {
+      "question": "¿Cuál de las siguientes afirmaciones es correcta según la explicación del profesor durante la clase?",
+      "options": {
+        "a": "El aceler puede ser tanto un archivo simple como algo más complejo, siempre y cuando mantenga la lógica de comunicación.",
+        "b": "Solo se puede comunicar asincrónicamente a través de enpoints.",
+        "c": "El aceler es únicamente un traductor y no puede contener funcionalidades o servicios adicionales.",
+        "d": "La comunicación sincrónica no existe dentro del aceler según la explicación dada."
+      },
+      "correct_option": "a",
+      "bloom_level": "comprender",
+      "justification": "El profesor menciona que 'el aceler puede ser un archivo simple, puede ser algo más complejo. No puede ser un conjunto de funcionalidades o servicios acá adentro, pero que sigue manteniendo esa lógica de comunicar y traducir', lo que apoya la opción a. Las otras opciones son falsas pero plausibles: b) se desvía del texto al mencionar que solo hay comunicación asincrónica; c) contradice directamente el contenido sobre complejidad en el aceler; d) tampoco está respaldado por las palabras del profesor."
+    },
+    {
+      "question": "¿Cuál es una posibles implicación del Out of Process en este caso de diseño de arquitectura de software?",
+      "options": {
+        "a": "Introduce latencia debido a la necesidad de comunicación remota entre las entidades.",
+        "b": "Reduce el número de componentes a mantener, simplificando la arquitectura.",
+        "c": "Elimina completamente la necesidad de contenedores para desplegar los servicios individuales.",
+        "d": "Facilita una implementación más rápida ya que todas las partes del sistema pueden ser mantenidas como un solo monolito."
+      },
+      "correct_option": "a",
+      "bloom_level": "comprender",
+      "justification": "La respuesta correcta es 'Introduce latencia debido a la necesidad de comunicación remota entre las entidades' ya que el contenido menciona: 'Estamos introduciendo la latencia. ¿Por qué? Porque al ser una entidad externa, va a estar deployado en su propio contenedor, por así decirlo. Y eso en red significa más latencia'. Las otras opciones son distractors plausibles pero incorrectas según el contenido de clase."
+    },
+    {
+      "question": "¿Cuál es un problema potencial al usar tokens para autenticación en una arquitectura de microservicios?",
+      "options": {
+        "a": "Los tokens pueden expirar durante la transmisión asincrónica, lo que puede provocar errores en el procesamiento.",
+        "b": "La utilización de tokens no permite la comunicación asíncrona entre los microservicios.",
+        "c": "Los tokens no son necesarios en arquitecturas de microservicios debido a las características de estos.",
+        "d": "El uso de tokens puede llevar a un aumento excesivo del tráfico de red innecesario."
+      },
+      "correct_option": "a",
+      "bloom_level": "comprender",
+      "justification": "La respuesta correcta es 'a' ya que el contenido menciona explícitamente: 'Cuando se devuelva ese token ya está invalidado. Ok, entonces es un problema con ese approach'. Esto justifica directamente la opción 'Los tokens pueden expirar durante la transmisión asincrónica, lo que puede provocar errores en el procesamiento', siendo las otras opciones plausibles pero incorrectas según el contenido de clase."
+    },
+    {
+      "question": "¿Cómo se manejaría la información entre el monolito y los microservicios para asegurar que ambas partes tengan acceso a la misma información?",
+      "options": {
+        "a": "Los cambios realizados en una base de datos (monolito o OCR) se sincronizan automáticamente en las dos.",
+        "b": "Se realiza una consulta directa a ambos monolito y microservicio cada vez que se necesita la información.",
+        "c": "Se configura un sistema donde el ACL determina cuándo consultar al monolito y cuándo a los microservicios.",
+        "d": "El monolito mantiene una copia de seguridad de la base de datos del OCR para prevenir la pérdida de información."
+      },
+      "correct_option": "a",
+      "bloom_level": "comprender",
+      "justification": "La respuesta correcta se basa en la afirmación del contenido, donde se menciona que 'Lo que tengamos guardado en el monolito, va a estar guardado también en la base de datos de OCR, del microservicio'. Las opciones b y c son plausibles pero incorrectas según el contenido dado. La opción d no es relevante al tema discutido."
+    },
+    {
+      "question": "¿Cuál es la razón por la que se menciona que no se pondrá dentro de su propio rectángulito para el microservicio de comunicación?",
+      "options": {
+        "a": "Porque este amigo se comunicará directamente con el microservicio.",
+        "b": "Para hacer más complejo el diseño del sistema.",
+        "c": "Para aísilarlo completamente del resto del sistema.",
+        "d": "Porque no es necesario en el monolito."
+      },
+      "correct_option": "a",
+      "bloom_level": "comprender",
+      "justification": "Según el contenido de la clase, se menciona que este microservicio se comunicará directamente con el exterior del monolito y no tendrá su propio rectángulito, lo cual coincide con la opción a."
+    },
+    {
+      "question": "¿Qué tipo de arquitectura se va a implementar según la explicación del profesor?",
+      "options": {
+        "a": "Monolito gradualmente reemplazado por microservicios",
+        "b": "Microservicios independientes desde el inicio",
+        "c": "Arquitectura de nube sin cambios en los servicios actuales",
+        "d": "Interfaz gráfica única para todos los servicios"
+      },
+      "correct_option": "a",
+      "bloom_level": "comprender",
+      "justification": "La pregunta se basa directamente en el contenido de clase donde se menciona 'absorber las funciones... hasta que este sea totalmente prescindible' y 'la idea es ir paso a paso'. La opción a es la única que refleja estos puntos, mientras que las otras opciones son plausibles pero incorrectas según el contenido dado."
+    },
+    {
+      "question": "Según el contenido de clase, ¿qué afirmación es correcta acerca de los endpoints en este contexto del microservicio y monolito?",
+      "options": {
+        "a": "Los endpoints no son recomendados debido al uso de Celery y workers.",
+        "b": "Es mejor tener dos endpoints para el intercambio de datos complejos.",
+        "c": "Se recomienda utilizar principalmente endpoints para el envío de datos mediante eventos.",
+        "d": "Los endpoints son necesarios en lugar de los workers y Celery."
+      },
+      "correct_option": "a",
+      "bloom_level": "comprender",
+      "justification": "La afirmación correcta se basa en las palabras del profesor: 'Tengo que hacer solamente endpoints para' (lo interrumpimos un momento, pero bueno, en esa parte yo consideraría que los endpoints no son lo mejor. Perdón. Bueno, principalmente porque estamos utilizando Celery y estamos utilizando workers. Entonces se envían más que todo mediante eventos.)'"
+    },
+    {
+      "question": "¿Cuál de las siguientes acciones debe realizar un microservicio cuando se ingiere un nuevo archivo?",
+      "options": {
+        "a": "Informar al monolito sobre la existencia del nuevo archivo y guardar sus metadatos en su base de datos.",
+        "b": "Procesar el archivo directamente sin notificar a ningún otro servicio.",
+        "c": "Descartar el archivo si no cumple con ciertos requisitos.",
+        "d": "Sólo almacenar los metadatos del archivo localmente."
+      },
+      "correct_option": "a",
+      "bloom_level": "comprender",
+      "justification": "La pregunta se basa en entender el flujo descrito en el contenido de clase, donde un microservicio debe informar al monolito sobre la existencia del nuevo archivo y guardar los metadatos en su base de datos. Las otras opciones son plausibles pero incorrectas según el texto proporcionado."
+    },
+    {
+      "question": "¿Cuál es la diferencia entre la escalabilidad vertical y horizontal según el contenido de clase?",
+      "options": {
+        "a": "La escalabilidad vertical implica añadir más recursos a un solo servidor, mientras que la escalabilidad horizontal consiste en agregar más servidores.",
+        "b": "La escalabilidad vertical aumenta las capacidades del servidor mediante hardware adicional, y la horizontal se refiere a dividir el trabajo entre múltiples clientes.",
+        "c": "La escalabilidad vertical implica añadir más usuarios a un solo servidor, mientras que la escalabilidad horizontal consiste en añadir más funcionalidad al servidor existente.",
+        "d": "Ambas escalabilidades vertical y horizontal implican aumentar la capacidad del mismo servidor mediante mejoras de software."
+      },
+      "correct_option": "a",
+      "bloom_level": "comprender",
+      "justification": "Según el contenido de clase, la escalabilidad vertical se refiere a añadir más recursos a un solo servidor (como RAM o SSD), mientras que la horizontal implica agregar más servidores. Las otras opciones son plausibles pero incorrectas basándose en las afirmaciones del contenido."
+    },
+    {
+      "question": "¿Cuál de las siguientes afirmaciones es correcta según el contenido de la clase sobre los micro servicios y su relación con la agilidad?",
+      "options": {
+        "a": "Los micro servicios siempre mejoran la agilidad en cualquier equipo.",
+        "b": "El uso de micro servicios puede restar agilidad al principio debido a su complejidad adicional.",
+        "c": "La escalada independiente y el silencio a fracasos son desventajas de los micro servicios.",
+        "d": "Los micro servicios no traen ningún nivel de complejidad extra."
+      },
+      "correct_option": "b",
+      "bloom_level": "comprender",
+      "justification": "La opción correcta es 'b', ya que el contenido menciona: 'al principio nos pueden restar ágilidad. Entonces, se necesita un equipo maduro y que tenga experiencia en esto para poder ser ágile'. Las otras opciones son distractoras pero incorrectas según el contenido de clase."
+    },
+    {
+      "question": "¿Cuál es la recomendación para manejar el procesamiento de múltiples archivos sin duplicar tareas?",
+      "options": {
+        "a": "Usar Redis para verificar si una tarea ya ha sido procesada.",
+        "b": "Manejar todos los archivos en un solo microservicio.",
+        "c": "Procesar cada archivo secuencialmente, uno a la vez.",
+        "d": "Guardar el historial de tareas en un archivo local."
+      },
+      "correct_option": "a",
+      "bloom_level": "comprender",
+      "justification": "La respuesta correcta es 'Usar Redis para verificar si una tarea ya ha sido procesada' porque el contenido menciona explícitamente que se puede usar Redis para verificar si un archivo ya ha sido procesado antes de realizar la ingesta. Las otras opciones son plausibles pero no respaldadas en el texto dado: manejar todos los archivos en un solo microservicio podría ser una alternativa, pero no es lo recomendado; procesar cada archivo secuencialmente puede evitar duplicación de tareas, pero el uso de Redis para optimizar este proceso es más eficiente; guardar el historial de tareas en un archivo local no se menciona y no parece la mejor práctica según el contexto."
+    },
+    {
+      "question": "¿Qué es mutual TLS (mTLS) según el contenido de clase?",
+      "options": {
+        "a": "Es un método de autenticación donde tanto el cliente como el servidor se autentican mutuamente con certificados.",
+        "b": "Es una forma de criptografía asimétrica utilizada para transferir datos encriptados.",
+        "c": "Se refiere a la transmisión de datos sin autenticación entre diferentes subsistemas.",
+        "d": "Es un protocolo de transferencia de archivos entre máquinas."
+      },
+      "correct_option": "a",
+      "bloom_level": "comprender",
+      "justification": "La respuesta correcta es 'a' ya que el contenido menciona que mTLS es una forma de autentificación donde ambos lados (máquina y cliente) se autentican mutuamente. Las otras opciones son distracciones plausibles pero incorrectas según el texto proporcionado."
+    },
+    {
+      "question": "¿Qué característica define al OCR mencionado en clase?",
+      "options": {
+        "a": "Es asincrónico, utilizando un sistema de colas como Celery para procesar archivos.",
+        "b": "Es un sistema sincrónico que procesa los archivos rápidamente sin usar colas.",
+        "c": "Se basa únicamente en el reconocimiento óptico de caracteres estándar sin usar sistemas de colas.",
+        "d": "Utiliza una red neuronal para la identificación de metadatos."
+      },
+      "correct_option": "a",
+      "bloom_level": "comprender",
+      "justification": "Según el contenido de clase, se menciona que OCR es asincrónico y usa un sistema de colas como Celery. Las otras opciones son falsas pero plausibles: no se mencionó que sea sincrónico (b), ni que únicamente use reconocimiento óptico de caracteres sin colas (c). La opción d, aunque puede ser cierta en otros contextos, no se refiere específicamente al OCR discutido en la clase."
+    },
+    {
+      "question": "¿Qué tipo de cambio se realizará dentro del código de Péperles?",
+      "options": {
+        "a": "Se añadirá una nueva forma de procesar el documento, manteniendo los cambios mínimos posibles.",
+        "b": "Se modificarán todas las formas de procesar el documento en Péperles.",
+        "c": "Se eliminarán dos de las tres formas actuales de procesar el documento.",
+        "d": "No se realizará ningún cambio en el código de Péperles."
+      },
+      "correct_option": "a",
+      "bloom_level": "comprender",
+      "justification": "La respuesta correcta es 'a' porque el contenido menciona que se va a agregar una nueva forma de procesar el documento dentro del código de Péperles, y estos cambios serán minimales. Las otras opciones son distractoras pero incorrectas: b) contradice la información sobre minimizar los cambios; c) no está apoyada en el texto; d) está claramente descartada."
+    },
+    {
+      "question": "¿Cuál es la definición correcta de idempotencia según el contenido de clase?",
+      "options": {
+        "a": "La capacidad de procesar un recurso (como un rico) solo una vez para ahorrar tiempo y recursos.",
+        "b": "Un método que permite modificar múltiples veces los datos sin generar errores.",
+        "c": "Un proceso que garantiza la seguridad de las transacciones en sistemas financieros.",
+        "d": "Un algoritmo que asegura la autenticidad de los usuarios en una red."
+      },
+      "correct_option": "a",
+      "bloom_level": "comprender",
+      "justification": "La pregunta se basa directamente en el contenido del video, donde se menciona: 'Ese es el siguiente punto y gracias a lo de la idempotencia. La idempotencia para acelerar básicamente es esa habilidad de no procesar los ricos más de una vez'. Las otras opciones son plausibles pero incorrectas según el contenido dado."
+    },
+    {
+      "question": "¿Cuál de las siguientes es una característica del intercambio de comunicación máquina a máquina (M2M)?",
+      "options": {
+        "a": "Utiliza protocolos específicos para la comunicación entre máquinas virtuales o reales.",
+        "b": "Se refiere a la comunicación entre seres humanos y sistemas computacionales.",
+        "c": "Es un tipo de notificación manual que requiere intervención humana.",
+        "d": "No implica la utilización de protocolos para la comunicación entre dispositivos."
+      },
+      "correct_option": "a",
+      "bloom_level": "comprender",
+      "justification": "La pregunta se basa en el contenido proporcionado, que menciona explícitamente que 'hay protocolos de comunicación máquina a máquina'. Las otras opciones son distractores plausibles pero incorrectas según el contexto del texto."
+    },
+    {
+      "question": "¿Qué problema adicional se menciona al implementar la autenticación con private key y public key en un sistema de comunicación SSH?",
+      "options": {
+        "a": "Redundancia o retries",
+        "b": "Ausencia de seguridad",
+        "c": "Incremento del rendimiento",
+        "d": "Falta de compatibilidad con otros protocolos"
+      },
+      "correct_option": "a",
+      "bloom_level": "comprender",
+      "justification": "El texto menciona explícitamente que junto a la redundancia o retries, se introduce latencia al implementar este tipo de comunicación en red. Las otras opciones son distractoras y no están apoyadas por el contenido proporcionado."
+    },
+    {
+      "question": "¿Cuál de las siguientes afirmaciones sobre monolitos modulares es verdadera según el contenido dado?",
+      "options": {
+        "a": "No presentan problemas de mantenibilidad si se diseñan correctamente.",
+        "b": "Son inescalables horizontalmente debido a su diseño monolítico.",
+        "c": "Generan más problemas de rendimiento que los servidores en sí mismos.",
+        "d": "Siempre conducen a múltiples puntos de fallo."
+      },
+      "correct_option": "a",
+      "bloom_level": "comprender",
+      "justification": "La afirmación en la opción a es correcta basada en el contenido dado, que menciona 'Hay monolitos modulares que están super bien definidos, tienen responsabilidades bien definidas, en donde no habría estos problemas. Bueno, no habrían tantos problemas de mantenibilidad.' Las otras opciones son distráctores plausibles pero incorrectas según el texto."
+    },
+    {
+      "question": "¿Cuál es el principal problema mencionado al escalar un monolito en una empresa según el contenido de clase?",
+      "options": {
+        "a": "La infraestructura y los costos asociados son altos.",
+        "b": "Es difícil mantener varias versiones del mismo código.",
+        "c": "El desarrollo de nuevas funcionalidades se hace más lento.",
+        "d": "Los clientes suelen tener diferentes expectativas."
+      },
+      "correct_option": "a",
+      "bloom_level": "comprender",
+      "justification": "La respuesta correcta se basa en la afirmación directa del contenido de clase: 'Pero creo que el principal con sería infraestructura y costas.' Las otras opciones son plausibles pero no mencionadas como principales problemas en el contenido proporcionado."
+    },
+    {
+      "question": "¿Cuál de las siguientes tecnologías o servicios será utilizado por el nuevo microservicio OCR según el contenido de la clase?",
+      "options": {
+        "a": "Celery para despachar eventos",
+        "b": "Postgres como base de datos",
+        "c": "Paperless como sistema principal",
+        "d": "Bisturí para corte"
+      },
+      "correct_option": "a",
+      "bloom_level": "comprender",
+      "justification": "La pregunta se basa en la información proporcionada, donde el profesor menciona que Celery será usado para despachar eventos. Las otras opciones son tecnologías o servicios mencionados, pero no directamente como serán utilizados por el microservicio OCR."
+    },
+    {
+      "question": "Según el contenido de clase, ¿qué es lo que los grupos pueden hacer a parte de seguir la propuesta del profesor?",
+      "options": {
+        "a": "Proporcionar una vista sencilla para el consumo de archivos.",
+        "b": "Sugerir un esquema distinto al propuesto por el profesor.",
+        "c": "Calificar a sus compañeros sobre la velocidad del proyecto.",
+        "d": "Evaluar cuán bien se hará reactancial el proyecto.",
+        "correct_option": "b",
+        "bloom_level": "comprender",
+        "justification": "La pregunta y las opciones están basadas en las palabras clave 'proponer cosas nuevas' y 'proponer algo distinto', lo que indica que los grupos tienen la posibilidad de sugerir un esquema diferente al propuesto por el profesor. Las otras opciones son distráctores plausibles pero no se mencionan en el contenido dado."
+      },
+      "correct_option": "",
+      "bloom_level": "",
+      "justification": ""
+    },
+    {
+      "question": "¿Cuál es el desafío principal que los estudiantes deben abordar según el contenido de la clase?",
+      "options": {
+        "a": "Transformar la seguridad existente en el modelo hacia microservicios.",
+        "b": "Investigar sobre servicios y su relación con la seguridad.",
+        "c": "Desarrollar un nuevo sistema de seguridad para microservicios.",
+        "d": "Crear políticas de seguridad para datos simples."
+      },
+      "correct_option": "a",
+      "bloom_level": "comprender",
+      "justification": "La clase menciona que el desafío principal es 'pensar en cómo extrapor la seguridad que ya hay en el modalito hacia los microservicios y cómo establecer una política de seguridad', lo cual se alinea con la opción a. Las otras opciones son plausibles pero incorrectas según el contenido dado."
+    },
+    {
+      "question": "Durante el proceso de migración a microservicios, ¿cómo se espera que coexista la arquitectura monolítica?",
+      "options": {
+        "a": "El monolito y los microservicios convivirán mientras se desarrolla la nueva arquitectura.",
+        "b": "El monolito será inmediatamente reemplazado por los microservicios para optimizar el rendimiento.",
+        "c": "Los microservicios se implementarán primero y el monolito se eliminará rápidamente.",
+        "d": "El monolito se mantendrá completamente independiente del nuevo sistema de microservicios."
+      },
+      "correct_option": "a",
+      "bloom_level": "comprender",
+      "justification": "La pregunta y las opciones son basadas en la afirmación que el contenido da: 'mientras nuestro entorno de microservicios o nuestro nuevo, nuevo arquitectura va tomando forma, va a convivir con el monolito'. La opción correcta es claramente ‘a’ ya que coincide con el texto. Las otras opciones son plausibles pero incorrectas según el contenido dado."
+    },
+    {
+      "question": "Según el contenido de clase, ¿qué afirmación es correcta sobre la migración del monolito a microservicios en términos de reglas de negocio?",
+      "options": {
+        "a": "El lado del microservicio tendrá un poco menos de reglas de negocio que el monolito inicial.",
+        "b": "La migración no afectará significativamente la cantidad de reglas de negocio.",
+        "c": "Todas las reglas de negocio se moverán al lado del monolito modular.",
+        "d": "No se moverán reglas de negocio a ningún lado, todas seguirán estando en el monolito."
+      },
+      "correct_option": "a",
+      "bloom_level": "comprender",
+      "justification": "La pregunta se basa directamente en la afirmación que el contenido de clase hace sobre las reglas de negocio al moverse del monolito al microservicio. La respuesta correcta, a, es explicitamente mencionada como la situación actual, mientras que b, c y d son plausibles pero incorrectas según lo dicho en clase."
+    },
+    {
+      "question": "¿Qué implica que los microservicios estén 'bajamente acoplados' según el contenido de clase?",
+      "options": {
+        "a": "Evitar dependencias externas para no violar principios de diseño",
+        "b": "Hacer múltiples llamadas a servidores externos para mejorar funcionalidad",
+        "c": "Incluir varios servicios interconectados en un solo microservicio",
+        "d": "Combinar varios datos de base de datos en un solo microservicio"
+      },
+      "correct_option": "a",
+      "bloom_level": "comprender",
+      "justification": "Según el contenido, 'estar bajamente acoplados' significa evitar dependencias externas para no violar los principios del diseño de microservicios. Esta opción se basa directamente en las palabras del profesor y puede ser verificada y justificada con el texto dado."
+    },
+    {
+      "question": "¿Dónde se encuentra el módulo de autorización mencionado en la clase?",
+      "options": {
+        "a": "En un apartado separado, pero no necesariamente arriba del modulo de ingesta.",
+        "b": "Directamente sobre el modulo de ingesta.",
+        "c": "Integrado dentro del happy pad.",
+        "d": "No se menciona en la clase."
+      },
+      "correct_option": "a",
+      "bloom_level": "comprender",
+      "justification": "La respuesta correcta se basa directamente en las palabras del contenido de la clase: 'Acá. Acá. Tenemos un módulo o un apartado de autorización lo pongo acá arriba no necesariamente está arriba de ingesta.' Los otros opciones son plausibles pero incorrectas según el contexto proporcionado."
+    },
+    {
+      "question": "¿Qué afirmación es incorrecta según lo expuesto en la clase sobre la escalabilidad de aplicaciones?",
+      "options": {
+        "a": "No se puede desplegar la misma base de datos en diferentes servidores para optimizar el rendimiento y la disponibilidad.",
+        "b": "Es posible deployar la aplicación en múltiples servidores alrededor del mundo, con cada región teniendo su propia instancia.",
+        "c": "El contenido de la clase menciona que el uso de un monolito puede ser beneficioso para la escalabilidad global de una aplicación.",
+        "d": "Se discute la posibilidad de dividir una aplicación en microservicios como parte del proceso de escalabilidad."
+      },
+      "correct_option": "c",
+      "bloom_level": "comprender",
+      "justification": "La afirmación incorrecta es la opción c, ya que el contenido de clase menciona explícitamente que no se puede simplemente desplegar la misma base de datos en diferentes servidores para optimizar la escalabilidad global. Se sugiere usar microservicios y deploys individuales por región como alternativas."
+    },
+    {
+      "question": "¿Cuál es un problema que puede surgir si se envían archivos enormes a un servicio que tarda mucho tiempo en procesarlos?",
+      "options": {
+        "a": "Nuestra aplicación quedará bloqueada sin esperar una respuesta.",
+        "b": "El servidor aumentará su rendimiento y eficiencia al recibir más trabajo.",
+        "c": "La aplicación se volverá más rápida y fluida mientras espera la respuesta del servicio.",
+        "d": "Se reducirán los recursos utilizados en el servidor debido a la espera."
+      },
+      "correct_option": "a",
+      "bloom_level": "comprender",
+      "justification": "La pregunta se basa directamente en las afirmaciones hechas en el contenido de clase, que mencionan que nuestra aplicación quedaría bloqueada sin esperar una respuesta del servicio. Los otros opciones son plausibles pero incorrectas según la información proporcionada."
+    },
+    {
+      "question": "¿Qué diferenciación se debe considerar al pasar de un monolito a microservicios según el contenido de clase?",
+      "options": {
+        "a": "El monolito necesita su propio mecanismo de ingesta, mientras que el microservicio también lo requiere.",
+        "b": "Ambos (monolito y microservicio) se mantienen idénticos en términos de mecanismos de ingestión.",
+        "c": "El monolito debe mantener su mecanismo de ingesta, pero el microservicio no necesita ninguno.",
+        "d": "Solo el microservicio requiere un nuevo mecanismo de ingesta cuando se separa del monolito."
+      },
+      "correct_option": "a",
+      "bloom_level": "comprender",
+      "justification": "La respuesta correcta es 'a' porque la clase menciona que 'Nuestro monolito tiene su mecanismo de ingesta. Pero nuestro micro servicio tiene su mecanismo de ingesta'. Las otras opciones son plausibles pero incorrectas basándose en el contenido proporcionado."
+    },
+    {
+      "question": "¿Cuántos microservicios se espera obtener como resultado final de la migración descrita en clase?",
+      "options": {
+        "a": "Dos, un OCR y uno de búsqueda (search)",
+        "b": "Uno solo, que será el OCR",
+        "c": "Tres, OCR, search y un monolito",
+        "d": "Cinco microservicios diferentes"
+      },
+      "correct_option": "a",
+      "bloom_level": "comprender",
+      "justification": "La respuesta correcta se basa en las palabras del profesor: 'Bueno, dos en realidad, sería el OCR y el search'. Las otras opciones son distractores plausibles pero incorrectos según el contenido dado."
+    },
+    {
+      "question": "¿Cuáles de estas pueden ser formas posibles de implementar la CEL según lo mencionado en la clase?",
+      "options": {
+        "a": "Singleton",
+        "b": "API as a Way",
+        "c": "Interfaz de Usuario",
+        "d": "Método Singleton",
+        "e": "Modelo de Datos",
+        "correct_option": "a",
+        "bloom_level": "comprender",
+        "justification": "Según el contenido de la clase, se mencionó que la CEL puede ser un singleton, entre otras formas posibles. Las opciones b y d son variantes plausibles pero incorrectas basadas en la información proporcionada, mientras que c y e son distractores menos relevantes."
+      },
+      "correct_option": "",
+      "bloom_level": "",
+      "justification": ""
+    },
+    {
+      "question": "¿Cuál de las siguientes afirmaciones es verdadera según la información proporcionada por el profesor?",
+      "options": {
+        "a": "Es necesario crear nuevas SPS para cada microservicio.",
+        "b": "Se puede simplemente agregar un componente al monolito existente para convertirlo en un microservicio.",
+        "c": "El momento está más grande, y se están jugando bateando acá.",
+        "d": "Los estudiantes cayeron de espaldas y siguen vivos."
+      },
+      "correct_option": "a",
+      "bloom_level": "comprender",
+      "justification": "La respuesta correcta es 'Es necesario crear nuevas SPS para cada microservicio' ya que el profesor menciona explicitamente esta necesidad en el contenido de la clase. Las otras opciones son plausibles pero incorrectas según las afirmaciones hechas por el profesor."
+    },
+    {
+      "question": "¿Cuál es la función única atribuida al microservicio de Ceres según el contenido de clase?",
+      "options": {
+        "a": "Procesar archivos...",
+        "b": "Gestión de usuarios...",
+        "c": "Realizar cálculos financieros...",
+        "d": "Administrar redes de comunicación..."
+      },
+      "correct_option": "a",
+      "bloom_level": "comprender",
+      "justification": "Según el contenido de clase, se especifica claramente que 'el microservicio de Ceres, su única función es procesar archivos.' Esto hace que la opción a sea correcta y las otras opciones sean distractores plausibles pero incorrectas según lo expuesto en el texto."
+    }
+  ]
+}
