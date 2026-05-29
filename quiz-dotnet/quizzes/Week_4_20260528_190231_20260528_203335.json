@@ -1,0 +1,180 @@
+{
+  "generated_at": "2026-05-28 20:33:35",
+  "source": "Week_4_20260528_190231",
+  "models": {
+    "transcript": "whisper-small",
+    "processing": "qwen2.5:7b-instruct",
+    "embedding": "bge-m3",
+    "llm_as_judge": "llama3.1:8b-instruct-q4_K_M"
+  },
+  "timings": {
+    "quiz_generation": "2m 15s (135.5s)",
+    "quiz_generation_seconds": 135.51,
+    "pipeline_total": "9m 56s (596.5s)",
+    "pipeline_total_seconds": 596.46
+  },
+  "questions": [
+    {
+      "question": "¿Cuál es una ventaja de utilizar el Approach 'Improach' en lugar del Out of Process para la capa anticorrupción?",
+      "options": {
+        "a": "Reduce la latencia y mejora la comunicación con otros microservicios.",
+        "b": "Permite mantener la capa anticonrupción independiente de los otros componentes.",
+        "c": "Facilita el despliegue en contenedores separados, mejorando la autonomía.",
+        "d": "Permite utilizar un stack diferente y más versátil para la capa anticorrupción."
+      },
+      "correct_option": "a",
+      "bloom_level": "comprender",
+      "justification": "La pregunta se basa directamente en el contenido de clase, donde se menciona que 'Improach' tiene ventajas como menos latencia debido a que está dentro del mismo proceso que el monolito y no necesita despliegue separado."
+    },
+    {
+      "question": "¿Para qué se utiliza el ACER (Anti-Corrupción Entity) en este escenario?",
+      "options": {
+        "a": "Para procesar directamente los documentos dentro del monolito.",
+        "b": "Para intermediar la comunicación entre el microservicio y el monolito, manteniendo la integridad de ambos.",
+        "c": "Para extender el poder de procesamiento de los documentos en el monolito.",
+        "d": "Para mantener la ingesta de documentos dentro del monolito."
+      },
+      "correct_option": "b",
+      "bloom_level": "comprender",
+      "justification": "La pregunta se basa directamente en el contenido dado, donde se menciona que el ACER es un intermediario entre el microservicio y el monolito, manteniendo la integridad de ambos. Las otras opciones son incorrectas ya que no se reflejan en la explicación dada durante el contenido de clase."
+    },
+    {
+      "question": "¿Cuál es el principal beneficio de utilizar eventos en lugar de peticiones sincrónicas según se explicó en la clase?",
+      "options": {
+        "a": "Evita que la aplicación esté bloqueada esperando respuestas del servicio.",
+        "b": "Permite procesar más archivos simultáneamente sin consumir todos los recursos del servidor.",
+        "c": "Mantiene la consistencia eventual de los datos en tiempo real.",
+        "d": "Asegura que todas las transacciones distribuidas se realicen con éxito."
+      },
+      "correct_option": "a",
+      "bloom_level": "comprender",
+      "justification": "La respuesta correcta es 'a' porque el texto menciona explícitamente que la idea principal es preservar la infraestructura actual, evitar que la aplicación se bloquee esperando respuestas del servicio y permitirle manejar múltiples archivos sin colapsar."
+    },
+    {
+      "question": "¿Cuál es la meta final para el microservicio según las explicaciones dadas en clase?",
+      "options": {
+        "a": "Eliminar completamente cualquier dependencia con el monolito.",
+        "b": "Tener su propia base de datos independiente del monolito.",
+        "c": "Combinar la base de datos del microservicio con el monolito para mayor eficiencia.",
+        "d": "Depender aún más del monolito en la fase inicial."
+      },
+      "correct_option": "b",
+      "bloom_level": "comprender",
+      "justification": "La pregunta se basa en la respuesta dada por el profesor, quien menciona que 'El gol final es tener una base de datos propia. Porque si no, no tendríamos microservicio.' Esto justifica que la opción b sea correcta."
+    },
+    {
+      "question": "¿Cuál es el principal problema identificado al usar tokens en comunicaciones entre microservicios según el contenido dado?",
+      "options": {
+        "a": "Los tokens pueden expirar antes de que se complete la comunicación entre servicios, lo cual invalidaría las llamadas posteriores.",
+        "b": "El uso de tokens requiere una autenticación adicional para cada petición, lo que reduce la eficiencia.",
+        "c": "Los tokens no son adecuados para comunicaciones en entornos de máquina a máquina (M2M).",
+        "d": "La implementación de TLS es complicada y solo se puede usar entre microservicios.",
+        "correct_option": "a",
+        "bloom_level": "comprender",
+        "justification": "El contenido menciona que 'Cuando se devuelva ese token ya está invalidado. Ok, entonces es un problema con ese approach', lo que justifica la opción a como correcta."
+      },
+      "correct_option": "",
+      "bloom_level": "",
+      "justification": ""
+    },
+    {
+      "question": "Según el contenido de clase, ¿cuál es la recomendación para manejar la base de datos cuando ya se ha migrado el resto del sistema a microservicios?",
+      "options": {
+        "a": "El monolito debe mantener su propia base de datos.",
+        "b": "Se debería asignar una persona o dos personas para gestionar la base de datos separada.",
+        "c": "La base de datos debe ser compartida entre todos los microservicios para optimizar recursos.",
+        "d": "No se necesita considerar la base de datos ya que el sistema está completamente migrado."
+      },
+      "correct_option": "b",
+      "bloom_level": "comprender",
+      "justification": "El contenido menciona: 'el microservicio tendría que tener su propia base de datos' y 'digamos, se podría avanzar en otro microservicio y digamos asignar a una persona o a dos personas que se encarguen de ese lado'. Estas frases justifican la opción b como correcta."
+    },
+    {
+      "question": "¿Cuál es la característica principal del OCR mencionado en el contenido de clase?",
+      "options": {
+        "a": "Es un proceso sincrónico y bloqueante.",
+        "b": "Funciona de manera asincrónica utilizando Celery para procesar archivos.",
+        "c": "Se ejecuta dentro de la misma base de datos PostgreSQL.",
+        "d": "Procesa todos los documentos de manera simultánea."
+      },
+      "correct_option": "b",
+      "bloom_level": "comprender",
+      "justification": "La respuesta correcta es 'b' porque el contenido menciona explícitamente que 'OCR, voy a poner una flecha acá, es asincrono. Entonces hay un sistema de colas, creo que está con Celery. Nunca lo he usado, pero bueno, es un sistema de colas que va a delegar o sea va a hacer proceso de ingesta, se va a procesar el archivo, se van a sacar los metadatos. Pero ya para procesar archivo como tal o sea el contenido se hace de manera asincrona con Celery.'"
+    },
+    {
+      "question": "¿Cuál de las siguientes afirmaciones sobre la comunicación en el aceler es correcta según el contenido de clase?",
+      "options": {
+        "a": "El aceler solo puede ser un archivo simple y no permite una comunicación sincrónica.",
+        "b": "Se utiliza communication points para una comunicación asincrónica, donde se expone una IP abierta para recibir llamadas desde OCR.",
+        "c": "La lógica de comunicar y traducir en el aceler se mantiene tanto en una comunicación sincrónica como asincrónica.",
+        "d": "El aceler siempre requiere la traducción del payload antes de enviarlo al microservicio."
+      },
+      "correct_option": "c",
+      "bloom_level": "comprender",
+      "justification": "La opción correcta es 'c' ya que el texto menciona: 'Entonces un approach. Sería la comunicación sincrona. No tenemos comunicación sincrona y asincrona. Entonces lo que mencionaba es por en points es sincrona. Entonces quiere decir que acá va a haber una IP ahí abierta, pero expuesta, a la cual mi OCR puede llamar'. Esto se justifica con la afirmación 'La lógica de comunicar y traducir en el aceler se mantiene tanto en una comunicación sincrónica como asincrónica'. Las otras opciones son distracciones basadas en información incorrecta o que no se encuentra en el contenido dado."
+    },
+    {
+      "question": "¿Cuál es el requisito principal para el microservicio en este proyecto?",
+      "options": {
+        "a": "Tener su propia base de datos",
+        "b": "Usar PostgreSQL",
+        "c": "Integrarse directamente con el monolito",
+        "d": "Desarrollar un archivo de texto"
+      },
+      "correct_option": "a",
+      "bloom_level": "comprender",
+      "justification": "Se menciona explícitamente en la clase que 'nuestro microservicio tiene que tener su propia base de datos'. Los demás opciones (usar PostgreSQL, integrarse directamente con el monolito o desarrollar un archivo de texto) no se presentan como requisitos principales."
+    },
+    {
+      "question": "¿Qué tipo de cambio se propone hacer en la aplicación Péperles al final del proceso descrito?",
+      "options": {
+        "a": "Integrar un nuevo parcer para el procesamiento de documentos",
+        "b": "Modificar significativamente el código existente de Péperles",
+        "c": "Remover completamente las otras formas de procesar el documento",
+        "d": "Cambiar la arquitectura a microservicios sin utilizar Redis"
+      },
+      "correct_option": "a",
+      "bloom_level": "comprender",
+      "justification": "La respuesta correcta es 'a' porque se menciona que dentro de Péperles, se va a crear un parcer de moto para procesar documentos, lo cual implica la adición de una nueva forma de procesamiento sin modificar significativamente el código existente o cambiar completamente las otras formas de procesar documentos."
+    },
+    {
+      "question": "¿Qué patrón se menciona como útil para hacer un servicio más resiliente en el contexto del diseño instruccional universitario proporcionado?",
+      "options": {
+        "a": "Patrón de Short Seed Quit",
+        "b": "Patrón de Observabilidad",
+        "c": "Patrón de Escalabilidad",
+        "d": "Patrón de Comunicación Asincrónica"
+      },
+      "correct_option": "a",
+      "bloom_level": "comprender",
+      "justification": "Según el contenido de clase, se menciona explícitamente que 'Patrones como Short Seed Quit, Retry que vamos a ver eso después. Son útiles para este tipo de casos'. Esto justifica la respuesta correcta."
+    },
+    {
+      "question": "¿Cuál es la descripción correcta de la idempotencia en este contexto?",
+      "options": {
+        "a": "Es una capacidad que permite procesar un recurso de manera única, evitando su procesamiento múltiple.",
+        "b": "Permite realizar varias operaciones sobre el mismo recurso sin generar ningún efecto secundario.",
+        "c": "Se refiere a la habilidad de procesar rápidamente varios recursos en paralelo.",
+        "d": "Es un proceso que garantiza la eliminación de datos duplicados en una sola base de datos."
+      },
+      "correct_option": "a",
+      "bloom_level": "comprender",
+      "justification": "Según el contenido, 'la idempotencia para acelerar básicamente es esa habilidad de no procesar los ricos más de una vez. Un rico se procesa una vez, simplemente'. Esto corresponde a la opción 'a', que describe la capacidad de procesar un recurso únicamente una vez."
+    },
+    {
+      "question": "¿Cómo se soluciona la comunicación entre información en el monolito y el microservicio según el contenido de la clase?",
+      "options": {
+        "a": "La información se guarda solo en el monolito.",
+        "b": "Se llama directamente a ambos servicios sin intermediación.",
+        "c": "El ACL determina la ubicación exacta de la información en tiempo real.",
+        "d": "La información guardada en el monolito también está en la base de datos del microservicio.",
+        "correct_option": "d",
+        "bloom_level": "comprender",
+        "justification": "El profesor menciona que 'Lo que tengamos guardado en el monolito, va a estar guardado también en la base de datos del microservicio'. Esto justifica que la opción d sea correcta."
+      },
+      "correct_option": "",
+      "bloom_level": "",
+      "justification": ""
+    }
+  ]
+}

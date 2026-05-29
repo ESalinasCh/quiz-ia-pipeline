@@ -69,6 +69,17 @@ namespace QuizDotnet
         const string EmbeddingModel = "bge-m3";                  // multilingual embeddings (1024-dim)
         const int EmbeddingDim = 1024;
 
+        // Semantic chunking tuning. Higher MinChunkWords + lower similarity threshold => fewer, larger chunks
+        // (fewer classification LLM calls, more context per question).
+        const float ChunkSimilarityThreshold = 0.45f; // split only on clearer topic shifts (was 0.5)
+        const int MinChunkWords = 80;                  // don't split until a chunk has this many words (was 30)
+        const int MaxChunkWords = 400;                 // hard cap before a forced split (was 350)
+
+        // Adaptive quiz size: ~1 question per QuestionsPerChunkDivisor academic chunks, clamped to [Min, Max].
+        const double QuestionsPerChunkDivisor = 5.0;   // higher => fewer questions
+        const int MinQuestions = 5;
+        const int MaxQuestions = 25;
+
         static async Task Main(string[] args)
         {
             Console.WriteLine("=== Quiz Generator Pipeline (.NET 10 Unified Stack) ===");
@@ -121,9 +132,9 @@ namespace QuizDotnet
             else
             {
                 // 1. Download Whisper model if not exists
-                var whisperModelType = GgmlType.Small;
+                var whisperModelType = GgmlType.Medium;
                 whisperModelName = $"whisper-{whisperModelType.ToString().ToLower()}";
-                string modelPath = "ggml-small.bin";
+                string modelPath = $"ggml-{whisperModelType.ToString().ToLower()}.bin";
                 if (!File.Exists(modelPath))
                 {
                     Console.WriteLine($"Downloading Whisper GGML {whisperModelType} model to {modelPath}...");
@@ -439,15 +450,15 @@ namespace QuizDotnet
                 int nextWordCount = nextSentence.Text.Split(' ', StringSplitOptions.RemoveEmptyEntries).Length;
 
                 bool shouldSplit = false;
-                if (sim < 0.5f)
+                if (sim < ChunkSimilarityThreshold)
                 {
-                    if (currentWordCount >= 30)
+                    if (currentWordCount >= MinChunkWords)
                     {
                         shouldSplit = true;
                     }
                 }
 
-                if (currentWordCount + nextWordCount > 350)
+                if (currentWordCount + nextWordCount > MaxChunkWords)
                 {
                     shouldSplit = true;
                 }
@@ -654,11 +665,11 @@ Responde únicamente con un objeto JSON válido con este formato:
                 return new List<QuizQuestion>();
             }
 
-            // Adaptive target: ~1 question per 3 academic chunks, clamped to [5, 40].
+            // Adaptive target: stays dynamic with content size but biased smaller (see consts).
             // Caller can override by passing numQuestions > 0.
             int targetQuestions = numQuestions > 0
                 ? numQuestions
-                : Math.Clamp((int)Math.Ceiling(retrievedChunks.Count / 3.0), 5, 40);
+                : Math.Clamp((int)Math.Ceiling(retrievedChunks.Count / QuestionsPerChunkDivisor), MinQuestions, MaxQuestions);
             Console.WriteLine($"Academic chunks retrieved: {retrievedChunks.Count}. Target questions: {targetQuestions}.");
 
             // ---- Phase 0: keep only the most significant chunks (classifier confidence × concept density). ----
@@ -701,14 +712,13 @@ Responde únicamente con un objeto JSON válido con este formato:
                 string quizPrompt = $@"Eres un experto en diseño instruccional universitario.
 Basándote ÚNICAMENTE en el siguiente contenido de clase, genera UNA pregunta de opción múltiple con 4 opciones (a, b, c, d).
 
-CONTENIDO DE CLASE:
-""{chunkContent}""
-
 REQUISITOS:
 - Nivel de Taxonomía de Bloom objetivo: {bloomLevel}
 - La respuesta correcta debe poder verificarse y justificarse de manera directa y factual con el contenido dado.
-- Los 3 distractores deben ser plausibles pero claramente incorrectos según el contenido de clase.
+- Cada pregunta debe tener 3 distractores que vayan acorde al tema.
 - No generes preguntas sobre detalles triviales, saludos, o anécdotas personales.
+- No inventes información externa, pero entiende el contexto si la transcripción está mal.
+- Ten en cuenta que la transcripcion puede tener ruido o conceptos que no se interpretaron de forma exacta.
 
 Responde únicamente con un objeto JSON válido que siga exactamente esta estructura:
 {{
@@ -722,7 +732,12 @@ Responde únicamente con un objeto JSON válido que siga exactamente esta estruc
   ""correct_option"": ""a"",
   ""bloom_level"": ""{bloomLevel}"",
   ""justification"": ""justificación basada en el texto...""
-}}";
+}}
+
+CONTENIDO DE CLASE:
+""{chunkContent}""
+
+";
 
                 try
                 {
@@ -747,7 +762,7 @@ Responde únicamente con un objeto JSON válido que siga exactamente esta estruc
             var vettedQuestions = new List<QuizQuestion>();
             foreach (var (question, source) in candidateQuestions)
             {
-                string valPrompt = $@"Eres un evaluador de preguntas de examen universitario. Tu objetivo es juzgar la calidad y fidelidad factual de la pregunta generada a partir de un fragmento de clase.
+                string valPrompt = $@"Eres un evaluador de preguntas de examen universitario. Tu objetivo es juzgar la calidad y fidelidad factual de la pregunta generada a partir de un fragmento de clase y contrasta con el conocimiento que tengas del tema.
 
 FRAGMENTO DE CLASE:
 ""{source}""
@@ -792,20 +807,30 @@ Responde únicamente con un objeto JSON válido con este formato:
                 vettedQuestions.Add(question);
             }
 
-            // ---- Phase 3: drop near-duplicate questions (one batched embedding call instead of one per question). ----
+            // ---- Phase 3: drop near-duplicate questions. Embed per item with a guard: bge-m3 emits a NaN
+            // vector for some inputs, which Ollama cannot serialize and would otherwise kill a batch call. ----
             var generatedQuestions = new List<QuizQuestion>();
-            if (vettedQuestions.Count > 0)
+            var keptEmbeddings = new List<Embedding<float>>();
+            foreach (var question in vettedQuestions)
             {
-                var questionEmbeddings = (await embeddingGenerator.GenerateAsync(
-                    vettedQuestions.Select(q => q.Question).ToList())).ToList();
+                Embedding<float>? qEmb = null;
+                try
+                {
+                    var res = await embeddingGenerator.GenerateAsync(new[] { question.Question });
+                    qEmb = res[0];
+                }
+                catch (Exception ex)
+                {
+                    // Keep the (already judge-vetted) question; just can't dedup-check this one.
+                    Console.WriteLine($"Dedup embedding failed, accepting without duplicate check: {ex.Message}");
+                }
 
-                var keptEmbeddings = new List<Embedding<float>>();
-                for (int i = 0; i < vettedQuestions.Count; i++)
+                if (qEmb != null)
                 {
                     bool isDuplicate = false;
                     for (int j = 0; j < keptEmbeddings.Count; j++)
                     {
-                        if (TensorPrimitives.CosineSimilarity(questionEmbeddings[i].Vector.Span, keptEmbeddings[j].Vector.Span) > 0.92f)
+                        if (TensorPrimitives.CosineSimilarity(qEmb.Vector.Span, keptEmbeddings[j].Vector.Span) > 0.92f)
                         {
                             isDuplicate = true;
                             break;
@@ -818,10 +843,11 @@ Responde únicamente con un objeto JSON válido con este formato:
                         continue;
                     }
 
-                    generatedQuestions.Add(vettedQuestions[i]);
-                    keptEmbeddings.Add(questionEmbeddings[i]);
-                    Console.WriteLine($"Accepted question: {vettedQuestions[i].Question}");
+                    keptEmbeddings.Add(qEmb);
                 }
+
+                generatedQuestions.Add(question);
+                Console.WriteLine($"Accepted question: {question.Question}");
             }
 
             return generatedQuestions;
