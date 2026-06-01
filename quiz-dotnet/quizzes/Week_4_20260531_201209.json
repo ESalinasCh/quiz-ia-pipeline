@@ -1,0 +1,186 @@
+{
+  "generated_at": "2026-05-31 20:12:09",
+  "source": "Week_4",
+  "models": {
+    "transcript": "whisper-medium",
+    "processing": "qwen2.5:7b-instruct",
+    "embedding": "bge-m3",
+    "llm_as_judge": "llama3.1:8b-instruct-q4_K_M"
+  },
+  "timings": {
+    "quiz_generation": "2m 24s (144.6s)",
+    "quiz_generation_seconds": 144.59,
+    "pipeline_total": "16m 1s (961.8s)",
+    "pipeline_total_seconds": 961.83
+  },
+  "questions": [
+    {
+      "question": "¿Cuál es la característica principal del OCR dentro del monolito Paperless según el contenido dado?",
+      "options": {
+        "a": "Es un módulo sincrónico que no bloquea otros procesos.",
+        "b": "Es asincrónico y utiliza un sistema de colas para manejar tareas pesadas.",
+        "c": "Funciona únicamente con emails interpretados.",
+        "d": "No tiene conexión directa con el monolito Paperless."
+      },
+      "correct_option": "b",
+      "bloom_level": "comprender",
+      "justification": "La respuesta correcta es 'b' ya que se menciona claramente en la transcripción: 'Este OCR, voy a poner una flecha acá, es asíncrono. Entonces hay un sistema de colas, creo que está con Celery'. Esto indica que el OCR no bloquea otros procesos y funciona asincrónicamente."
+    },
+    {
+      "question": "¿Qué recomendación se hace para probar la característica de poliglotismo según el contenido dado?",
+      "options": {
+        "a": "Usar solo Python en ambos microservicios.",
+        "b": "Elegir un lenguaje de programación diferente a Python, como TypeScript o Go.",
+        "c": "No hacer nada especial y seguir usando solo los lenguajes tradicionales.",
+        "d": "Evitar completamente el uso de IAs para la conversión de lenguajes."
+      },
+      "correct_option": "b",
+      "bloom_level": "comprender",
+      "justification": "La respuesta correcta se basa en las declaraciones del contenido dado donde se menciona que 'Para los que no han avanzado aún... Y quieren probar esta característica de poliglotismo, les sugeriría ir por cualquier lenguaje menos Python.' Esto indica claramente la recomendación de usar un lenguaje diferente a Python para probar la característica de poliglotismo."
+    },
+    {
+      "question": "¿Qué es Machine to Machine (M2M) según la explicación dada?",
+      "options": {
+        "a": "Es un protocolo de comunicación entre sistemas o máquinas, no necesariamente usuarios humanos.",
+        "b": "Es una analogía para describir cómo funciona el token de autenticación en microservicios.",
+        "c": "Se refiere a las funciones adicionales que un microservicio puede tener además de procesar archivos.",
+        "d": "Es el lenguaje de programación específico utilizado dentro del microservicio."
+      },
+      "correct_option": "a",
+      "bloom_level": "comprender",
+      "justification": "Según la transcripción, se menciona 'Machine to machine. M2M creo que se llama' y luego se explica que es una forma de autenticación entre máquinas. La opción 'a' coincide con esta explicación."
+    },
+    {
+      "question": "¿Cuál es el problema adicional que se menciona al utilizar sistemas de comunicación en red según la explicación dada?",
+      "options": {
+        "a": "Latencia",
+        "b": "Redundancia y reintentos (retries)",
+        "c": "Uso excesivo de llaves privadas",
+        "d": "Funcionalidades de microservicios"
+      },
+      "correct_option": "b",
+      "bloom_level": "comprender",
+      "justification": "En el contenido de la clase, se menciona explícitamente: 'También introducimos problemas de retries y fails. ¿Qué quiere decir que si mi microservicio, mi monolito van a tener problemas en enviar información o si el múter TLS no se ha dado? ¿Cuántas veces voy a reintentar?' lo que justifica la opción 'b'."
+    },
+    {
+      "question": "¿En qué se podría asignar a una persona o dos personas según el contenido de clase?",
+      "options": {
+        "a": "La migración del servicio de search al microservicio.",
+        "b": "El desarrollo de un nuevo microservicio para el OCR.",
+        "c": "Trabajar en la base de datos dependiente aún no migrada.",
+        "d": "Crear guidelines claros para futuras migraciones."
+      },
+      "correct_option": "c",
+      "bloom_level": "comprender",
+      "justification": "La respuesta correcta se basa en la parte del texto que menciona: 'Bueno, en el caso ya tenemos la base... Bueno, que ya tenemos el resto migrado, pero la base de datos aún depende. En ese caso, digamos, aún se podría avanzar en otro microservicio y, digamos, asignar a una persona o a dos personas que se encarguen de ese lado'. Esto indica claramente que las personas podrían ser asignadas para trabajar en la base de datos dependiente aún no migrada."
+    },
+    {
+      "question": "¿Cómo se procesa el documento después de ser subido al sistema según la explicación dada?",
+      "options": {
+        "a": "Se guarda en un archivo simple y luego se procesa con OCR automáticamente.",
+        "b": "Se ingresa directamente a una base de datos donde se almacenan los metadatos del documento.",
+        "c": "Se envía a la interfaz de usuario para que el usuario solicite su procesamiento manualmente.",
+        "d": "Se guarda en varias bases de datos independientes y no hay conexión entre ellas."
+      },
+      "correct_option": "a",
+      "bloom_level": "comprender",
+      "justification": "La respuesta correcta se basa directamente en el contenido de la clase, donde se menciona que 'automáticamente cuando uno sube un archivo, cualquiera que sea, él se procesa de manera inmediata con el OCR. No hay que ni siquiera solicitarlo en la UI. Simplemente se hace.' Esto coincide con la opción 'a' que indica que se guarda en un archivo simple y luego se procesa con OCR automáticamente."
+    },
+    {
+      "question": "¿Qué se considera un antipatrón que deben evitar los microservicios según el contenido de clase?",
+      "options": {
+        "a": "Share database",
+        "b": "Observancia",
+        "c": "Pruebas de integración",
+        "d": "Flujo de comunicación entre servicios"
+      },
+      "correct_option": "a",
+      "bloom_level": "comprender",
+      "justification": "La respuesta correcta se basa en la afirmación directa del contenido: 'Tenemos que tener nuestra propia base de datos. Este es un antipatrón que no debemos seguir. Share database'. Las otras opciones no se mencionan como antipatrones o problemas específicos a evitar."
+    },
+    {
+      "question": "¿Qué ventaja tiene usar Improc en lugar del ACL según lo explicado en la clase?",
+      "options": {
+        "a": "Permite reutilizar infraestructura existente dentro.",
+        "b": "No requiere ninguna modificación o reescritura de código.",
+        "c": "Ofrece mejor control sobre el tipo de Release del microservicio.",
+        "d": "Incluye un Load Balancer y API Gateway integrados."
+      },
+      "correct_option": "a",
+      "bloom_level": "comprender",
+      "justification": "Según la explicación dada en el contenido de clase, se menciona que 'Improc es una mejor opción, porque ya tenemos cierta infraestructura aquí adentro que podemos reutilizar'. Esto justifica directamente por qué usar Improc tiene ventajas sobre el ACL, lo cual corresponde a la opción 'a'."
+    },
+    {
+      "question": "¿Cuál es la garantía principal que se menciona para asegurar que un Request no sea procesado más de una vez?",
+      "options": {
+        "a": "Usar Redis para almacenar y verificar si ya ha sido procesado el Request",
+        "b": "Implementar un sistema de retiro en potencia",
+        "c": "Diseñar microservicios separados para evitar conflictos",
+        "d": "Utilizar una base de datos única para ambos servicios"
+      },
+      "correct_option": "a",
+      "bloom_level": "comprender",
+      "justification": "La respuesta correcta se basa en la información proporcionada en el contenido de clase, donde se menciona que 'el retiro es el que usa y de potencia' para manejar el proceso de task en Redis. Esto coincide con la opción 'a', ya que se trata de usar Redis para verificar si un Request ha sido procesado antes."
+    },
+    {
+      "question": "¿Cuál es la función principal del parcer remoto en Paperless según lo explicado en clase?",
+      "options": {
+        "a": "Procesar directamente los documentos dentro de Paperless.",
+        "b": "Comunicarse con el micro servicio para el procesamiento y ingestión de documentos.",
+        "c": "Extender el diseño del monolito sin comunicación externa.",
+        "d": "Servir como worker sin capacidad de comunicación."
+      },
+      "correct_option": "b",
+      "bloom_level": "comprender",
+      "justification": "La respuesta correcta es la opción 'b' ya que, según lo explicado en el contenido de clase, se menciona que este parcer remoto va a comunicarse con el micro servicio para enviar una petición de procesamiento de documento y el documento en sí. Esto concuerda directamente con las palabras del instructor: 'Vamos a enviar una petición de procesamiento de un documento y el documento como tal al micro servicio.'"
+    },
+    {
+      "question": "¿Cómo se maneja la comunicación entre el monolito y el microservicio OCR según el contenido dado?",
+      "options": {
+        "a": "Se comunica directamente entre ellos sin intermediarios.",
+        "b": "Se envía todo lo que necesita ser comunicado a través del ACL.",
+        "c": "No se permite la comunicación entre los dos servicios.",
+        "d": "Se replica la información en ambas bases de datos para permitir consultas independientes."
+      },
+      "correct_option": "b",
+      "bloom_level": "comprender",
+      "justification": "La respuesta correcta es 'b' porque el contenido indica que 'Las después hasta acá, ACL. Todo lo que necesite ser comunicado a otra base de datos va a pasar por acá', lo cual significa que la comunicación entre monolito y OCR se maneja a través del ACL."
+    },
+    {
+      "question": "¿Qué describe el bounded context en el contexto de los microservicios según la explicación dada?",
+      "options": {
+        "a": "Es el límite definido que se establece alrededor del microservicio para identificar su ámbito de operaciones y reglas de negocio.",
+        "b": "Es una analogía para describir cómo funciona una cinta magnética en la computación.",
+        "c": "Se refiere a las funciones adicionales que un microservicio puede tener además de procesar archivos.",
+        "d": "Es el lenguaje de programación específico utilizado dentro del microservicio."
+      },
+      "correct_option": "a",
+      "bloom_level": "comprender",
+      "justification": "La respuesta correcta se basa en la definición directa dada durante la clase, donde se menciona que 'es importante entender el bounding context. Entender las fronteras del microservicio que van a extirpar'. Esto coincide con la opción 'a' que define el bounded context como el límite definido alrededor del microservicio."
+    },
+    {
+      "question": "Según la explicación dada, ¿qué característica distingue al monolito modular del microservicio en términos de gestión de datos?",
+      "options": {
+        "a": "El microservicio tiene su propia base de datos independiente.",
+        "b": "El microservicio comparte la misma base de datos con otros módulos.",
+        "c": "El monolito modular utiliza múltiples bases de datos separadas para cada módulo.",
+        "d": "El monolito modular no depende de ninguna base de datos."
+      },
+      "correct_option": "a",
+      "bloom_level": "comprender",
+      "justification": "La respuesta correcta se basa en la afirmación directa del contenido de clase, donde se menciona que 'el microservicio tendría que tener su propia base de datos' como una meta final. Las otras opciones son distractors basados en el contexto proporcionado."
+    },
+    {
+      "question": "¿Cuál es una solución válida para permitir la comunicación entre dos microservicios sin violar su autonomía según el contenido de clase?",
+      "options": {
+        "a": "Usar un solo repositorio compartido para las operaciones de lectura y escritura.",
+        "b": "Implementar CQRS (Command Query Responsibility Segregation) separando la base de datos de escritura del de lectura.",
+        "c": "Permitir que ambos microservicios se comuniquen directamente entre sí sin restricciones.",
+        "d": "Evitar cualquier forma de comunicación entre los microservicios para preservar su autonomía."
+      },
+      "correct_option": "b",
+      "bloom_level": "comprender",
+      "justification": "La respuesta correcta es 'b' ya que el contenido menciona la solución de CQRS, donde se tienen dos bases de datos separadas: una para escritura y otra para lectura. Esto permite a los microservicios comunicarse indirectamente sin violar su autonomía, lo cual se justifica con las palabras del profesor sobre 'CQRS donde el OCR solamente guarda información y luego dispara un trigger'. Las otras opciones no son respuestas validas según la explicación dada."
+    }
+  ]
+}

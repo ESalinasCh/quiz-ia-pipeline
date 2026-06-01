@@ -18,7 +18,6 @@ namespace QuizDotnet
     {
         public string Category { get; set; } = "ACADEMICO";
         public double ConfidenceScore { get; set; } = 0.8;
-        public string TopicSummary { get; set; } = "";
         public Guid QdrantVectorId { get; set; }
     }
 
@@ -68,6 +67,11 @@ namespace QuizDotnet
         const string JudgeModel = "llama3.1:8b-instruct-q4_K_M"; // LLM-as-a-judge (different family to reduce self-bias)
         const string EmbeddingModel = "bge-m3";                  // multilingual embeddings (1024-dim)
         const int EmbeddingDim = 1024;
+
+        // Service endpoints (single source of truth).
+        const string OllamaUrl = "http://127.0.0.1:11434";
+        const string QdrantHost = "127.0.0.1";
+        const int QdrantPort = 6334; // gRPC default
 
         // Semantic chunking tuning. Higher MinChunkWords + lower similarity threshold => fewer, larger chunks
         // (fewer classification LLM calls, more context per question).
@@ -423,7 +427,7 @@ namespace QuizDotnet
 
             Console.WriteLine($"Computing sentence embeddings using Ollama ({EmbeddingModel})...");
             IEmbeddingGenerator<string, Embedding<float>> embeddingGenerator =
-                new OllamaEmbeddingGenerator(new Uri("http://127.0.0.1:11434"), EmbeddingModel);
+                new OllamaEmbeddingGenerator(new Uri(OllamaUrl), EmbeddingModel);
 
             // Embed sentences in batches (fast) with per-item fallback. bge-m3 returns a NaN vector for some
             // degenerate inputs, which Ollama cannot JSON-encode and which would kill an all-in-one batch call.
@@ -542,13 +546,13 @@ namespace QuizDotnet
 
         static async Task<List<SemanticChunk>> ProcessChunksAndStoreAsync(List<SemanticChunk> chunks, string courseId, string sourceId, string collectionName)
         {
-            IChatClient chatClient = new OllamaChatClient(new Uri("http://127.0.0.1:11434"), LlmModel);
+            IChatClient chatClient = new OllamaChatClient(new Uri(OllamaUrl), LlmModel);
             IEmbeddingGenerator<string, Embedding<float>> embeddingGenerator =
-                new OllamaEmbeddingGenerator(new Uri("http://127.0.0.1:11434"), EmbeddingModel);
+                new OllamaEmbeddingGenerator(new Uri(OllamaUrl), EmbeddingModel);
 
             // Connect to Qdrant using the official gRPC client
             Console.WriteLine("Connecting to Qdrant...");
-            using var qdrantClient = new QdrantClient("127.0.0.1", 6334); // gRPC default port is 6334
+            using var qdrantClient = new QdrantClient(QdrantHost, QdrantPort);
 
             // Initialize collection if it doesn't exist
             var collections = await qdrantClient.ListCollectionsAsync();
@@ -562,6 +566,7 @@ namespace QuizDotnet
             }
 
             var processedChunks = new List<SemanticChunk>();
+            var points = new List<PointStruct>();
 
             foreach (var chunk in chunks)
             {
@@ -594,7 +599,7 @@ Responde únicamente con un objeto JSON válido con este formato:
                     var classResult = JsonSerializer.Deserialize<ClassificationResult>(classResponse.Text);
                     if (classResult != null)
                     {
-                        category = classResult.Categoria.ToUpper();
+                        category = classResult.Categoria.ToUpperInvariant();
                         confidence = classResult.Confidence;
                     }
                 }
@@ -603,16 +608,24 @@ Responde únicamente con un objeto JSON válido con este formato:
                     Console.WriteLine($"Classification error for chunk {chunk.ChunkIndex}: {ex.Message}");
                 }
 
-                // Summary generation removed: it cost a second LLM call per chunk for no downstream value.
                 chunk.Category = category;
                 chunk.ConfidenceScore = confidence;
                 chunk.QdrantVectorId = Guid.NewGuid();
 
-                // 3. Compute embedding vector
-                var embRes = await embeddingGenerator.GenerateAsync(new[] { chunk.Content });
-                var vector = embRes[0].Vector.ToArray();
+                // 2. Compute embedding vector (guarded: bge-m3 can emit a NaN vector Ollama cannot serialize).
+                float[] vector;
+                try
+                {
+                    var embRes = await embeddingGenerator.GenerateAsync(new[] { chunk.Content });
+                    vector = embRes[0].Vector.ToArray();
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"Skipping chunk {chunk.ChunkIndex} that failed to embed: {ex.Message}");
+                    continue;
+                }
 
-                // 4. Index in Qdrant
+                // 3. Stage point for a single batched upsert
                 var point = new PointStruct
                 {
                     Id = new PointId { Uuid = chunk.QdrantVectorId.ToString() },
@@ -624,13 +637,19 @@ Responde únicamente con un objeto JSON válido con este formato:
                 point.Payload.Add("speaker", chunk.Speaker);
                 point.Payload.Add("category", chunk.Category);
                 point.Payload.Add("confidence_score", chunk.ConfidenceScore);
-                point.Payload.Add("topic_summary", chunk.TopicSummary);
                 point.Payload.Add("ts_start", chunk.TsStart);
                 point.Payload.Add("ts_end", chunk.TsEnd);
+                points.Add(point);
 
-                await qdrantClient.UpsertAsync(collectionName, new[] { point });
-                Console.WriteLine($"Indexed chunk {chunk.ChunkIndex} in Qdrant (ID: {chunk.QdrantVectorId}, Category: {chunk.Category}, Topic: {chunk.TopicSummary}).");
+                Console.WriteLine($"Processed chunk {chunk.ChunkIndex} (ID: {chunk.QdrantVectorId}, Category: {chunk.Category}).");
                 processedChunks.Add(chunk);
+            }
+
+            // 4. Index all chunks in Qdrant in a single batched upsert.
+            if (points.Count > 0)
+            {
+                await qdrantClient.UpsertAsync(collectionName, points);
+                Console.WriteLine($"Upserted {points.Count} points into Qdrant collection '{collectionName}'.");
             }
 
             return processedChunks;
@@ -638,11 +657,11 @@ Responde únicamente con un objeto JSON válido con este formato:
 
         static async Task<List<QuizQuestion>> GenerateQuizQuestionsAsync(string courseId, int numQuestions, string bloomLevel, string collectionName)
         {
-            IChatClient chatClient = new OllamaChatClient(new Uri("http://127.0.0.1:11434"), LlmModel);
-            IChatClient judgeClient = new OllamaChatClient(new Uri("http://127.0.0.1:11434"), JudgeModel);
+            IChatClient chatClient = new OllamaChatClient(new Uri(OllamaUrl), LlmModel);
+            IChatClient judgeClient = new OllamaChatClient(new Uri(OllamaUrl), JudgeModel);
             IEmbeddingGenerator<string, Embedding<float>> embeddingGenerator =
-                new OllamaEmbeddingGenerator(new Uri("http://127.0.0.1:11434"), EmbeddingModel);
-            using var qdrantClient = new QdrantClient("127.0.0.1", 6334);
+                new OllamaEmbeddingGenerator(new Uri(OllamaUrl), EmbeddingModel);
+            using var qdrantClient = new QdrantClient(QdrantHost, QdrantPort);
 
             // Retrieve course chunks from Qdrant
             Console.WriteLine("Retrieving academic chunks from Qdrant for RAG context...");
@@ -732,6 +751,20 @@ Responde únicamente con un objeto JSON válido que siga exactamente esta estruc
   ""correct_option"": ""a"",
   ""bloom_level"": ""{bloomLevel}"",
   ""justification"": ""justificación basada en el texto...""
+}}
+
+EJEMPLO de una pregunta bien formada (úsalo como referencia de calidad y estilo, NO copies su contenido):
+{{
+  ""question"": ""¿Qué es el bounded context en el contexto de los microservicios según la explicación dada?"",
+  ""options"": {{
+    ""a"": ""Es el límite definido que se establece alrededor del microservicio para identificar su ámbito de operaciones y reglas de negocio."",
+    ""b"": ""Es una analogía para describir cómo funciona una cinta magnética en la computación."",
+    ""c"": ""Se refiere a las funciones adicionales que un microservicio puede tener además de procesar archivos."",
+    ""d"": ""Es el lenguaje de programación específico utilizado dentro del microservicio.""
+  }},
+  ""correct_option"": ""a"",
+  ""bloom_level"": ""comprender"",
+  ""justification"": ""La respuesta correcta se basa en la definición directa dada durante la clase, donde se menciona que 'es importante entender el bounding context. Entender las fronteras del microservicio que van a extirpar'. Esto coincide con la opción 'a' que define el bounded context como el límite definido alrededor del microservicio.""
 }}
 
 CONTENIDO DE CLASE:
