@@ -38,6 +38,9 @@ namespace QuizDotnet
         [JsonPropertyName("question")]
         public string Question { get; set; } = "";
 
+        [JsonPropertyName("question_type")]
+        public string QuestionType { get; set; } = "multiple_choice"; // "multiple_choice" | "true_false"
+
         [JsonPropertyName("options")]
         public Dictionary<string, string> Options { get; set; } = new();
 
@@ -83,6 +86,9 @@ namespace QuizDotnet
         const double QuestionsPerChunkDivisor = 5.0;   // higher => fewer questions
         const int MinQuestions = 5;
         const int MaxQuestions = 25;
+
+        // Fraction of questions generated as true/false (rest are multiple choice). 0 disables T/F.
+        const double TrueFalseRatio = 0.3;
 
         static async Task Main(string[] args)
         {
@@ -655,6 +661,100 @@ Responde únicamente con un objeto JSON válido con este formato:
             return processedChunks;
         }
 
+        // Builds the generation prompt for one chunk, for either a multiple-choice or a true/false question.
+        static string BuildQuizPrompt(string chunkContent, string bloomLevel, bool isTrueFalse)
+        {
+            string common = $@"REQUISITOS:
+- Nivel de Taxonomía de Bloom objetivo: {bloomLevel}
+- La respuesta correcta debe poder verificarse y justificarse de manera directa y factual con el contenido dado.
+- No generes preguntas sobre detalles triviales, saludos, o anécdotas personales.
+- No inventes información externa, pero entiende el contexto si la transcripción está mal.
+- Ten en cuenta que la transcripcion puede tener ruido o conceptos que no se interpretaron de forma exacta.";
+
+            if (isTrueFalse)
+            {
+                return $@"Eres un experto en diseño instruccional universitario.
+Basándote ÚNICAMENTE en el siguiente contenido de clase, genera UNA pregunta de tipo VERDADERO/FALSO.
+
+{common}
+- Redacta una afirmación clara que sea inequívocamente verdadera o falsa según el contenido.
+- Las opciones deben ser exactamente ""Verdadero"" y ""Falso"".
+- ""correct_option"" debe ser ""a"" si la afirmación es verdadera, ""b"" si es falsa.
+
+Responde únicamente con un objeto JSON válido que siga exactamente esta estructura:
+{{
+  ""question"": ""afirmación a evaluar..."",
+  ""question_type"": ""true_false"",
+  ""options"": {{
+    ""a"": ""Verdadero"",
+    ""b"": ""Falso""
+  }},
+  ""correct_option"": ""a"",
+  ""bloom_level"": ""{bloomLevel}"",
+  ""justification"": ""justificación basada en el texto...""
+}}
+
+EJEMPLO de una pregunta bien formada (referencia de calidad y estilo, NO copies su contenido):
+{{
+  ""question"": ""El bounded context define las fronteras de un microservicio, delimitando su ámbito de operaciones y reglas de negocio."",
+  ""question_type"": ""true_false"",
+  ""options"": {{
+    ""a"": ""Verdadero"",
+    ""b"": ""Falso""
+  }},
+  ""correct_option"": ""a"",
+  ""bloom_level"": ""comprender"",
+  ""justification"": ""Durante la clase se explica que el bounded context delimita las fronteras del microservicio, por lo que la afirmación es verdadera.""
+}}
+
+CONTENIDO DE CLASE:
+""{chunkContent}""
+
+";
+            }
+
+            return $@"Eres un experto en diseño instruccional universitario.
+Basándote ÚNICAMENTE en el siguiente contenido de clase, genera UNA pregunta de opción múltiple con 4 opciones (a, b, c, d).
+
+{common}
+- Cada pregunta debe tener 3 distractores que vayan acorde al tema.
+
+Responde únicamente con un objeto JSON válido que siga exactamente esta estructura:
+{{
+  ""question"": ""texto de la pregunta..."",
+  ""question_type"": ""multiple_choice"",
+  ""options"": {{
+    ""a"": ""opción a..."",
+    ""b"": ""opción b..."",
+    ""c"": ""opción c...""
+    ""d"": ""opción d...""
+  }},
+  ""correct_option"": ""a"",
+  ""bloom_level"": ""{bloomLevel}"",
+  ""justification"": ""justificación basada en el texto...""
+}}
+
+EJEMPLO de una pregunta bien formada (úsalo como referencia de calidad y estilo, NO copies su contenido):
+{{
+  ""question"": ""¿Qué es el bounded context en el contexto de los microservicios según la explicación dada?"",
+  ""question_type"": ""multiple_choice"",
+  ""options"": {{
+    ""a"": ""Es el límite definido que se establece alrededor del microservicio para identificar su ámbito de operaciones y reglas de negocio."",
+    ""b"": ""Es una analogía para describir cómo funciona una cinta magnética en la computación."",
+    ""c"": ""Se refiere a las funciones adicionales que un microservicio puede tener además de procesar archivos."",
+    ""d"": ""Es el lenguaje de programación específico utilizado dentro del microservicio.""
+  }},
+  ""correct_option"": ""a"",
+  ""bloom_level"": ""comprender"",
+  ""justification"": ""La respuesta correcta se basa en la definición directa dada durante la clase, donde se menciona que 'es importante entender el bounding context. Entender las fronteras del microservicio que van a extirpar'. Esto coincide con la opción 'a' que define el bounded context como el límite definido alrededor del microservicio.""
+}}
+
+CONTENIDO DE CLASE:
+""{chunkContent}""
+
+";
+        }
+
         static async Task<List<QuizQuestion>> GenerateQuizQuestionsAsync(string courseId, int numQuestions, string bloomLevel, string collectionName)
         {
             IChatClient chatClient = new OllamaChatClient(new Uri(OllamaUrl), LlmModel);
@@ -726,51 +826,13 @@ Responde únicamente con un objeto JSON válido con este formato:
                 ResponseFormat = ChatResponseFormat.ForJsonSchema(typeof(QuizQuestion))
             };
             var candidateQuestions = new List<(QuizQuestion Question, string Source)>();
-            foreach (var chunkContent in selectedChunks)
+            // Sprinkle true/false questions across the set (every Nth) per TrueFalseRatio; rest are multiple choice.
+            int tfEvery = TrueFalseRatio > 0 ? Math.Max(2, (int)Math.Round(1.0 / TrueFalseRatio)) : int.MaxValue;
+            for (int i = 0; i < selectedChunks.Count; i++)
             {
-                string quizPrompt = $@"Eres un experto en diseño instruccional universitario.
-Basándote ÚNICAMENTE en el siguiente contenido de clase, genera UNA pregunta de opción múltiple con 4 opciones (a, b, c, d).
-
-REQUISITOS:
-- Nivel de Taxonomía de Bloom objetivo: {bloomLevel}
-- La respuesta correcta debe poder verificarse y justificarse de manera directa y factual con el contenido dado.
-- Cada pregunta debe tener 3 distractores que vayan acorde al tema.
-- No generes preguntas sobre detalles triviales, saludos, o anécdotas personales.
-- No inventes información externa, pero entiende el contexto si la transcripción está mal.
-- Ten en cuenta que la transcripcion puede tener ruido o conceptos que no se interpretaron de forma exacta.
-
-Responde únicamente con un objeto JSON válido que siga exactamente esta estructura:
-{{
-  ""question"": ""texto de la pregunta..."",
-  ""options"": {{
-    ""a"": ""opción a..."",
-    ""b"": ""opción b..."",
-    ""c"": ""opción c...""
-    ""d"": ""opción d...""
-  }},
-  ""correct_option"": ""a"",
-  ""bloom_level"": ""{bloomLevel}"",
-  ""justification"": ""justificación basada en el texto...""
-}}
-
-EJEMPLO de una pregunta bien formada (úsalo como referencia de calidad y estilo, NO copies su contenido):
-{{
-  ""question"": ""¿Qué es el bounded context en el contexto de los microservicios según la explicación dada?"",
-  ""options"": {{
-    ""a"": ""Es el límite definido que se establece alrededor del microservicio para identificar su ámbito de operaciones y reglas de negocio."",
-    ""b"": ""Es una analogía para describir cómo funciona una cinta magnética en la computación."",
-    ""c"": ""Se refiere a las funciones adicionales que un microservicio puede tener además de procesar archivos."",
-    ""d"": ""Es el lenguaje de programación específico utilizado dentro del microservicio.""
-  }},
-  ""correct_option"": ""a"",
-  ""bloom_level"": ""comprender"",
-  ""justification"": ""La respuesta correcta se basa en la definición directa dada durante la clase, donde se menciona que 'es importante entender el bounding context. Entender las fronteras del microservicio que van a extirpar'. Esto coincide con la opción 'a' que define el bounded context como el límite definido alrededor del microservicio.""
-}}
-
-CONTENIDO DE CLASE:
-""{chunkContent}""
-
-";
+                string chunkContent = selectedChunks[i];
+                bool isTrueFalse = tfEvery != int.MaxValue && (i + 1) % tfEvery == 0;
+                string quizPrompt = BuildQuizPrompt(chunkContent, bloomLevel, isTrueFalse);
 
                 try
                 {
@@ -778,6 +840,7 @@ CONTENIDO DE CLASE:
                     var question = JsonSerializer.Deserialize<QuizQuestion>(quizResponse.Text);
                     if (question != null && !string.IsNullOrWhiteSpace(question.Question))
                     {
+                        question.QuestionType = isTrueFalse ? "true_false" : "multiple_choice";
                         candidateQuestions.Add((question, chunkContent));
                     }
                 }
@@ -795,23 +858,23 @@ CONTENIDO DE CLASE:
             var vettedQuestions = new List<QuizQuestion>();
             foreach (var (question, source) in candidateQuestions)
             {
+                // Render whatever options exist (2 for true/false, 4 for multiple choice).
+                string optionsText = string.Join("\n", question.Options.Select(o => $"{o.Key}) {o.Value}"));
+
                 string valPrompt = $@"Eres un evaluador de preguntas de examen universitario. Tu objetivo es juzgar la calidad y fidelidad factual de la pregunta generada a partir de un fragmento de clase y contrasta con el conocimiento que tengas del tema.
 
 FRAGMENTO DE CLASE:
 ""{source}""
 
-PREGUNTA EVALUADA:
+PREGUNTA EVALUADA ({question.QuestionType}):
 Pregunta: {question.Question}
 Opciones:
-a) {question.Options.GetValueOrDefault("a")}
-b) {question.Options.GetValueOrDefault("b")}
-c) {question.Options.GetValueOrDefault("c")}
-d) {question.Options.GetValueOrDefault("d")}
+{optionsText}
 Respuesta correcta: {question.CorrectOption}
 
 REGLAS DE EVALUACIÓN:
 1. Grounding factual (0.0 a 1.0): ¿La respuesta correcta está totalmente respaldada y demostrada de forma directa por el fragmento de clase? Si requiere suposiciones externas, dale puntaje bajo.
-2. Calidad de distractores (0.0 a 1.0): ¿Los distractores son plausibles pero indiscutiblemente falsos según el fragmento?
+2. Calidad de distractores (0.0 a 1.0): ¿Las demás opciones son plausibles pero indiscutiblemente falsas según el fragmento? (Para verdadero/falso, evalúa si la afirmación es inequívoca.)
 3. Relevancia (0.0 a 1.0): ¿La pregunta evalúa conceptos clave y no detalles insignificantes?
 
 Calcula el promedio general de estas 3 reglas como un valor entre 0.0 y 1.0.
