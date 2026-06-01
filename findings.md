@@ -97,3 +97,47 @@ class audio/video. Two parallel implementations were explored: a C# / .NET stack
   generation prompt improved output format and quality.
 - **Question variety.** Added true/false questions mixed in with multiple choice
   (configurable ratio) alongside the multiple-choice default.
+
+## Workflow (C# pipeline)
+
+Flow of `quiz-dotnet/Program.cs`. External services (Whisper, Ollama, Qdrant)
+are shown where they are invoked.
+
+```mermaid
+flowchart TD
+    A[Start: parse CLI args] --> B{--transcript provided?}
+
+    B -- yes --> C[Load existing transcript<br/>skip Whisper]
+    B -- no --> D[Download Whisper model if missing]
+    D --> E[Extract audio via FFmpeg<br/>16kHz mono WAV]
+    E --> F[Whisper transcription<br/>GgmlType.Medium, GPU]
+    F --> G[Save transcript to /transcripts]
+
+    C --> H[Split into sentences]
+    G --> H
+
+    H --> I[Embed sentences<br/>bge-m3 via Ollama, batched + NaN guard]
+    I --> J[Semantic chunking<br/>cosine-similarity boundaries + word-count caps]
+
+    J --> K[For each chunk: classify relevance<br/>qwen2.5:7b via Ollama]
+    K --> L[Embed chunk + stage point]
+    L --> M[(Batched upsert into Qdrant)]
+
+    M --> N[Retrieve ACADEMICO chunks from Qdrant]
+    N --> O[Phase 0: select densest chunks<br/>confidence x word count, capped]
+    O --> P[Phase 1: generate questions<br/>qwen2.5:7b - MC or true/false]
+    P --> Q[Phase 2: LLM-as-a-judge score<br/>llama3.1:8b, drop score &lt; 0.75]
+    Q --> R[Phase 3: dedup via embeddings<br/>cosine &gt; 0.92]
+    R --> S[Save quiz JSON to /quizzes<br/>+ models, timings, question types]
+    S --> T[End]
+```
+
+### Stage → external service / model
+
+| Stage | Service | Model |
+| --- | --- | --- |
+| Transcription | Whisper.net (GPU) | `whisper-medium` |
+| Sentence / chunk / question embeddings | Ollama | `bge-m3` (1024-dim) |
+| Classification + question generation | Ollama | `qwen2.5:7b-instruct` |
+| LLM-as-a-judge | Ollama | `llama3.1:8b-instruct` |
+| Vector store | Qdrant (gRPC :6334) | per-run collection `quiz_chunks_dotnet_*` |
