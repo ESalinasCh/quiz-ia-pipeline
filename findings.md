@@ -1,0 +1,99 @@
+# Quiz IA Pipeline — Findings
+
+Notes from the experiment building an automated quiz generator from recorded
+class audio/video. Two parallel implementations were explored: a C# / .NET stack
+(`quiz-dotnet`) and a Python FastAPI service (`poc-audio-processing`).
+
+## Key takeaways
+
+1. **GPU is necessary for tolerable runtime.** With GPU acceleration the full
+   pipeline completes in ~15 minutes; without it (CPU only) the same run takes
+   ~2 hours. Whisper transcription alone dropped from ~16 minutes (CPU) toward
+   3–5 minutes once the model ran on the GPU. GPU is not an optimization, it is a
+   practical requirement.
+
+2. **Transcript quality dominates the final result.** If the transcript is poor,
+   no amount of downstream effort (better LLM, better chunking, better prompts,
+   judging) produces usable quizzes. The difference between Whisper `tiny`,
+   `small`, and `medium` was decisive — `tiny` output was unusable, and moving to
+   `medium` was the single biggest lever on question coherence. Garbage in,
+   garbage out applies strongly here.
+
+3. **Language choice (C# vs Python) is secondary to transcript quality.** Porting
+   the pipeline to Python yields no meaningful improvement if the transcript
+   isn't good enough. The implementation language is an engineering/preference
+   decision, not a quality lever.
+
+## Model decisions
+
+- **Transcription (Whisper):** quality scales hard with model size.
+  `tiny` → unusable, `small` → acceptable, `medium` → noticeably better Spanish.
+  Larger models cost more time/VRAM but are worth it for coherent questions.
+- **LLM for generation/classification:** moved from `llama3.2:3b` to
+  `qwen2.5:7b-instruct`. The small 3B model produced incoherent questions; the
+  7B class was a clear step up in reasoning and Spanish quality.
+- **LLM-as-a-judge:** uses a *different* model family (`llama3.1:8b-instruct`)
+  from the generator to reduce self-bias when scoring questions.
+- **Embeddings:** switched `nomic-embed-text` (768-dim, English-centric) to
+  `bge-m3` (1024-dim, multilingual) for better Spanish semantic similarity.
+
+## Pipeline / performance learnings
+
+- **Model-swap thrashing was a hidden cost.** Alternating generator and judge
+  models per question forced Ollama to unload/reload multi-GB models on every
+  call. Restructuring into phases (generate all → judge all → dedup all) so each
+  model loads once was a major speedup, especially on limited VRAM.
+- **VRAM budget matters.** On a 12 GB GPU (RTX 4080 Laptop) two LLMs (7B + 8B)
+  cannot stay resident together. `OLLAMA_MAX_LOADED_MODELS=1` plus the phased
+  design keeps one model fully on GPU at a time with a clean swap, avoiding CPU
+  spillover.
+- **Don't generate from every chunk.** Generating a question per chunk was slow
+  and diluted quality. Selecting the most significant chunks
+  (classifier confidence × concept density) before generating cut cost and
+  improved relevance.
+- **Chunk size/quantity is a tuning knob.** Smaller chunks → more classification
+  LLM calls and thinner context. Raising the minimum chunk size and lowering the
+  split-similarity threshold produced fewer, larger, more coherent chunks
+  (~halved the count) and reduced classification cost.
+- **Removed a wasteful summary call.** A per-chunk topic-summary LLM call was
+  removed; it cost a second LLM round-trip per chunk for no downstream value.
+- **Question volume should be dynamic but bounded.** Adaptive target of roughly
+  one question per N academic chunks, clamped to a sensible range (≈5–25),
+  rather than a fixed count.
+
+## Robustness learnings
+
+- **Embedding NaN crashes.** `bge-m3` via Ollama can emit a `NaN` vector for
+  degenerate/empty inputs, which Ollama fails to JSON-encode
+  (`json: unsupported value: NaN`) and which kills an all-in-one batch call. Fix:
+  batch with a per-item fallback (drop the offending item) at every embedding
+  site — sentence embeddings, chunk embeddings, and question dedup.
+- **Infrastructure must be up.** The pipeline depends on running Ollama and
+  Qdrant containers; a host restart silently stops them and the pipeline fails
+  at the first call. Worth a preflight/health check.
+
+## Setup learnings (GPU on WSL2 + Docker)
+
+- The host driver exposes the GPU into WSL; passing it into a container needs the
+  NVIDIA Container Toolkit and a device reservation (`--gpus all` /
+  `deploy.resources.reservations.devices`). Verified with `nvidia-smi` inside the
+  container and `ollama ps` showing `100% GPU`.
+- **Whisper.net GPU requires a matching CUDA runtime version.** The 1.9.0 Linux
+  CUDA build links `libcudart.so.13` / `libcublas.so.13` (CUDA 13). Installing
+  CUDA 12.x is not enough — the native lib silently fails to load and Whisper
+  falls back to CPU with no error. The fix was installing the CUDA 13 runtime
+  libraries. Silent CPU fallback made this hard to diagnose.
+
+## Developer-experience improvements
+
+- **Transcript reuse.** A `--transcript <path>` flag loads a previously saved
+  transcript and skips audio extraction + Whisper entirely, so quiz logic can be
+  iterated without paying the transcription cost each run.
+- **Traceability.** Transcripts record the Whisper model used; quizzes record the
+  models (transcript / processing / embedding / judge), the Qdrant collection,
+  timings, and question type. The Qdrant collection name encodes which
+  implementation (Python vs C#) produced the vectors.
+- **One-shot prompt example.** Adding a concrete example question to the
+  generation prompt improved output format and quality.
+- **Question variety.** Added true/false questions mixed in with multiple choice
+  (configurable ratio) alongside the multiple-choice default.
