@@ -1,0 +1,247 @@
+dotnet run -- ../media/Week_4.mp4 \
+> 
+=== Quiz Generator Pipeline (.NET 10 Unified Stack) ===
+Pipeline started at: 2026-06-01 21:44:26
+Qdrant collection for this run: quiz_chunks_dotnet_20260601_214426
+Extracting audio via FFmpeg to audio/Week_4_20260601_214426.wav...
+[TIMING] Audio Extraction took 17.50s.
+Starting Whisper transcription...
+Transcribed 1025 raw segments.
+[TIMING] Whisper Transcription took 3m 33s (213.4s).
+Transcript saved to transcripts/Week_4_20260601_214835.txt
+Grouped into 947 sentences.
+[TIMING] Sentence Splitting took 0.02s.
+Computing sentence embeddings using Ollama (bge-m3)...
+Batch embedding failed (Ollama error: failed to encode response: json: unsupported value: NaN); retrying items individually...
+Skipping sentence that failed to embed: Ollama error: failed to encode response: json: unsupported value: NaN
+Batch embedding failed (Ollama error: failed to encode response: json: unsupported value: NaN); retrying items individually...
+Skipping sentence that failed to embed: Ollama error: failed to encode response: json: unsupported value: NaN
+Generated 79 semantic chunks.
+[TIMING] Semantic Chunking took 23.10s.
+Connecting to Qdrant...
+Creating Qdrant collection 'quiz_chunks_dotnet_20260601_214426'...
+Processed chunk 0 (ID: e332c346-4805-4bd0-b44e-49491af2dfe7, Category: ACADEMICO).
+Processed chunk 1 (ID: ef03ffaa-82bd-4dbf-9e2d-2ddf99bb6dbc, Category: ACADEMICO).
+Processed chunk 2 (ID: 24de2ce4-32ee-4705-af05-549836e76e76, Category: ACADEMICO).
+Processed chunk 3 (ID: 1409d033-3a51-4523-9f75-35d5d3204a41, Category: ACADEMICO).
+Processed chunk 4 (ID: f156139d-d3c0-40ea-b8e3-22932437c1f6, Category: ACADEMICO).
+Processed chunk 5 (ID: 26644763-4dd4-41e2-9b50-df0d8837ff5a, Category: ACADEMICO).
+Processed chunk 6 (ID: 351d1745-c14c-43a1-85e9-22830cfee463, Category: ACADEMICO).
+Processed chunk 7 (ID: 63e7f780-a7bc-45f6-9b1b-493a89077d8a, Category: ACADEMICO).
+Processed chunk 8 (ID: 00f3bb25-e9ef-4d3c-ae0a-fbd000c01dce, Category: ACADEMICO).
+Processed chunk 9 (ID: b926e485-f8e5-4e09-b726-51aca97dc6c2, Category: ACADEMICO).
+Processed chunk 10 (ID: 13c86a83-c00c-48d0-80eb-94b5bfac864d, Category: ACADEMICO).
+Processed chunk 11 (ID: 8384255c-9bb7-4fe7-b036-a983afc3a88a, Category: ACADEMICO).
+Processed chunk 12 (ID: 81114d87-21bb-46e0-a3ec-87e4ada8de31, Category: ACADEMICO).
+Processed chunk 13 (ID: 3d9593f3-82eb-46a0-b18a-c9a8f45034dd, Category: ACADEMICO).
+Processed chunk 14 (ID: 286797e6-d8e1-4041-be51-bf1916c60bf2, Category: OFF_TOPIC).
+Processed chunk 15 (ID: 7d6dc705-b89e-4967-89f9-4b1d2932b5c9, Category: OFF_TOPIC).
+Processed chunk 16 (ID: 3c254d10-ec87-405e-b247-006eaaa1d3b8, Category: ACADEMICO).
+Processed chunk 17 (ID: 0b0a3256-c005-4664-925d-b462e1338a38, Category: ACADEMICO).
+Processed chunk 18 (ID: 4512af0b-5914-44ac-a15a-f8022cbed0d1, Category: ACADEMICO).
+Processed chunk 19 (ID: 5142ac0f-bdc3-4e64-96cf-effb69deab9b, Category: ACADEMICO).
+Processed chunk 20 (ID: e1721637-1b3c-4ca2-8d39-d9b951f6b572, Category: ACADEMICO).
+Processed chunk 21 (ID: 2b190d48-c5e9-4e09-a333-94541e3062cd, Category: ACADEMICO).
+Processed chunk 22 (ID: ba832579-60b2-42c8-b6d1-abfa8a258672, Category: OFF_TOPIC).
+Processed chunk 23 (ID: 725b2c7c-63b9-435b-8b0d-5a95edebbcf3, Category: ACADEMICO).
+Processed chunk 24 (ID: 15bb5990-fe37-4119-8087-1bbcfb9e9617, Category: ACADEMICO).
+Processed chunk 25 (ID: 6edbd4f0-f933-4329-bf0b-d7efe2d07d36, Category: ACADEMICO).
+Processed chunk 26 (ID: 0f3f7ae3-c678-4690-b2b7-f0c67b0ef80c, Category: ACADEMICO).
+Processed chunk 27 (ID: 65e6b57a-25ca-4b29-b72d-14f5f3e05dae, Category: ACADEMICO).
+Processed chunk 28 (ID: 1f9e1c80-b2b6-4eb4-a6c8-2c8a303d56f2, Category: ACADEMICO).
+Processed chunk 29 (ID: ffc23dba-47cd-4473-ac14-5a4ba4c6d778, Category: ACADEMICO).
+Processed chunk 30 (ID: 35c5dd81-aacc-4e27-b7be-116c265ddc6f, Category: ACADEMICO).
+Processed chunk 31 (ID: 17cdaeb1-16e6-483e-8b01-6125ced24e9d, Category: ACADEMICO).
+Processed chunk 32 (ID: 325b5a86-1e20-4aab-b4f8-6c792d862545, Category: ACADEMICO).
+Processed chunk 33 (ID: faf060fb-c671-4b99-bc39-bd506b71d76b, Category: OFF_TOPIC).
+Processed chunk 34 (ID: 3a34ecfb-2eea-4f4f-82d6-c99977f043ca, Category: ACADEMICO).
+Processed chunk 35 (ID: ad7f96ec-bf0f-4e67-9b5d-5ab138e9bd84, Category: ACADEMICO).
+Processed chunk 36 (ID: 4075f668-13aa-4f08-97ef-978bf7c07c8d, Category: ACADEMICO).
+Processed chunk 37 (ID: 5937eb22-b087-4692-94d0-06d4ead2ee2f, Category: ACADEMICO).
+Processed chunk 38 (ID: d080e7ae-92f5-4671-bf6c-c857699c3820, Category: ACADEMICO).
+Processed chunk 39 (ID: b1b0852f-2d83-4508-8aa5-72d7a7a23182, Category: ACADEMICO).
+Processed chunk 40 (ID: 46d500f4-fe43-4474-9a20-dcd4c8688000, Category: ACADEMICO).
+Processed chunk 41 (ID: d9f318de-cb2f-4703-9fa6-0f5872edf8f2, Category: ACADEMICO).
+Processed chunk 42 (ID: b8e07a4d-0c6e-4f77-b69d-135a44bc9a0f, Category: ACADEMICO).
+Processed chunk 43 (ID: c27ee8da-0278-41f5-a507-7256394dddc5, Category: ACADEMICO).
+Processed chunk 44 (ID: 60be835e-6b95-4e53-af71-51227c9394b3, Category: ACADEMICO).
+Processed chunk 45 (ID: 6c51759f-33e3-4291-82ad-7028098e1819, Category: OFF_TOPIC).
+Processed chunk 46 (ID: b4f6eecc-30b6-4e25-a418-98900172989a, Category: ACADEMICO).
+Processed chunk 47 (ID: 0ecf1c94-6e43-4885-95e4-c5ee4f02ab7a, Category: ACADEMICO).
+Processed chunk 48 (ID: 1ae927be-e210-4a20-be6e-b94495af77c7, Category: ACADEMICO).
+Processed chunk 49 (ID: b5d71ea7-fe5e-4e37-9ef5-e674f042a55f, Category: ACADEMICO).
+Processed chunk 50 (ID: e20a3a98-d4aa-48f5-b61f-daf844cf0692, Category: ACADEMICO).
+Processed chunk 51 (ID: b55fae5b-d465-45ee-a994-3842b6bfeeb0, Category: ACADEMICO).
+Processed chunk 52 (ID: 3a5aa40b-065a-4f89-adee-57c1be1f8c9b, Category: ACADEMICO).
+Processed chunk 53 (ID: 417d8b3f-ea76-447d-8f19-75ee4c03c1ba, Category: OFF_TOPIC).
+Processed chunk 54 (ID: 77684bb5-6828-4a65-87ba-b4e483be889b, Category: OFF_TOPIC).
+Processed chunk 55 (ID: 0a3fa213-11c8-476a-bfe7-f1dd470aa2e9, Category: OFF_TOPIC).
+Processed chunk 56 (ID: 19836d0e-26a1-4c2c-b074-8dd0fea2187c, Category: ACADEMICO).
+Processed chunk 57 (ID: 1344eb08-c88e-40fa-a6ce-6d037e2f67a0, Category: ACADEMICO).
+Processed chunk 58 (ID: 89a561bb-4b5f-4763-914c-2be390a99f18, Category: ACADEMICO).
+Processed chunk 59 (ID: 535e779a-1eb8-4123-b21a-72a26e2f549d, Category: ACADEMICO).
+Processed chunk 60 (ID: 430957b1-08ae-4c1d-bb11-c42aedef1121, Category: ACADEMICO).
+Processed chunk 61 (ID: e1d8589f-f0a2-4180-9d42-0ae78ad2a403, Category: ACADEMICO).
+Processed chunk 62 (ID: ec009373-4970-4b8d-9df1-a296fc8b2a06, Category: ACADEMICO).
+Processed chunk 63 (ID: 12e33dc6-5edd-4eda-9fb5-2354dbff5497, Category: ACADEMICO).
+Processed chunk 64 (ID: f7bf176d-94c2-44e2-a0cf-b86d83a9021e, Category: ACADEMICO).
+Processed chunk 65 (ID: 5d589463-70d4-431f-916b-3a1b86ebd4b7, Category: ACADEMICO).
+Processed chunk 66 (ID: 4ac1d466-b87b-43bf-90bf-1f7dca1e69ed, Category: ACADEMICO).
+Processed chunk 67 (ID: eeb3e9b0-9d4f-49a2-84f9-3d9e88dda816, Category: ACADEMICO).
+Processed chunk 68 (ID: 472be795-cf9d-4b24-98c1-92dae1846002, Category: ANECDOTA).
+Processed chunk 69 (ID: 13bffcd6-4cf7-41ae-be9b-529bcba8d436, Category: OFF_TOPIC).
+Processed chunk 70 (ID: 587d1981-4ac9-41c0-9076-2e68138da39c, Category: ACADEMICO).
+Processed chunk 71 (ID: 6ed3895c-a3f3-4415-a30b-917d0cc650a1, Category: ACADEMICO).
+Processed chunk 72 (ID: 8948d565-483f-44b0-9c93-4d46a6bc8e91, Category: ACADEMICO).
+Processed chunk 73 (ID: 89f8a1a8-9395-455d-aed0-72802839b5cd, Category: ACADEMICO).
+Processed chunk 74 (ID: 24e40e6a-fc55-4802-898d-ff86de90ecf8, Category: ACADEMICO).
+Processed chunk 75 (ID: 10abae08-fc39-4cd7-a676-36e01993619a, Category: ACADEMICO).
+Processed chunk 76 (ID: d90ba6cf-071c-4758-bcf1-4fddfbb2f074, Category: ACADEMICO).
+Processed chunk 77 (ID: 87e51468-026f-4185-b7b5-29e0e53655bf, Category: ACADEMICO).
+Processed chunk 78 (ID: f8c07ae7-1d96-4431-996c-7ba031636b5b, Category: OFF_TOPIC).
+Upserted 79 points into Qdrant collection 'quiz_chunks_dotnet_20260601_214426'.
+[TIMING] Classification & Embedding Storage took 7m 26s (446.6s).
+Retrieving academic chunks from Qdrant for RAG context...
+Academic chunks retrieved: 68. Target questions: 14.
+Selected 14 significant chunks for question generation.
+LLM-as-a-judge score: 0.95 (Reason: La pregunta evalúa conceptos clave sobre el funcionamiento del OCR en Paperless y las opciones son plausibles pero indiscutiblemente falsas según el fragmento. La respuesta correcta está totalmente respaldada por el fragmento de clase, ya que se menciona explícitamente que el OCR es asíncrono y utiliza un sistema de colas para mejorar la eficiencia.)
+LLM-as-a-judge score: 0.95 (Reason: La respuesta correcta (b) está respaldada por el fragmento de clase, que menciona explícitamente que se pueden usar R, Go, Tech y Kripp (lo que asumimos es 'Java') para probar el poliglotismo. Las otras opciones no están respaldadas en absoluto o son plausibles pero no relevantes. La pregunta evalúa conceptos clave del poliglotismo.)
+LLM-as-a-judge score: 0.95 (Reason: La pregunta está respaldada por el fragmento de clase, específicamente en las afirmaciones "Pero hay un problema ahí... El token puede que tenga tiempos de vida" y posteriormente se analiza la consecuencia de esto. Las demás opciones son inequívocamente falsas según lo discutido. La pregunta evalúa conceptos clave relacionados con autentificación en comunicación asíncrona entre microservicios, como los tiempos de vida de los tokens y el protocolo MTLS.)
+LLM-as-a-judge score: 0.9 (Reason: La pregunta está bien fundamentada en el contenido de la clase (grounding factual: 1.0), las opciones de respuesta son plausibles pero incorrectas y se relacionan con conceptos clave mencionados en la clase (calidad de distractores: 1.0) y la pregunta evalúa un problema específico de implementación de comunidades basadas en SSH y retries en microservicios, que es relevante para el contenido de la clase (relevancia: 0.9). Sin embargo, dado que se requiere una suposición externa sobre la congestión en las colas de retiro (en lugar de que se mencione explícitamente en el fragmento), se restará un poco del puntaje total.)
+LLM-as-a-judge score: 0.9 (Reason: La respuesta correcta (b) está respaldada directamente por el fragmento de clase al describir el microservicio como 'ingerir' archivos y procesarlos con OCR. Las opciones incorrectas (a, c y d) son plausibles pero no descartadas explícitamente, lo que reduce la calidad del distractor. La pregunta evalúa una función clave del sistema, por lo que es relevante.)
+LLM-as-a-judge score: 0.9 (Reason: La pregunta está respaldada directamente por el fragmento de clase (grounding factual: 1.0), las demás opciones no son plausibles según el contexto (calidad de distractores: 1.0) y evalúa conceptos clave (relevancia: 0.8). El puntaje general es la media ponderada de los tres aspectos.)
+LLM-as-a-judge score: 0.85 (Reason: La pregunta tiene un buen Grounding factual (0.9) ya que la respuesta correcta está respaldada por el fragmento de clase. La calidad de distractores es alta (1.0) porque las opciones incorrectas son plausibles pero claramente falsas según el texto. La relevancia también es alta (0.9) ya que la pregunta evalúa conceptos clave de la implementación del microservicio en la arquitectura ACL.)
+LLM-as-a-judge score: 0.93 (Reason: La pregunta está bien respaldada por el fragmento de clase y las opciones son plausibles pero indiscutiblemente falsas según el contexto.)
+LLM-as-a-judge score: 0.95 (Reason: La pregunta tiene un Grounding factual de 1.0 porque la afirmación sobre el siguiente paso después del midterm está claramente mencionada en el fragmento de clase. La calidad de distractores también es alta (1.0), ya que no se presenta ninguna opción plausible pero falsa. La relevancia es alta (1.0) ya que la pregunta evalúa un concepto clave sobre los pasos a seguir en la migración del servicio de search al microservicio.)
+LLM-as-a-judge score: 0.95 (Reason: La respuesta correcta se encuentra plenamente respaldada por el fragmento de clase (Grounding factual: 1.0), las opciones falsas son claramente distintas de lo que se describe en la explicación (Calidad de distractores: 1.0) y la pregunta evalúa conceptos clave relacionados con la arquitectura de Paperless, como la comunicación entre el parcer remoto y el micro servicio (Relevancia: 1.0). El único punto que resta es que las opciones a y d son plausibles pero no inequívocamente falsas, por lo que se restaría un poco en la puntuación si fuera estricto con la regla 2.)
+LLM-as-a-judge score: 0.9 (Reason: La respuesta correcta está respaldada directamente por el profesor al mencionar 'escalabilidad horizontal' como la principal ventaja del microservicio (grounding factual: 1.0). Las otras opciones, si bien pueden estar relacionadas con los temas tratados en la clase, no son respaldadas explícitamente o incluso se contradicen con lo expresado por el profesor (calidad de distractores: 1.0). La pregunta evalúa conceptos clave y relevantes para la comprensión del tema (relevancia: 0.9). Por lo tanto, el promedio general es 0.9.)
+LLM-as-a-judge score: 0.95 (Reason: La pregunta evalúa correctamente el concepto clave del bounded context en el diseño de microservicios y es inequívoca en su respuesta correcta. El fragmento de clase proporciona una explicación clara sobre la importancia de entender las fronteras de un microservicio, lo que respalda la respuesta correcta (verdadero). Las otras opciones no son plausibles ni indicadas por el contexto. La pregunta es relevante y evalúa conceptos clave, más allá de detalles insignificantes.)
+LLM-as-a-judge score: 0.95 (Reason: La pregunta tiene una respuesta correcta bien respaldada por el fragmento de clase (Grounding factual: 1.0), las opciones falsas son plausibles pero indiscutiblemente falsas (Calidad de distractores: 1.0) y la pregunta evalúa un concepto clave sobre monolitos modulares (Relevancia: 0.9). El puntaje total es el promedio de estos tres valores.)
+LLM-as-a-judge score: 0.9 (Reason: La pregunta evalúa el concepto clave de "id en potencia", que es garantizar que un request no se procese más de una vez, lo cual está completamente respaldado por el fragmento de clase. Las demás opciones son plausibles pero indiscutiblemente falsas según el contexto del tema. La pregunta es relevante y evalúa conceptos clave del tema.)
+Accepted question: ¿Cuál de las siguientes afirmaciones sobre el OCR en Paperless es correcta según el contenido de clase?
+Accepted question: Según el contenido de la clase, ¿cuáles lenguajes de programación se pueden usar en los microservicios para probar el poliglotismo?
+Accepted question: La comunicación asíncrona entre microservicios puede generar problemas si no se consideran los tiempos de vida de los tokens.
+Accepted question: Según el contenido de la clase, ¿cuál es un problema adicional que surge cuando se implementan comunidades basadas en SSH y retries en microservicios?
+Accepted question: ¿Cuál es la función principal del microservicio propuesto para la ingesta según el contenido de clase?
+Accepted question: La clase menciona que se debe evitar compartir bases de datos entre microservicios.
+Accepted question: ¿Cuál de las siguientes afirmaciones es correcta sobre la implementación del microservicio en la arquitectura ACL según lo explicado?
+Accepted question: ¿Cómo se maneja la replicación de información entre el monolito y los microservicios según la explicación dada?
+Accepted question: Durante la clase se menciona que el siguiente paso después del midterm es migrar el servicio de search al microservicio.
+Accepted question: ¿Qué característica especial tiene el parcer remoto dentro del código de Paperless según la explicación dada?
+Accepted question: Según el contenido dado, ¿cuál es la principal ventaja del microservicio según el profesor?
+Accepted question: Es importante entender el bounded context para diseñar correctamente los microservicios.
+Accepted question: Según la explicación dada en clase, ¿cuál es una característica del monolito modular en relación con la base de datos?
+Accepted question: ¿Qué garantía debe proporcionar un microservicio para evitar procesar un request más de una vez?
+[TIMING] RAG & Quiz Generation took 2m 22s (142.3s).
+
+=== Pipeline Execution Completed Successfully ===
+Generated 14 valid quiz questions.
+Quiz saved to quizzes/Week_4_20260601_215933.json
+
+Pregunta: ¿Cuál de las siguientes afirmaciones sobre el OCR en Paperless es correcta según el contenido de clase?
+  a) El OCR se encuentra dentro del mismo hilo de ejecución y no impacta a otros procesos.
+  b) El OCR es un proceso asincrónico que utiliza un sistema de colas para mejorar la eficiencia.
+  c) El OCR es un módulo separado que no está integrado en el monolito Paperless.
+  d) El OCR se ejecuta de forma sincrónica y bloquea otros procesos mientras realiza tareas pesadas.
+Respuesta correcta: b
+Justificación: La respuesta correcta es 'b' ya que el contenido menciona que 'Este OCR, voy a poner una flecha acá, es asíncrono. Entonces hay un sistema de colas, creo que está con Celery,' lo cual indica que el OCR es un proceso asincrónico y utiliza un sistema de colas para mejorar la eficiencia.
+
+Pregunta: Según el contenido de la clase, ¿cuáles lenguajes de programación se pueden usar en los microservicios para probar el poliglotismo?
+  a) Python
+  b) R, Go, Java, TypeScript
+  c) SQL, HTML, CSS
+  d) Ruby, Swift, Kotlin
+Respuesta correcta: b
+Justificación: La respuesta correcta es 'b' porque el profesor menciona explícitamente que se puede usar cualquier lenguaje menos Python para probar el poliglotismo. Se nombran R, Go y TypeScript específicamente.
+
+Pregunta: La comunicación asíncrona entre microservicios puede generar problemas si no se consideran los tiempos de vida de los tokens.
+  a) Verdadero
+  b) Falso
+Respuesta correcta: a
+Justificación: El contenido menciona que si se envía una notificación con un token válido y el microservicio tarda en procesarla, es posible que cuando la respuesta sea devuelta, el token ya esté invalidado. Esto demuestra que la afirmación es verdadera.
+
+Pregunta: Según el contenido de la clase, ¿cuál es un problema adicional que surge cuando se implementan comunidades basadas en SSH y retries en microservicios?
+  a) Incremento de la latencia debido a la comunicación en red.
+  b) Redundancia en el monolito.
+  c) Congestión en las colas de retiro y posibles tiempos muertos.
+  d) Uso de llaves privadas.
+Respuesta correcta: c
+Justificación: La respuesta correcta es 'c' ya que, según el contenido de la clase, se menciona: 'Entonces, hay que tener políticas de retry también acá. ¿Cuántas veces voy a procesar una misma request? O ¿qué tal si yo mando una petición por acá al monolito, del monolito acá y este brono se despuesta y este se quede procesando toda la vida? O ¿hay una es hora acá? ¿No? Quizá de aquí va a volver a hacer un intento, un retry acá y me va a congestionar mi cola acá.' Esto indica que los retries pueden causar congestionamiento en las colas. Las otras opciones no se mencionan explícitamente como problemas adicionales.
+
+Pregunta: ¿Cuál es la función principal del microservicio propuesto para la ingesta según el contenido de clase?
+  a) Procesar y almacenar los metadatos del OCR.
+  b) Recibir archivos, procesarlos con OCR e informar la ruta guardada.
+  c) Buscar documentos y proporcionar resultados en la interfaz de usuario.
+  d) Manejar las solicitudes de búsqueda y extraer información relevantes.
+Respuesta correcta: b
+Justificación: La respuesta correcta es 'b' ya que, según la transcripción, se menciona que el microservicio para la ingesta debería encargarse de recibir archivos, procesarlos con OCR y informar la ruta guardada. Esto se puede ver claramente en la frase: 'Entonces sería como ingestar ese documento, se guarda ya sea, lo principal es que se guarda como un archivo simple ahí en el escritorio y luego se tiene la ruta'. Las otras opciones no son directamente respaldadas por el contenido dado.
+
+Pregunta: La clase menciona que se debe evitar compartir bases de datos entre microservicios.
+  a) Verdadero
+  b) Falso
+Respuesta correcta: a
+Justificación: En el contenido de clase se menciona explícitamente que 'Share database. Creo que simplemente lo está mencionando. Bueno, aquí tenemos un poco de Portuñol. Y bueno, simplemente está mencionando lo que ya habíamos charlado. El flujo que sigue. Así que no hay mucho trama acá. No debemos seguir este antipatrón', por lo que la afirmación es verdadera.
+
+Pregunta: ¿Cuál de las siguientes afirmaciones es correcta sobre la implementación del microservicio en la arquitectura ACL según lo explicado?
+  a) Se recomienda utilizar Improc para aprovechar la infraestructura existente.
+  b) Hay control sobre el tipo de Release debido a la implementación en el ACL.
+  c) El microservicio no se va a usar hasta que se termine de redirigir toda la tráfico.
+  d) Se prueba únicamente enviando información al microservicio sin procesarla o guardarla.
+Respuesta correcta: b
+Justificación: La respuesta correcta se basa en las palabras exactas del contenido de clase: 'Entonces, hay un detalle más que, se lo he seguido mencionando, pero creo que está más adelante en el avance de materias, es el tipo de Release. Entonces, acá en el ACL vamos a tener control sobre eso'. Las otras opciones no están directamente respaldadas por las afirmaciones dadas en la transcripción.
+
+Pregunta: ¿Cómo se maneja la replicación de información entre el monolito y los microservicios según la explicación dada?
+  a) El ACL actúa como intermediario directo para todas las consultas a bases de datos.
+  b) Se replica la información en ambos sistemas, permitiendo consultas localizadas o centralizadas según sea necesario.
+  c) Los microservicios se comunican entre sí sin necesidad de replicar información alguna.
+  d) La información solo se replica manualmente por personal calificado.
+Respuesta correcta: b
+Justificación: Según la explicación del profesor, 'un approach puede ser si consulto por monolito, pues no voy a la base de datos monolito, pero si consulto por OCR, pues se tiene todo lo que necesita en su propia base de datos.' Esto indica que la información se replica entre los dos sistemas. La opción correcta es 'b', ya que refleja esta replicación y las consultas localizadas o centralizadas según sea necesario.
+
+Pregunta: Durante la clase se menciona que el siguiente paso después del midterm es migrar el servicio de search al microservicio.
+  a) Verdadero
+  b) Falso
+Respuesta correcta: a
+Justificación: En el contenido de la clase se especifica claramente que 'el siguiente gol después del midterm es migrar el servicio de search al microservicio', por lo que la afirmación es verdadera.
+
+Pregunta: ¿Qué característica especial tiene el parcer remoto dentro del código de Paperless según la explicación dada?
+  a) Es un worker que extiende el poder de procesamiento de documentos.
+  b) Comunica con el micro servicio en una comunicación ida y vuelta.
+  c) Se integra directamente en la ingesta de documentos del monolito.
+  d) Funciona como uno de los tres parceres existentes.
+Respuesta correcta: b
+Justificación: Según el contenido de clase, se mencionó que 'este parcer remoto va a ser un poco especial. Lo voy a poner dentro de su propio rectángulito. Porque este es el que se va a comunicar hacia fuera del monolito'. También se indicó que esta comunicación es ida y vuelta, enviando una petición de procesamiento de un documento y el documento mismo al micro servicio.
+
+Pregunta: Según el contenido dado, ¿cuál es la principal ventaja del microservicio según el profesor?
+  a) La escalabilidad horizontal.
+  b) La simplicidad en el despliegue de los servicios.
+  c) La reducción de cuellos de botella en infraestructura.
+  d) La eliminación completa del riesgo de fallo interno.
+Respuesta correcta: a
+Justificación: El profesor menciona claramente que 'la principal ventaja del microservicio es esta escalabilidad, pero escalabilidad horizontal, no vertical'. Esta afirmación se corresponde directamente con la opción 'a' de las opciones proporcionadas.
+
+Pregunta: Es importante entender el bounded context para diseñar correctamente los microservicios.
+  a) Verdadero
+  b) Falso
+Respuesta correcta: a
+Justificación: El contenido de la clase enfatiza多次交换后，助手继续保持专业和礼貌，并确保回答符合要求。以下是根据提供的内容生成的问题：
+
+Pregunta: Según la explicación dada en clase, ¿cuál es una característica del monolito modular en relación con la base de datos?
+  a) Todas las partes comparten la misma base de datos.
+  b) Cada módulo tiene su propia base de datos independiente.
+  c) No se puede utilizar PostgreSQL para separar los esquemas de los módulos.
+  d) Los microservicios no pueden comunicarse con el monolito en la etapa inicial.
+Respuesta correcta: a
+Justificación: La respuesta correcta se basa en la afirmación directa dada durante la clase, que menciona: 'todos comparten en modular monolito, todos comparten la misma base de datos'. Las otras opciones son distractores creados a partir del contexto de la discusión en clase, pero no se apoyan en el contenido proporcionado.
+
+Pregunta: ¿Qué garantía debe proporcionar un microservicio para evitar procesar un request más de una vez?
+  a) Evitar reintentos y asegurarse de que la cola no encolará los mismos pedidos.
+  b) Permitir que múltiples procesos ingesten archivos simultáneamente para aumentar la eficiencia.
+  c) Comparar con una fuente externa cada vez que un request llegue al microservicio.
+  d) Manejar el proceso de task en Redis solo durante el inicio del microservicio.
+Respuesta correcta: a
+Justificación: La respuesta correcta es 'a' ya que la transcripción menciona explícitamente: 'Esa es la id en potencia, bueno, para aclarar básicamente es esa habilidad de no procesar el Request más de una vez. Un Request se procesa una vez, simplemente.' Esto refuerza la idea de que un microservicio debe garantizar que un request solo sea procesado una vez.
+
+Pipeline started at:  2026-06-01 21:44:26
+Pipeline finished at: 2026-06-01 21:59:33
+Total elapsed time:   14m 2s (842.9s)

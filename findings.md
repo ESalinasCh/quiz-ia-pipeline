@@ -144,35 +144,37 @@ flowchart TD
 
 ## Effort / time proportion per stage
 
-Measured from a full GPU run on 2026-06-01 (`Week_4.mp4`, ~2h class,
-`whisper-medium`, total **15m 00s / 900.0s**). Percentages are each stage's share
-of total wall-clock, taken directly from the `[TIMING]` log lines.
+Averaged over **three** full GPU runs on 2026-06-01 (`Week_4.mp4`, ~2h class,
+`whisper-medium`). Individual run totals were 15m 00s, 14m 28s, and 14m 02s —
+**average 14m 31s / 870.5s**. Percentages are each stage's share of the average,
+taken from the `[TIMING]` log lines (consistent across all three runs).
 
-| Stage | Time | Share |
+| Stage | Avg time | Share |
 | --- | ---: | ---: |
-| Audio extraction (FFmpeg) | 18.3s | 2.0% |
-| Whisper transcription | 215.4s | 23.9% |
+| Audio extraction (FFmpeg) | 18.2s | 2.1% |
+| Whisper transcription | 214.7s | 24.7% |
 | Sentence splitting | 0.02s | ~0% |
-| Sentence embedding + semantic chunking | 22.8s | 2.5% |
-| **Classification + chunk embedding + vector store** | **500.5s** | **55.6%** |
-| RAG quiz generation (select + generate + judge + dedup) | 143.0s | 15.9% |
-| **Total** | **900.0s** | **100%** |
+| Sentence embedding + semantic chunking | 22.5s | 2.6% |
+| **Classification + chunk embedding + vector store** | **468.4s** | **53.8%** |
+| RAG quiz generation (select + generate + judge + dedup) | 146.7s | 16.9% |
+| **Total** | **870.5s** | **100%** |
 
-Run shape: 1025 raw segments → 947 sentences → 79 chunks (68 ACADEMICO) →
-14 questions targeted → 13 accepted.
+Run shape (identical across all three runs): 1025 raw segments → 947 sentences →
+79 chunks (68 ACADEMICO) → 14 questions targeted → 13–14 accepted.
 
 ### Reading this
 
-- **Classification + storage is the single biggest stage (55.6%).** It runs one
+- **Classification + storage is the single biggest stage (53.8%).** It runs one
   classification LLM call *plus* one embedding per chunk over **all 79 chunks**,
   then a single batched upsert. Cost scales with chunk count, so fewer chunks
-  directly shrinks the largest slice.
-- **Whisper transcription is second (23.9%)** even on GPU (~3.5 min). On CPU this
-  stage alone was ~16 min and dwarfed everything — GPU is what makes the rest
-  matter.
-- **Quiz generation is third (15.9%)** — generate + judge over only the selected
+  directly shrinks the largest slice. (It was also the most variable stage across
+  runs: 447–500s.)
+- **Whisper transcription is second (24.7%)** even on GPU (~3.5 min, very stable
+  at 213–215s). On CPU this stage alone was ~16 min and dwarfed everything — GPU
+  is what makes the rest matter.
+- **Quiz generation is third (16.9%)** — generate + judge over only the selected
   14 chunks, so it's bounded by the (small) question count, not chunk count.
-- Audio extraction (2.0%) and sentence embedding/chunking (2.5%) are minor;
+- Audio extraction (2.1%) and sentence embedding/chunking (2.6%) are minor;
   sentence splitting and file I/O are effectively free.
 - Together the **LLM/embedding stages (classification + quiz gen) are ~71%** of
   the run — the model calls dominate once transcription is on the GPU.
