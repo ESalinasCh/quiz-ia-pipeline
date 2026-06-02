@@ -181,7 +181,7 @@ Run shape (identical across all three runs): 1025 raw segments → 947 sentences
 
 ### Biggest optimization levers, in order
 
-1. **Fewer chunks** — directly cuts the 55.6% classification stage (top cost).
+1. **Fewer chunks** — directly cuts the ~54% classification stage (top cost).
 2. **Smaller/faster classifier model** — classification is simple bucketing; a
    3B model here would cut that stage substantially without hurting quality much
    (not yet done; currently uses the 7B generator model).
@@ -189,3 +189,68 @@ Run shape (identical across all three runs): 1025 raw segments → 947 sentences
    LLM stages, not transcription, the bottleneck.
 4. **Phased model loading** — avoids multi-GB model reloads between generate and
    judge on limited VRAM.
+
+## Reproducibility: will repeated runs give the same quiz?
+
+Three runs of the same input (`Week_4.mp4`), with identical config, prompts, and
+models, were compared (`quizzes/compare-questions-samples/`). Each produced
+13–14 questions. The short answer: **same material, different questions.**
+
+**What stays constant (deterministic):** chunk selection. The same transcript
+yields the same chunks and the same `confidence × word-count` ranking, so all
+three runs generate from the *same top-14 chunks*. Concept coverage is therefore
+near-identical — 12 of ~14 concepts appeared in **all three** runs.
+
+**What varies (LLM sampling):** the exact question text, the answer framing, the
+question type for some slots, and occasional quality glitches.
+
+Concept coverage across the three runs (`MC` = multiple choice, `TF` = true/false):
+
+| Concept | Run 1 | Run 2 | Run 3 |
+| --- | :---: | :---: | :---: |
+| OCR is asynchronous / uses a queue | MC | MC | MC |
+| Polyglotism — any language except Python | MC | MC | MC |
+| Token lifetime / M2M auth | TF | TF | TF |
+| Extra network problem (retries/redundancy) | MC | MC | MC |
+| File ingestion triggers OCR automatically | MC | MC | MC |
+| Search status (not yet / migrate after midterm) | TF | TF | TF |
+| Improc / ACL — reuse infra & Release control | MC | MC | MC |
+| Monolith↔microservice DB replication | MC | MC | MC |
+| Idempotency — process a request once | TF | MC | MC |
+| Remote parser — round-trip communication | MC | MC | MC |
+| Bounded context | MC | TF | TF |
+| Modular monolith — schemas per module | MC | MC | MC |
+| Monolith vs microservice trade-off | MC | — | MC |
+| Integration tests / shared-DB antipattern | — | TF | TF |
+| ACL role | — | MC | MC |
+
+### Findings
+
+- **Topic coverage is reproducible; phrasing is not.** Re-running re-asks the same
+  ~12 core concepts but rewrites each one. Example (OCR): *"¿Cuál de las siguientes
+  afirmaciones sobre el procesamiento de documentos…"* vs *"…sobre el OCR en
+  Paperless es verdadera…"* vs *"…es correcta según el contenido de clase?"* —
+  same concept, different stem, options, and even correct-answer wording.
+- **Answer polarity can flip while staying correct.** The token concept was asked
+  as *"…sin preocuparse por los tiempos de vida"* → **Falso** in run 1, and as
+  *"…puede generar problemas si no se consideran…"* → **Verdadero** in run 3. The
+  monolith/microservice chunk became "main **disadvantage** of the monolith"
+  (run 1) vs "main **advantage** of the microservice" (run 3).
+- **Question type is stable for most slots but not all.** True/false lands on a
+  fixed cadence, but idempotency and bounded context swapped MC↔TF between runs
+  (a question dropped by the judge shifts the alignment).
+- **Quality wobbles slightly per run.** Run 2's polyglotism question is internally
+  inconsistent (asks "except Python" but marks `a) Python` correct); run 3 phrased
+  the same concept cleanly. Run 3's bounded-context justification contains a
+  garbled non-Spanish artifact. Roughly one weak/malformed item per run.
+
+### Conclusion
+
+Running the pipeline multiple times on the same recording produces quizzes that
+**cover the same concepts but are not identical** — useful when you want fresh
+phrasings or alternate versions of the same assessment, but **not deterministic**.
+For byte-identical output you would need fixed sampling (temperature 0 + fixed
+seed); for *consistent quality* the judge threshold is what bounds the floor, and
+an occasional malformed question still slips through. For the product, the natural
+variation is an asset (re-quizzing the same material), provided a light
+human/automated review catches the rare broken item.
