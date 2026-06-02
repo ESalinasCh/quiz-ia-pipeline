@@ -141,3 +141,49 @@ flowchart TD
 | Classification + question generation | Ollama | `qwen2.5:7b-instruct` |
 | LLM-as-a-judge | Ollama | `llama3.1:8b-instruct` |
 | Vector store | Qdrant (gRPC :6334) | per-run collection `quiz_chunks_dotnet_*` |
+
+## Effort / time proportion per stage
+
+Measured from a full GPU run on 2026-06-01 (`Week_4.mp4`, ~2h class,
+`whisper-medium`, total **15m 00s / 900.0s**). Percentages are each stage's share
+of total wall-clock, taken directly from the `[TIMING]` log lines.
+
+| Stage | Time | Share |
+| --- | ---: | ---: |
+| Audio extraction (FFmpeg) | 18.3s | 2.0% |
+| Whisper transcription | 215.4s | 23.9% |
+| Sentence splitting | 0.02s | ~0% |
+| Sentence embedding + semantic chunking | 22.8s | 2.5% |
+| **Classification + chunk embedding + vector store** | **500.5s** | **55.6%** |
+| RAG quiz generation (select + generate + judge + dedup) | 143.0s | 15.9% |
+| **Total** | **900.0s** | **100%** |
+
+Run shape: 1025 raw segments → 947 sentences → 79 chunks (68 ACADEMICO) →
+14 questions targeted → 13 accepted.
+
+### Reading this
+
+- **Classification + storage is the single biggest stage (55.6%).** It runs one
+  classification LLM call *plus* one embedding per chunk over **all 79 chunks**,
+  then a single batched upsert. Cost scales with chunk count, so fewer chunks
+  directly shrinks the largest slice.
+- **Whisper transcription is second (23.9%)** even on GPU (~3.5 min). On CPU this
+  stage alone was ~16 min and dwarfed everything — GPU is what makes the rest
+  matter.
+- **Quiz generation is third (15.9%)** — generate + judge over only the selected
+  14 chunks, so it's bounded by the (small) question count, not chunk count.
+- Audio extraction (2.0%) and sentence embedding/chunking (2.5%) are minor;
+  sentence splitting and file I/O are effectively free.
+- Together the **LLM/embedding stages (classification + quiz gen) are ~71%** of
+  the run — the model calls dominate once transcription is on the GPU.
+
+### Biggest optimization levers, in order
+
+1. **Fewer chunks** — directly cuts the 55.6% classification stage (top cost).
+2. **Smaller/faster classifier model** — classification is simple bucketing; a
+   3B model here would cut that stage substantially without hurting quality much
+   (not yet done; currently uses the 7B generator model).
+3. **GPU for Whisper + Ollama** — the order-of-magnitude win that made the
+   LLM stages, not transcription, the bottleneck.
+4. **Phased model loading** — avoids multi-GB model reloads between generate and
+   judge on limited VRAM.

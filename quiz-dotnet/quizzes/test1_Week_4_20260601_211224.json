@@ -1,0 +1,181 @@
+{
+  "generated_at": "2026-06-01 21:12:24",
+  "source": "Week_4",
+  "models": {
+    "transcript": "whisper-medium",
+    "processing": "qwen2.5:7b-instruct",
+    "embedding": "bge-m3",
+    "llm_as_judge": "llama3.1:8b-instruct-q4_K_M"
+  },
+  "timings": {
+    "quiz_generation": "2m 22s (143.0s)",
+    "quiz_generation_seconds": 142.99,
+    "pipeline_total": "15m 0s (900.0s)",
+    "pipeline_total_seconds": 900.02
+  },
+  "questions": [
+    {
+      "question": "¿Cuál de las siguientes afirmaciones sobre el procesamiento de documentos en Paperless es correcta según la explicación dada?",
+      "question_type": "multiple_choice",
+      "options": {
+        "a": "El OCR se ejecuta en un hilo de ejecución separado para evitar bloqueos.",
+        "b": "Hay al menos tres posibles consumidores del OCR, pero uno de ellos es el módulo de emails.",
+        "c": "Todos los procesos dentro de Paperless son sincrónicos y no afectan entre sí.",
+        "d": "El OCR está completamente desacoplado del monolito de paperless."
+      },
+      "correct_option": "a",
+      "bloom_level": "comprender",
+      "justification": "La respuesta correcta se basa en la afirmación de que el OCR es asíncrono y se ejecuta en un sistema de colas, lo cual evita bloqueos. Esta información se encuentra en el contenido de clase donde se menciona: 'Este OCR, voy a poner una flecha acá, es asíncrono. Entonces hay un sistema de colas, creo que está con Celery'. Las otras opciones contienen detalles incorrectos o no mencionados en la transcripción."
+    },
+    {
+      "question": "Según el contenido de la clase, ¿cual de las siguientes afirmaciones es correcta sobre la elección del lenguaje para los microservicios en este proyecto?",
+      "question_type": "multiple_choice",
+      "options": {
+        "a": "Solo se permite usar Python debido a que ya se ha avanzado mucho con este lenguaje.",
+        "b": "Se puede elegir cualquier lenguaje excepto Python para probar el poliglotismo, pero Python seguirá siendo la opción principal.",
+        "c": "Los microservicios solo pueden ser implementados en Python y no se permite ningún otro lenguaje.",
+        "d": "Para probar el poliglotismo, se puede usar cualquier lenguaje excepto Python, y si ya han avanzado mucho con Python, se permitirá su uso."
+      },
+      "correct_option": "b",
+      "bloom_level": "comprender",
+      "justification": "La respuesta correcta es la opción 'b', ya que según el contenido de clase, para probar el poliglotismo los microservicios pueden ser implementados en cualquier lenguaje menos Python. Esto se puede justificar con las declaraciones como: 'Pero si han avanzado mucho con Python ahí... Ok, yo creo que lo dejaríamos con Python. Pero para los que no han avanzado aún... Y quieren probar esta característica de poliglotismo, les sugeriría ir por cualquier lenguaje menos Python'."
+    },
+    {
+      "question": "Durante la comunicación entre sistemas, es posible utilizar autenticación basada en tokens sin preocuparse por los tiempos de vida del token.",
+      "question_type": "true_false",
+      "options": {
+        "a": "Verdadero",
+        "b": "Falso"
+      },
+      "correct_option": "b",
+      "bloom_level": "comprender",
+      "justification": "El contenido de la clase menciona que un problema con el uso de tokens es que si se envía una notificación con un token válido y este microservicio tarda en procesarlo, el token podría haber expirado antes de recibir una respuesta. Esto indica que la afirmación sobre no tener que preocuparse por los tiempos de vida del token es falsa."
+    },
+    {
+      "question": "Según el contenido de la clase, ¿qué problema adicional debe considerarse al implementar un sistema con microservicios y comunicaciones en red?",
+      "question_type": "multiple_choice",
+      "options": {
+        "a": "Problemas de redundancia o retries.",
+        "b": "La necesidad de llaves privadas para seguridad.",
+        "c": "La implementación de un único monolito.",
+        "d": "El uso exclusivo de protocolos SSH."
+      },
+      "correct_option": "a",
+      "bloom_level": "comprender",
+      "justification": "En el contenido se menciona que, al introducir comunicaciones en red con microservicios, se deben considerar problemas de redundancia o retries debido a la posibilidad de latencia y fallas. Esto se refleja directamente en las opciones 'a' como respuesta correcta."
+    },
+    {
+      "question": "Según el contenido de clase, ¿cómo se manejaría la ingesta de un archivo nuevo en el sistema propuesto?",
+      "question_type": "multiple_choice",
+      "options": {
+        "a": "El usuario sube el archivo y luego debe solicitar manualmente que se procese con OCR.",
+        "b": "Al subir cualquier archivo, se inicia automáticamente el proceso de OCR sin intervención adicional.",
+        "c": "Se registra la subida en una base de datos pero no se procesa hasta que un administrador lo active.",
+        "d": "El archivo se guarda temporalmente y se envía a otra base de datos para que otro servicio lo procese."
+      },
+      "correct_option": "b",
+      "bloom_level": "comprender",
+      "justification": "La respuesta correcta es 'b' ya que el contenido de clase menciona explícitamente: 'Automáticamente cuando uno sube un archivo, cualquiera que sea, él se procesa de manera inmediata con el OCR. No hay que ni siquiera solicitarlo en la UI. Simplemente se hace.' Esto justifica directamente por qué la opción b es correcta."
+    },
+    {
+      "question": "La clase menciona que no se discutirá Search en el momento actual.",
+      "question_type": "true_false",
+      "options": {
+        "a": "Verdadero",
+        "b": "Falso"
+      },
+      "correct_option": "a",
+      "bloom_level": "comprender",
+      "justification": "En la transcripción de clase se menciona explícitamente: 'Y bueno, aquí tenemos una parte de la API Gateway para comunicar estos dos. Pero esto es ingresar a un nivel más de complejidad. Porque para ahora estamos hablando directamente con la ACL y ahora la ACL va a hablar con el API Gateway.' Además, se indica que 'Still not going to the Search', lo cual confirma que no se discutirá Search en el momento actual."
+    },
+    {
+      "question": "¿Cuál es la principal ventaja de utilizar el Improc en lugar del Parcer Local según lo expuesto en la clase?",
+      "question_type": "multiple_choice",
+      "options": {
+        "a": "Permite reutilizar infraestructura existente dentro del ACL.",
+        "b": "Es más económico y fácil de implementar que cualquier otra opción.",
+        "c": "Ofrece un mayor control sobre el tipo de Release utilizado.",
+        "d": "Facilita la replicación de funcionalidades externas sin necesidad de reescribir código."
+      },
+      "correct_option": "a",
+      "bloom_level": "comprender",
+      "justification": "La respuesta correcta es 'a' ya que el texto menciona: 'acá adentro podemos valernos de lo que hay. Entonces, hay un detalle más que, se lo he seguido mencionando, pero creo que está más adelante en el avance de materias, es el tipo de Release. Entonces, acá en el ACL vamos a tener control sobre eso. Y quizá hay algún tipo de Load Balancer o API Gateway aquí mismo, que nos va a permitir, uno, redireccionar tráfico hacia el microservicio.' Esto indica la ventaja de reutilizar infraestructura existente con Improc."
+    },
+    {
+      "question": "¿Cuál de las siguientes afirmaciones describe correctamente la situación descrita durante la clase?",
+      "question_type": "multiple_choice",
+      "options": {
+        "a": "La base de datos ya está completamente migrada y no depende más del microservicio.",
+        "b": "Aún existe una dependencia de la base de datos, pero se puede avanzar en otro microservicio.",
+        "c": "Se ha decidido desmantelar el microservicio debido a problemas de integración con la base de datos.",
+        "d": "El servicio de search ya está completamente migrado al microservicio."
+      },
+      "correct_option": "b",
+      "bloom_level": "comprender",
+      "justification": "La respuesta correcta se basa en las afirmaciones directas dadas durante la clase. Se menciona que 'la base de datos aún depende', pero se puede avanzar con otro microservicio como el de search, lo cual coincide con la opción b."
+    },
+    {
+      "question": "La id en potencia garantiza que un request solo se procesará una vez.",
+      "question_type": "true_false",
+      "options": {
+        "a": "Verdadero",
+        "b": "Falso"
+      },
+      "correct_option": "a",
+      "bloom_level": "comprender",
+      "justification": "Según el contenido de la clase, se menciona que la id en potencia es 'esa habilidad de no procesar el Request más de una vez', lo cual implica que la afirmación es verdadera."
+    },
+    {
+      "question": "¿Cómo se comunicará el parcer remoto con los otros componentes del sistema según la explicación dada?",
+      "question_type": "multiple_choice",
+      "options": {
+        "a": "A través de una comunicación directa dentro del monolito Paperless.",
+        "b": "En un enfoque ida y vuelta, enviando peticiones de procesamiento y documentos al micro servicio.",
+        "c": "Usando workers que extienden el poder de procesamiento de nuestros documentos sin ser considerados micro servicios.",
+        "d": "Trabajando como una entidad independiente sin interacción con otros componentes."
+      },
+      "correct_option": "b",
+      "bloom_level": "comprender",
+      "justification": "Según el contenido de clase, se menciona que 'este parcer remoto va a comunicarse en primera instancia con el micro servicio' y que 'esta comunicación es ida y vuelta. Entonces, vamos a enviar una petición de procesamiento de un documento y el documento como tal al micro servicio'. Estas afirmaciones justifican directamente la opción 'b'."
+    },
+    {
+      "question": "¿Cuál es la principal desventaja del monolito según el contenido de clase?",
+      "question_type": "multiple_choice",
+      "options": {
+        "a": "Falta de escalabilidad horizontal.",
+        "b": "Infructuosa comunicación entre microservicios.",
+        "c": "Cuello de botella en la infraestructura y despliegue.",
+        "d": "Complejidad en el despliegue de microservicios."
+      },
+      "correct_option": "c",
+      "bloom_level": "comprender",
+      "justification": "La respuesta correcta se basa en la información proporcionada, donde se menciona que una ventaja del monolito es 'no hay mucho drama', pero a su vez se indica que hay 'cuello de botella' y más 'redundancia por acá'. Esto sugiere que el principal inconveniente del monolito está relacionado con la infraestructura y los despliegues, que son complicados. Las otras opciones no están soportadas directamente en el texto proporcionado."
+    },
+    {
+      "question": "¿Qué es el bounded context en el contexto de los microservicios según la explicación dada?",
+      "question_type": "multiple_choice",
+      "options": {
+        "a": "Es el límite definido que se establece alrededor del microservicio para identificar su ámbito de operaciones y reglas de negocio.",
+        "b": "Es una analogía para describir cómo funciona una cinta magnética en la computación.",
+        "c": "Se refiere a las funciones adicionales que un microservicio puede tener además de procesar archivos.",
+        "d": "Es el lenguaje de programación específico utilizado dentro del microservicio."
+      },
+      "correct_option": "a",
+      "bloom_level": "comprender",
+      "justification": "La respuesta correcta se basa en la definición directa dada durante la clase, donde se menciona que 'es importante entender el bounding context. Entender las fronteras del microservicio que van a extirpar'. Esto coincide con la opción 'a' que define el bounded context como el límite definido alrededor del microservicio."
+    },
+    {
+      "question": "Según el contenido de clase, ¿cuál es una diferencia clave entre un monolito modular y los microservicios en cuanto a la gestión de bases de datos?",
+      "question_type": "multiple_choice",
+      "options": {
+        "a": "Los microservicios comparten la misma base de datos que el monolito, mientras que un monolito modular no.",
+        "b": "Un monolito modular puede dividir la base de datos en esquemas por módulo, lo cual es menos común en microservicios.",
+        "c": "Los microservicios y los monolitos modulares comparten exactamente el mismo modelo de gestión de bases de datos.",
+        "d": "Un monolito modular no puede utilizar bases de datos como Postgres, mientras que los microservicios pueden."
+      },
+      "correct_option": "b",
+      "bloom_level": "comprender",
+      "justification": "La respuesta correcta se basa en la afirmación del contenido de clase: 'un detalle del monolito modular es que dependiendo de la base de datos, si es Postgres, pueden crear varios esquemas por módulo'. Esto contrasta con los microservicios, que se mencionan deben tener su propia base de datos."
+    }
+  ]
+}
