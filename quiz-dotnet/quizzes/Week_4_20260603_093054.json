@@ -1,0 +1,181 @@
+{
+  "generated_at": "2026-06-03 09:30:54",
+  "source": "Week_4",
+  "models": {
+    "transcript": "whisper-medium",
+    "processing": "qwen2.5:7b-instruct",
+    "embedding": "bge-m3",
+    "llm_as_judge": "llama3.1:8b-instruct-q4_K_M"
+  },
+  "timings": {
+    "quiz_generation": "2m 14s (134.7s)",
+    "quiz_generation_seconds": 134.74,
+    "pipeline_total": "13m 49s (829.5s)",
+    "pipeline_total_seconds": 829.47
+  },
+  "questions": [
+    {
+      "question": "¿Cuál de las siguientes afirmaciones es correcta sobre el componente OCR en Paperless según la explicación dada?",
+      "question_type": "multiple_choice",
+      "options": {
+        "a": "El OCR se ejecuta como una tarea síncrona dentro del mismo hilo de ejecución que otros procesos, lo cual puede bloquear estos últimos.",
+        "b": "El OCR es un módulo independiente que no interactúa con los demás componentes de Paperless.",
+        "c": "El OCR se implementa de forma asíncrona mediante un sistema de colas, como Celery, para evitar bloqueos de otros procesos.",
+        "d": "El OCR es el único componente que puede ser desacoplado del monolito Paperless."
+      },
+      "correct_option": "c",
+      "bloom_level": "comprender",
+      "justification": "Según el contenido dado, se menciona que 'el OCR está más o menos acoplado en el monolito' y 'hay un sistema de colas, creo que está con Celery', lo cual implica que el OCR es implementado de forma asíncrona. Por tanto, la opción c) es correcta."
+    },
+    {
+      "question": "Según el contenido de la clase, ¿cuáles lenguajes pueden ser utilizados en los microservicios para probar la característica de poliglotismo?",
+      "question_type": "multiple_choice",
+      "options": {
+        "a": "Python",
+        "b": "Ras, Go, Tech, Kripp, JavaScript",
+        "c": "Java, C#, PHP",
+        "d": "Ruby, Swift, Kotlin"
+      },
+      "correct_option": "b",
+      "bloom_level": "comprender",
+      "justification": "La respuesta correcta es 'b', según se menciona en el texto: 'Pero para los que no han avanzado aún... Y quieren probar esta característica de poliglotismo, les sugeriría ir por cualquier lenguaje menos Python. Pero solamente es mandarle un prompt, ¿no? A la IA y decirle "
+    },
+    {
+      "question": "¿Cómo se procesa el archivo subido en la propuesta dada?",
+      "question_type": "multiple_choice",
+      "options": {
+        "a": "El usuario debe pedir procesamiento a través de una interfaz de usuario (UI) antes del OCR.",
+        "b": "Se realiza un proceso de ingesta automático que inmediatamente aplica el OCR al archivo subido.",
+        "c": "Se guarda primero en un servidor remoto y luego se solicita el OCR a través de la UI.",
+        "d": "El archivo es procesado manualmente por un operador antes de aplicar el OCR."
+      },
+      "correct_option": "b",
+      "bloom_level": "comprender",
+      "justification": "Según las palabras del contenido de clase, 'automáticamente cuando uno sube un archivo, cualquiera que sea, él se procesa de manera inmediata con el OCR. No hay que ni siquiera solicitarlo en la UI. Simplemente se hace.', lo que confirma que la opción b es correcta."
+    },
+    {
+      "question": "Según el contenido de clase, ¿qué problema se menciona como un desafío cuando se implementan comunicaciones en red para microservicios y monolitos?",
+      "question_type": "multiple_choice",
+      "options": {
+        "a": "La latencia de la red es inaceptable.",
+        "b": "Las políticas de retry pueden causar congestionamiento en las colas.",
+        "c": "El uso excesivo de llaves SSH afecta el rendimiento.",
+        "d": "Los microservicios no son compatibles con TLS."
+      },
+      "correct_option": "b",
+      "bloom_level": "comprender",
+      "justification": "La respuesta correcta se basa en la información proporcionada durante la clase, donde se menciona que 'introducimos latencia. Pero también introducimos problemas de retries y fails'. Se refiere específicamente a cómo las políticas de retry pueden congestionar las colas si no se gestionan adecuadamente."
+    },
+    {
+      "question": "El contenido de clase menciona que no se está discutiendo sobre las pruebas de integración en ese momento.",
+      "question_type": "true_false",
+      "options": {
+        "a": "Verdadero",
+        "b": "Falso"
+      },
+      "correct_option": "a",
+      "bloom_level": "comprender",
+      "justification": "En el contenido de clase se puede ver claramente que no están discutiendo pruebas de integración en ese momento, sino que se enfocan en otras áreas como funcionalidad y observancia."
+    },
+    {
+      "question": "¿Qué ventaja menciona la docente sobre utilizar Improc en lugar de reescribir desde cero?",
+      "question_type": "multiple_choice",
+      "options": {
+        "a": "Permite aprovechar la infraestructura existente, facilitando el reutilizar funcionalidades actuales.",
+        "b": "Reduce significativamente el tiempo necesario para implementar nuevas características en los microservicios.",
+        "c": "Ofrece un mayor control sobre las operaciones del microservicio.",
+        "d": "Elimina la necesidad de utilizar Load Balancers o API Gateways."
+      },
+      "correct_option": "a",
+      "bloom_level": "comprender",
+      "justification": "La respuesta correcta se basa directamente en las palabras exactas del contenido de clase, donde se menciona que 'ya tenemos cierta infraestructura aquí adentro que podemos reutilizar. Mientras que si fuera Improc, tendríamos que reescribir de ahí afuera en la capa de corrupción externa, algo de esa funcionalidad'. Esta información directamente apoya la opción 'a' como correcta."
+    },
+    {
+      "question": "¿En qué escenario se menciona que aún podrían avanzar en otro microservicio según el contenido de clase?",
+      "question_type": "multiple_choice",
+      "options": {
+        "a": "Cuando la base de datos ya ha sido completamente migrada.",
+        "b": "Algunas partes del sistema ya han sido migradas, pero aún depende de la base de datos.",
+        "c": "Todos los microservicios se encuentran en una versión finalizada y funcional.",
+        "d": "El sistema no tiene ningún componente que dependa de la base de datos."
+      },
+      "correct_option": "b",
+      "bloom_level": "comprender",
+      "justification": "La respuesta correcta es 'b' ya que el contenido menciona: 'Bueno, en el que ya tenemos el resto migrado, pero la base de datos aún depende. En ese caso, digamos, aún se podría avanzar en otro microservicio y, digamos, asignar a una persona o a dos personas que se encarguen de ese lado.' Esto se alinea directamente con la opción 'b'."
+    },
+    {
+      "question": "Un microservicio de ingesta debe comparar la fuente de verdad para la id en potencia al acceder a la base de datos Redis para evitar procesar un request más de una vez.",
+      "question_type": "true_false",
+      "options": {
+        "a": "Verdadero",
+        "b": "Falso"
+      },
+      "correct_option": "a",
+      "bloom_level": "comprender",
+      "justification": "El contenido menciona explícitamente que la id en potencia es una habilidad para no procesar un Request más de una vez, y que al acceder a la base de datos Redis, se debe comparar la fuente de verdad para la id en potencia para evitar ese procesamiento duplicado."
+    },
+    {
+      "question": "¿Cómo se describe la función del parcer remoto dentro del sistema Paperless según lo explicado en la clase?",
+      "question_type": "multiple_choice",
+      "options": {
+        "a": "Es un componente que se comunica con otros microservicios para procesar documentos.",
+        "b": "Es una forma de almacenamiento secundario para los documentos no procesados.",
+        "c": "Se encarga únicamente de la ingesta inicial de los documentos sin procesar.",
+        "d": "Funciona como un worker que extiende el poder de procesamiento, pero no comunica con otros microservicios."
+      },
+      "correct_option": "a",
+      "bloom_level": "comprender",
+      "justification": "La respuesta correcta se basa en la información proporcionada durante la clase, donde se menciona que 'este parcer remoto va a ser un poco especial. Lo voy a poner dentro de su propio rectángulito. Porque este es el que se va a comunicar hacia fuera del monolito'. Esto indica que el parcer remoto tiene una función específica en la comunicación con otros microservicios para procesar documentos."
+    },
+    {
+      "question": "¿Cuál es la principal desventaja del monolito según el contenido de clase?",
+      "question_type": "multiple_choice",
+      "options": {
+        "a": "El cuello de botella que puede causar si no se estrena bien el sistema.",
+        "b": "La falta de escalabilidad horizontal.",
+        "c": "La complejidad del despliegue.",
+        "d": "La resiliencia a fallas internas."
+      },
+      "correct_option": "a",
+      "bloom_level": "comprender",
+      "justification": "Según el contenido de clase, se menciona que 'Si estrenamos bien el resort, no todo el sistema falla. Pero sí hay cuello de botellas.' Esto coincide con la opción a como principal desventaja del monolito."
+    },
+    {
+      "question": "La comunicación entre el monolito y los microservicios se realiza directamente sin intermediarios como ACL.",
+      "question_type": "true_false",
+      "options": {
+        "a": "Verdadero",
+        "b": "Falso"
+      },
+      "correct_option": "b",
+      "bloom_level": "comprender",
+      "justification": "El contenido de la clase menciona que todo lo que necesita ser comunicado a otra base de datos pasa por ACL, y que la comunicación entre el monolito y los microservicios no puede ser directa. Por lo tanto, la afirmación es falsa."
+    },
+    {
+      "question": "¿Cuál es la definición correcta del bounded context en el contexto de los microservicios según la explicación dada?",
+      "question_type": "multiple_choice",
+      "options": {
+        "a": "Es una analogía para describir cómo funciona una cinta magnética en la computación.",
+        "b": "Es el límite definido que se establece alrededor del microservicio para identificar su ámbito de operaciones y reglas de negocio.",
+        "c": "Se refiere a las funciones adicionales que un microservicio puede tener además de procesar archivos.",
+        "d": "Es el lenguaje de programación específico utilizado dentro del microservicio."
+      },
+      "correct_option": "b",
+      "bloom_level": "comprender",
+      "justification": "La respuesta correcta se basa en la definición directa dada durante la clase, donde se menciona que 'es importante entender el bounding context. Entender las fronteras del microservicio que van a extirpar'. Esto coincide con la opción 'b' que define el bounded context como el límite definido alrededor del microservicio para identificar su ámbito de operaciones y reglas de negocio."
+    },
+    {
+      "question": "Según la explicación dada, ¿cuál es una característica importante del monolito modular en relación a los microservicios?",
+      "question_type": "multiple_choice",
+      "options": {
+        "a": "Todos los módulos comparten la misma base de datos.",
+        "b": "Cada módulo tiene su propia base de datos independiente.",
+        "c": "Los esquemas de Postgres se utilizan para cada microservicio sin conexión al monolito.",
+        "d": "No hay comunicación entre los microservicios y el monolito modular."
+      },
+      "correct_option": "a",
+      "bloom_level": "comprender",
+      "justification": "La respuesta correcta se basa en la afirmación directa del contenido de clase, donde se menciona que 'todos comparten la misma base de datos' dentro del monolito modular. Los otros opciones son incorrectas ya que no se respaldan con información proporcionada en el texto."
+    }
+  ]
+}

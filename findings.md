@@ -116,14 +116,14 @@ flowchart TD
     C --> H[Split into sentences]
     G --> H
 
-    H --> I[Embed sentences<br/>bge-m3 via Ollama, batched + NaN guard]
-    I --> J[Semantic chunking<br/>cosine-similarity boundaries + word-count caps]
+    H --> I[Embed sentences<br/>bge-m3 via Ollama]
+    I --> J[Semantic chunking<br/>cosine-similarity boundaries]
 
     J --> K[For each chunk: classify relevance<br/>qwen2.5:7b via Ollama]
-    K --> L[Embed chunk + stage point]
-    L --> M[(Batched upsert into Qdrant)]
+    K --> L[Embed chunk]
+    L --> M[(Batched upsert into Vector DB)]
 
-    M --> N[Retrieve ACADEMICO chunks from Qdrant]
+    M --> N[Retrieve ACADEMIC chunks from<br/> Vector DB]
     N --> O[Phase 0: select densest chunks<br/>confidence x word count, capped]
     O --> P[Phase 1: generate questions<br/>qwen2.5:7b - MC or true/false]
     P --> Q[Phase 2: LLM-as-a-judge score<br/>llama3.1:8b, drop score &lt; 0.75]
