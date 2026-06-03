@@ -47,7 +47,7 @@ graph TD
     C -->|3. Sentence Splitting| D[Oraciones Lógicas Completas]
     D -->|4. Ollama Embeddings + Cosine Similarity| E[Chunks Semánticos]
     E -->|5. Qwen 2.5 Coder| F[Clasificación Académica & Resumen]
-    F -->|6. Indexación Qdrant| G[(Qdrant DB)]
+    F -->|6. Indexación Vector DB| G[(Vector DB)]
     G -->|7. RAG Vector Search| H[Chunks de Contexto Académico]
     H -->|8. Qwen 2.5 Coder| I[Preguntas Bloom estructuradas en JSON]
     I -->|9. LLM-as-a-judge| J[Evaluación Factual Grounding >= 0.75]
