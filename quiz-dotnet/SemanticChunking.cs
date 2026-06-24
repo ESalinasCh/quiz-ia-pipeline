@@ -5,6 +5,7 @@ namespace QuizDotnet;
 
 partial class Program
 {
+    // * SplitIntoSentences divide the transcript in sentences. Each sentence is made of 2 versions: a string of 15 words or a string that ends with a punctuation.
     static List<Sentence> SplitIntoSentences(List<TranscriptSegment> segments)
     {
         var sentences = new List<Sentence>();
@@ -124,12 +125,11 @@ partial class Program
         return chunks;
     }
 
-    // Embeds sentences in batches with a per-item fallback. Returns the surviving sentences and their
-    // embeddings, kept strictly index-aligned (degenerate inputs that fail to embed are dropped from both).
+    // * Embeds sentences in batches with a per-item fallback. Returns the surviving sentences and their embeddings, kept strictly index-aligned (degenerate inputs that fail to embed are dropped from both).
     static async Task<(List<Sentence> Sentences, List<Embedding<float>> Embeddings)> EmbedSentencesAsync(
         IEmbeddingGenerator<string, Embedding<float>> generator, List<Sentence> sentences)
     {
-        const int batchSize = 32;
+        const int batchSize = 32; // 32 sentences
         var keptSentences = new List<Sentence>();
         var embeddings = new List<Embedding<float>>();
 
