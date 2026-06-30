@@ -94,14 +94,14 @@ Responde únicamente con un objeto JSON válido con este formato:
                 Id = new PointId { Uuid = chunk.QdrantVectorId.ToString() },
                 Vectors = vector
             };
-            point.Payload.Add("course_id", courseId);
-            point.Payload.Add("source_id", sourceId);
+            point.Payload.Add("course_id", courseId); // course_id belongs to the ClassSource
+            point.Payload.Add("source_id", sourceId); // The equivalent would be document_id (FK to ClassSource)
             point.Payload.Add("content", chunk.Content);
-            point.Payload.Add("speaker", chunk.Speaker);
-            point.Payload.Add("category", chunk.Category);
-            point.Payload.Add("confidence_score", chunk.ConfidenceScore);
-            point.Payload.Add("ts_start", chunk.TsStart);
-            point.Payload.Add("ts_end", chunk.TsEnd);
+            point.Payload.Add("speaker", chunk.Speaker); // Not used on real project, this version doesn't divide speakers
+            point.Payload.Add("category", chunk.Category); // Not used on real project, only academic are stored
+            point.Payload.Add("confidence_score", chunk.ConfidenceScore); // Not used on real project, only chunks with high score are stored
+            point.Payload.Add("ts_start", chunk.TsStart); // Not used on real project
+            point.Payload.Add("ts_end", chunk.TsEnd); // Not used on real project
             points.Add(point);
 
             Console.WriteLine($"Processed chunk {chunk.ChunkIndex} (ID: {chunk.QdrantVectorId}, Category: {chunk.Category}).");

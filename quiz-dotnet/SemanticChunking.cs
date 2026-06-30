@@ -66,8 +66,8 @@ partial class Program
         IEmbeddingGenerator<string, Embedding<float>> embeddingGenerator =
             new OllamaEmbeddingGenerator(new Uri(OllamaUrl), EmbeddingModel);
 
-        // Embed sentences in batches (fast) with per-item fallback. bge-m3 returns a NaN vector for some
-        // degenerate inputs, which Ollama cannot JSON-encode and which would kill an all-in-one batch call.
+        // Embed sentences in batches so the embedding model is not called for each sentence with per-item fallback. bge-m3 returns a NaN vector for some
+        // degenerate inputs, which Ollama cannot JSON-encode and which would kill an all-in-one batch call. 
         var (sentencesEmbedded, embeddings) = await EmbedSentencesAsync(embeddingGenerator, sentences);
         if (sentencesEmbedded.Count == 0) return new List<SemanticChunk>();
         sentences = sentencesEmbedded; // keep sentences and embeddings index-aligned after any drops
@@ -91,6 +91,7 @@ partial class Program
             int nextWordCount = nextSentence.Text.Split(' ', StringSplitOptions.RemoveEmptyEntries).Length;
 
             bool shouldSplit = false;
+            // This fisrt if evaluates if the contiguous sentences aren't similar and are at least 80 words long. 
             if (sim < ChunkSimilarityThreshold)
             {
                 if (currentWordCount >= MinChunkWords)
@@ -99,11 +100,13 @@ partial class Program
                 }
             }
 
+            // This second if evaluates if the current sentences and the next one adds up more than 400 words.
             if (currentWordCount + nextWordCount > MaxChunkWords)
             {
                 shouldSplit = true;
             }
 
+            // If any of the previous conditions are met, a chunk is created
             if (shouldSplit)
             {
                 chunks.Add(BuildChunk(currentSentences, chunkIndex++));
